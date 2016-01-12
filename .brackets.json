@@ -1,0 +1,5 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/hack/Workspace/ionic-apps/field-app/platforms/android/platform_www/cordova-js-src/android/promptbasednativeapi.js"
+    ]
+}

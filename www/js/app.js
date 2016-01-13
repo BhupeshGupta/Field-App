@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var receipt_module = angular.module('starter', ['ionic'])
+var receipt_module = angular.module('starter', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -43,7 +43,37 @@ var receipt_module = angular.module('starter', ['ionic'])
   .state('root.cash', {
     url: '/cash',
     templateUrl: 'components/cash/cash.html',
-//    controller: 'CashFlowController'
+//  controller: 'CashFlowController'
+    
+  })
+  .state('root.invoice', {
+    url: '/invoice',
+    templateUrl: 'components/invoice/invoice.html',
+    controller: 'InvoiceFlowController'
+  })
+  .state('root.invoice.selection', {
+    url: '/invoice',
+    views: {
+        'invoice_view': {
+            templateUrl: 'components/invoice/forms/invoice_selection_screen.html'
+        }
+    }
+  })
+  .state('root.invoice.enter_data_manually', {
+    url: '/invoice/enter_data_manually',
+    views: {
+        'invoice_view': {
+            templateUrl: 'components/invoice/forms/invoice_manually.html'
+        }
+    }
+  })
+   .state('root.invoice.invoicereview', {
+    url: '/invoice/invoicereview',
+    views: {
+        'invoice_view': {
+            templateUrl: 'components/invoice/forms/invoice_upload.html'
+        }
+    }
   });
 
 });

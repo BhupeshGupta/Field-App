@@ -15,7 +15,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', function($scope
  };
     
  $scope.invoiceFlow = function() {
-   $state.go('root.invoice');
+   $state.go('root.invoice.selection');
  };
     
  $scope.chequeFlow = function() {

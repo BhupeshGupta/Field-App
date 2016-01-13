@@ -74,6 +74,10 @@ var receipt_module = angular.module('starter', ['ionic', 'ngCordova'])
             templateUrl: 'components/invoice/forms/invoice_upload.html'
         }
     }
+  }).state('root.cheque', {
+    url: '/cheque',
+    templateUrl: 'components/cheque.html',
+    controller: 'ChequeFlowController'
   });
 
 });

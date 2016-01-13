@@ -1,3 +1,4 @@
+<ion-view>
 <div class="bar bar-subheader">
     <h2 class="title">Invoice</h2>
 </div>
@@ -5,23 +6,30 @@
 <br>
 <br>
 <br>
-<div class="list card">
-    <div class="card">
-        <div class="item item-text-wrap">{{ metadata }}
-        </div>
-        <div class="item item-image">
-            <button class="button icon-left ion-chevron-left button-clear button-dark">Retake</button>
-            <img src="cover.jpg">
 
-        </div>
-        <div class="item item-image">
-            <button class="button icon-right ion-chevron-right button-clear button-dark">Retake</button>
-            <img src="cover.jpg">
-        </div>
-    </div>
+<ion-content>
+<br><br>
+
+<div class="item item-body">
+    <img data-ng-src="{{pic1}}">
+    <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic1()">  Retake</button>
+
 </div>
 
-<div class="bar bar-footer bar-stable">
-    <button class="button button-block button-large button-balanced"><strong>Upload</strong></button>
+<div class="item item-body">
+    <img data-ng-src="{{pic2}}">
+    <button class="button icon ion-refresh button-clear button-dark"  ng-click="takePic2()">  Retake</button>
+    <p>
+        {{ metadata }}
+    </p>
+
 </div>
 </div>
+<br><br>
+</ion-content>
+
+
+<div class="bar bar-footer">
+  <button class="col col-20 col-offset-80 button button-right button-balanced">Upload</button>
+</div>
+</ion-view>

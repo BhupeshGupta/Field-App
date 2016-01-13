@@ -37,7 +37,13 @@ var receipt_module = angular.module('starter', ['ionic'])
   })
   .state('root.home', {
     url: '/home',
-    templateUrl: 'components/home/home.html'
+    templateUrl: 'components/home/home.html',
+    controller: 'HomeController'
+  })
+  .state('root.cash', {
+    url: '/cash',
+    templateUrl: 'components/cash/cash.html',
+//    controller: 'CashFlowController'
   });
 
 });

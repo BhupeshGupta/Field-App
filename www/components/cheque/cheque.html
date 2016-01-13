@@ -1,0 +1,41 @@
+<br>
+<br>
+<div class="bar bar-light">
+    <h1 class="title">Cheque</h1>
+</div>
+<br>
+<br>
+<div class="list">
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Company</span>
+        <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="Company" max-selected-items="1" />
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Account</span>
+        <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.account" items-method="account_search(query)" item-view-value-key="value" placeholder="Account Number" max-selected-items="1" />
+
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Amount</span>
+        <input type="text" placeholder="Total Amount">
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Instument Number</span>
+        <input type="text" placeholder="Instument Number">
+    </label>
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Instument Date</span>
+        <ionic-datepicker input-obj="instrumentDate">
+            <button class="button button-block button-positive"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
+        </ionic-datepicker>
+    </label>
+
+
+    <label class="item item-input item-stacked-label">
+        <span class="input-label">Instument Bank</span>
+        <input type="text" placeholder="Bank Name">
+    </label>
+    <button class="button button-block button-positive">
+        Capture
+    </button>
+</div>

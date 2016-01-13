@@ -19,7 +19,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', function($scope
  };
     
  $scope.chequeFlow = function() {
-   $state.go('root.cheque');
+   $state.go('root.cheque.details');
  };
 
 console.log("Hi from Home Controller");

@@ -22,22 +22,22 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Amount</span>
-                <input type="text" placeholder="Total Amount">
+                <input type="text" placeholder="Total Amount" ng-model="user_input.amount">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Instument Number</span>
-                <input type="text" placeholder="Instument Number">
+                <input type="text" placeholder="Instument Number"  ng-model="user_input.instumentnumber">
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Instument Date</span>
                 <ionic-datepicker input-obj="instrumentDate">
-                    <button class="button button-block button-positive"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
+                    <button class="button button-block button-positive" ng-model="user_input.instrumentdate"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
                 </ionic-datepicker>
             </label>
 
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Instument Bank</span>
-                <input type="text" placeholder="Bank Name">
+                <input type="text" placeholder="Bank Name" ng-model="user_input.instumentbank">
             </label>
 
             <button class="button button-block button-positive" ng-click="captureAndReview()">

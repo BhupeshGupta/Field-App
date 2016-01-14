@@ -40,12 +40,7 @@ var receipt_module = angular.module('starter', ['ionic', 'ngCordova', 'ion-autoc
             templateUrl: 'components/home/home.html',
             controller: 'HomeController'
         })
-        .state('root.cash', {
-            url: '/cash',
-            templateUrl: 'components/cash/cash.html',
-            //  controller: 'CashFlowController'
 
-        })
         .state('root.invoice', {
             url: '/invoice',
             templateUrl: 'components/invoice/invoice.html',
@@ -74,7 +69,9 @@ var receipt_module = angular.module('starter', ['ionic', 'ngCordova', 'ion-autoc
                     templateUrl: 'components/invoice/forms/invoice_upload.html'
                 }
             }
-        }).state('root.cheque', {
+        })
+    
+        .state('root.cheque', {
             url: '/cheque',
             templateUrl: 'components/cheque/cheque.html',
             controller: 'chequeFlowController'
@@ -94,6 +91,27 @@ var receipt_module = angular.module('starter', ['ionic', 'ngCordova', 'ion-autoc
                     templateUrl: 'components/cheque/forms/cheque_review.html'
                 }
             }
-
+        })
+    
+        .state('root.cash', {
+            url: '/cheque',
+            templateUrl: 'components/cash/cash.html',
+            controller: 'cashFlowController'
+        })
+        .state('root.cash.details', {
+            url: '/cash/cash/cash_details',
+            views: {
+                'cash_view': {
+                    templateUrl: 'components/cash/forms/cash_details.html'
+                }
+            }
+        })
+        .state('root.cash.review', {
+            url: '/cash/cash_review',
+            views: {
+                'cash_view': {
+                    templateUrl: 'components/cash/forms/cash_signature.html'
+                }
+            }
         });
 });

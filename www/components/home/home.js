@@ -11,7 +11,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', function($scope
  };
     
  $scope.cashFlow = function() {
-   $state.go('root.cash');
+   $state.go('root.cash.details');
  };
     
  $scope.invoiceFlow = function() {

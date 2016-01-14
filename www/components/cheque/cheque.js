@@ -11,7 +11,11 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
 
     $scope.user_input = {
         'company': '',
-        'account': ''
+        'account': '',
+        'amount': '',
+        'instumentnumber': '',
+        'instumentdate': '',
+        'instumentbank': '',
     };
 
     $scope.company_search = function (query) {

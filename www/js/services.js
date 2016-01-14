@@ -10,12 +10,12 @@ receipt_module.config(function ($httpProvider) {
 receipt_module.service('getInvoiceMetaData', function ($http) {
     this.get_meta = function (meta) {
         return $http({
-            url: 'http://192.168.31.124:8080/',
-            method: 'POST',
-            data: $.param({
+            url: 'http://192.168.31.124:8080/?' + $.param({
                 cmd: "flows.flows.controller.ephesoft_integration.get_meta",
-                doc: meta
+                doc: meta,
+                _type: 'POST',
             }),
+            method: 'GET',
             cache: false
         });
     };

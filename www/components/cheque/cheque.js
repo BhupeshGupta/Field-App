@@ -25,7 +25,7 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
             doctype: 'Company',
             cmd: 'frappe.widgets.search.search_link',
             _type: 'POST',
-            sid: 'aee4b48ee2d8324794e75137a34ebf00c3842bd746f281da55905101'
+            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
         })).success(function (data) {
             promise.resolve(data.results);
         });
@@ -42,7 +42,7 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
             doctype: 'Account',
             cmd: 'frappe.widgets.search.search_link',
             _type: 'POST',
-            sid: 'aee4b48ee2d8324794e75137a34ebf00c3842bd746f281da55905101'
+            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
         })).success(function (data) {
             promise.resolve(data.results);
         });

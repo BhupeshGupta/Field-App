@@ -3,7 +3,13 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var receipt_module = angular.module('starter', ['ionic', 'ngCordova', 'ion-autocomplete', 'ionic-datepicker'])
+var receipt_module = angular.module('starter', [
+    'ionic',
+    'ngCordova',
+    'ion-autocomplete',
+    'ionic-datepicker',
+//    'pascalprecht.translate'
+])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -110,7 +116,8 @@ var receipt_module = angular.module('starter', ['ionic', 'ngCordova', 'ion-autoc
             url: '/cash/cash_review',
             views: {
                 'cash_view': {
-                    templateUrl: 'components/cash/forms/cash_signature.html'
+                    templateUrl: 'components/cash/forms/cash_signature.html',
+                    controller: 'take_signature_controller'
                 }
             }
         });

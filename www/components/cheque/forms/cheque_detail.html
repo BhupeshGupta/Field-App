@@ -1,10 +1,10 @@
 <ion-view>
-    
-        <br>
-        <br>
-        <div class="bar bar-light">
-            <h1 class="title">Cheque</h1>
-        </div>
+
+    <br>
+    <br>
+    <div class="bar bar-light">
+        <h1 class="title">Cheque</h1>
+    </div>
     <ion-content>
 
         <br>
@@ -15,30 +15,42 @@
                 <span class="input-label">Company</span>
                 <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="Company" max-selected-items="1" />
             </label>
+
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Account</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.account" items-method="account_search(query)" item-view-value-key="value" placeholder="Account Number" max-selected-items="1" />
+                <span class="input-label">Customer Account</span>
+                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.customer_account" items-method="account_search(query)" item-view-value-key="value" placeholder="Account Number" max-selected-items="1" />
+
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Bank Account</span>
+                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.bank_account" items-method="account_search(query)" item-view-value-key="value" placeholder="Bank Account" max-selected-items="1" />
 
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Amount</span>
-                <input type="text" placeholder="Total Amount" ng-model="user_input.amount">
+                <input type="number" placeholder="Total Amount" ng-model="user_input.amount">
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Instument Number</span>
-                <input type="text" placeholder="Instument Number"  ng-model="user_input.instumentnumber">
+                <span class="input-label">Instrument Number</span>
+                <input type="text" placeholder="Cheque/DD Number" ng-model="user_input.instrumentnumber">
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Instument Date</span>
+                <span class="input-label">Instrument Date</span>
                 <ionic-datepicker input-obj="instrumentDate">
-                    <button class="button button-block button-positive" ng-model="user_input.instrumentdate"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
+                    <button class="button button-large button-positive"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
                 </ionic-datepicker>
             </label>
 
             <label class="item item-input item-stacked-label">
-                <span class="input-label">Instument Bank</span>
-                <input type="text" placeholder="Bank Name" >
+                <span class="input-label">Instrument Bank</span>
+                <input type="text" placeholder="Cheque/DD Bank Name" ng-model="user_input.instrumentbank">
             </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Remarks</span>
+                <input type="text" placeholder="Remarks" ng-model="user_input.remarks">
+            </label>
+
 
             <button class="button button-block button-positive" ng-click="captureAndReview()">
                 Capture

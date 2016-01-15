@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('chequeFlowController', function ($scope, $state, $q, $http, $cordovaCamera) {
+receipt_module.controller('chequeFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService) {
 
     $scope.uploadConfirmation = function () {
         $state.go('root.invoice.enter_data_manually');
@@ -10,23 +10,19 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
 
 
     $scope.user_input = {
-        'company': '',
-        'account': '',
-        'amount': '',
-        'instumentnumber': '',
-        'instumentdate': '',
-        'instumentbank': '',
+        company: '',
+        customer_account: '',
+        bank_account: '',
+        amount: '',
+        instrumentnumber: '',
+        instrumentdate: '',
+        instrumentbank: '',
+        remarks: ''
     };
 
     $scope.company_search = function (query) {
         var promise = $q.defer();
-        $http.get('http://192.168.31.124:8080?' + $.param({
-            txt: query,
-            doctype: 'Company',
-            cmd: 'frappe.widgets.search.search_link',
-            _type: 'POST',
-            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
-        })).success(function (data) {
+        DocumentService.search('Company', query, {}).success(function (data) {
             promise.resolve(data.results);
         });
         return promise.promise;
@@ -34,16 +30,9 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
 
     $scope.account_search = function (query) {
         var promise = $q.defer();
-        $http.get('http://192.168.31.124:8080?' + $.param({
-            txt: query,
-            filters: JSON.stringify({
-                company: $scope.user_input.company[0].value
-            }),
-            doctype: 'Account',
-            cmd: 'frappe.widgets.search.search_link',
-            _type: 'POST',
-            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
-        })).success(function (data) {
+        DocumentService.search('Account', query, {
+            company: $scope.user_input.company[0].value
+        }).success(function (data) {
             promise.resolve(data.results);
         });
         return promise.promise;
@@ -66,6 +55,7 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
         if (typeof (val) === 'undefined') {
             console.log('No date selected');
         } else {
+            $scope.user_input.instrumentdate = moment(val).format("YYYY-MM-DD");
             console.log('Selected date is : ', val)
             $scope.instrumentDate.inputDate = val;
         }
@@ -97,6 +87,36 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
         $scope.takePic1().then(function (image) {
             $state.go('root.cheque.review');
         })
+    };
+
+    $scope.createVoucher = function () {
+        DocumentService.create('Journal Voucher', {
+            "naming_series": "JV-",
+            "voucher_type": "Bank Voucher",
+            "doctype": "Journal Voucher",
+            "cheque_no": $scope.user_input.instrumentnumber,
+            "user_remark": $scope.user_input.remarks,
+            "docstatus": 1,
+            "cheque_date": $scope.user_input.instrumentdate,
+            "company": $scope.user_input.company[0].value,
+            "reference_bank": $scope.user_input.instrumentbank.split('T')[0],
+            "entries": [
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "debit": $scope.user_input.amount,
+                    "account": $scope.user_input.bank_account[0].value
+                },
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "credit": $scope.user_input.amount,
+                    "account": $scope.user_input.customer_account[0].value
+                }
+            ],
+            "posting_date": moment().format("YYYY-MM-DD")
+        }).then(
+            function(success) {
+                console.log(success);
+            });
     };
 
 });

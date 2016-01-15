@@ -8,7 +8,7 @@ var receipt_module = angular.module('starter', [
     'ngCordova',
     'ion-autocomplete',
     'ionic-datepicker',
-//    'pascalprecht.translate'
+    'pascalprecht.translate'
 ])
 
 .run(function ($ionicPlatform) {
@@ -34,12 +34,23 @@ var receipt_module = angular.module('starter', [
 
     $stateProvider.state('root', {
             templateUrl: 'components/main/main.html',
+            controller: 'MainController',
             abstract: true
         })
         .state('root.login', {
             url: '/',
             templateUrl: 'components/login/login.html',
-            controller: 'LoginController'
+            controller: 'LoginController',
+            resolve: {
+                settings: function (SettingsFactory, $state, $timeout) {
+                    var settings = SettingsFactory.get();
+                    console.log(JSON.stringify(settings));
+                    console.log(typeof settings.sid);
+                    if (typeof settings.sid !== 'undefined') {
+                        $timeout(function() { $state.go('root.home') },0);
+                    }
+                }
+            }
         })
         .state('root.home', {
             url: '/home',
@@ -47,7 +58,7 @@ var receipt_module = angular.module('starter', [
             controller: 'HomeController'
         })
 
-        .state('root.invoice', {
+    .state('root.invoice', {
             url: '/invoice',
             templateUrl: 'components/invoice/invoice.html',
             controller: 'InvoiceFlowController'
@@ -76,8 +87,8 @@ var receipt_module = angular.module('starter', [
                 }
             }
         })
-    
-        .state('root.cheque', {
+
+    .state('root.cheque', {
             url: '/cheque',
             templateUrl: 'components/cheque/cheque.html',
             controller: 'chequeFlowController'
@@ -98,8 +109,8 @@ var receipt_module = angular.module('starter', [
                 }
             }
         })
-    
-        .state('root.cash', {
+
+    .state('root.cash', {
             url: '/cheque',
             templateUrl: 'components/cash/cash.html',
             controller: 'cashFlowController'

@@ -11,6 +11,10 @@ var receipt_module = angular.module('starter', [
     'pascalprecht.translate'
 ])
 
+.constant('ApiEndpoint', {
+    url: '/api'
+})
+
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
         if (window.cordova && window.cordova.plugins.Keyboard) {

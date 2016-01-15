@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('cashFlowController', function ($scope, $state, $q, $http, $cordovaCamera) {
+receipt_module.controller('cashFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService) {
 
     $scope.uploadConfirmation = function () {
         $state.go('root.cash.enter_data_manually');
@@ -24,15 +24,10 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
         var sigImg = signaturePad.toDataURL();
         $scope.signature = sigImg;
     };
+    
     $scope.company_search = function (query) {
         var promise = $q.defer();
-        $http.get('http://192.168.31.124:8080?' + $.param({
-            txt: query,
-            doctype: 'Company',
-            cmd: 'frappe.widgets.search.search_link',
-            _type: 'POST',
-            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
-        })).success(function (data) {
+        DocumentService.search('Company', query, {}).success(function (data) {
             promise.resolve(data.results);
         });
         return promise.promise;
@@ -40,16 +35,9 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
 
     $scope.account_search = function (query) {
         var promise = $q.defer();
-        $http.get('http://192.168.31.124:8080?' + $.param({
-            txt: query,
-            filters: JSON.stringify({
-                company: $scope.user_input.company[0].value
-            }),
-            doctype: 'Account',
-            cmd: 'frappe.widgets.search.search_link',
-            _type: 'POST',
-            sid: 'b1fada65342ae09985e9baf01da6d992e36d7e4d108039c934cb448f'
-        })).success(function (data) {
+        DocumentService.search('Account', query, {
+            company: $scope.user_input.company[0].value
+        }).success(function (data) {
             promise.resolve(data.results);
         });
         return promise.promise;

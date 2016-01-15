@@ -1,7 +1,7 @@
 console.log("Hello from Payment Receipt Controller!!");
 
 
-receipt_module.controller('payment_receipt_controller', function ($scope, $state, $cordovaToast, get_stock_owner, create_new_payment_receipt) {
+receipt_module.controller('payment_receipt_controller', function ($scope, $state, $cordovaToast, get_stock_owner, create_new_payment_receipt, DocumentService, $q) {
     var me = this;
 
     $scope.new_payment_receipt_object = {
@@ -17,9 +17,11 @@ receipt_module.controller('payment_receipt_controller', function ($scope, $state
 
     $scope.new_payment_receipt_search = {
         stock_owner_search: function (query) {
-            filters = {};
-            fields = ['name', 'description'];
-            return get_stock_owner.live_feed(query, filters, fields);
+            var promise = $q.defer();
+            DocumentService.search('Sales Person', query, {}).success(function (data) {
+                promise.resolve(data.results);
+            });
+            return promise.promise;
         },
         confirm_disable: false
     };
@@ -57,7 +59,10 @@ receipt_module.controller('payment_receipt_controller', function ($scope, $state
             fiscal_year: "2015-16",
             item: $scope.new_payment_receipt.item
         };
-        create_new_payment_receipt.create_feed(data)
+        
+        
+        
+        DocumentService.create('Payment Receipt', data)
             .success(function (data) {
                 $scope.new_payment_receipt_search.confirm_disable = false;
                 delete $scope.new_payment_receipt;

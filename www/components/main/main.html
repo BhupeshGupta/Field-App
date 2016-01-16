@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
 
   <ion-side-menu-content>
 
@@ -38,10 +38,10 @@
         <div class="item item-divider">
             Select Language
         </div>
-        <ion-item menu-close ng-click="switch_to_english()">
+        <ion-item menu-close ng-click="switchLanguage('en')">
             English
         </ion-item>
-        <ion-item menu-close ng-click="switch_to_hindi()">
+        <ion-item menu-close ng-click="switchLanguage('hi')">
             हिन्दी
         </ion-item>
         <br/>
@@ -60,7 +60,7 @@
         <ion-item menu-close href="#/app/playlists">
           Show Database
         </ion-item>
-        <ion-item menu-close href="#/app/playlists">
+        <ion-item menu-close ng-click="open_developer_pane()">
           Developer Options
         </ion-item>
         <br/>

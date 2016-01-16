@@ -1,0 +1,25 @@
+<ion-view>
+    <ion-nav-view name="developer_side_view"></ion-nav-view>
+</ion-view>
+<ion-view>
+    <ion-content>
+        <div class="bar bar-header bar-stable">
+            <h1 class="title">Developer Mode</h1>
+        </div>
+        <br>
+        <br>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Point to:</span>
+                <input type="text" placeholder="Link" ng-model="input.serverBaseUrl">
+            </label>
+        </div>
+        <a class="button icon-right ion-chevron-right button-stable" ng-click="input.serverBaseUrl = 'https://erp.arungas.com/'">erp.arungas.com</a>
+
+
+        <div class="bar bar-footer">
+            <button class="col col-100 button button-block  button-balanced" ng-click="save()"><strong>Save</strong></button>
+        </div>
+
+</ion-view>
+</ion-content>

@@ -25,7 +25,8 @@ receipt_module.service('getInvoiceMetaData', function ($http, SettingsFactory) {
 receipt_module.factory('SettingsFactory', [function () {
     var _settingsKey = "appSettings",
         defaultSettings = {
-            serverBaseUrl: '/api'
+            serverBaseUrl: '/api',
+            language: 'en'
         };
 
     function _retrieveSettings() {

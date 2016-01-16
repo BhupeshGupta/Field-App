@@ -12,13 +12,13 @@
 
 <div class="item item-body">
     <img data-ng-src="{{pic1}}">
-    <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic1()">  Retake</button>
+    <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic1()">  {{'Retake' | translate}}</button>
 
 </div>
 
 <div class="item item-body">
     <img data-ng-src="{{pic2}}">
-    <button class="button icon ion-refresh button-clear button-dark"  ng-click="takePic2()">  Retake</button>
+    <button class="button icon ion-refresh button-clear button-dark"  ng-click="takePic2()">  {{'Retake'| translate}}</button>
     <p>
         {{ metadata }}
     </p>
@@ -30,6 +30,6 @@
 
 
 <div class="bar bar-footer">
-  <button class="col col-20 col-offset-80 button button-right button-balanced">Upload</button>
+  <button class="col col-20 col-offset-80 button button-right button-balanced">{{'Upload' | translate }}</button>
 </div>
 </ion-view>

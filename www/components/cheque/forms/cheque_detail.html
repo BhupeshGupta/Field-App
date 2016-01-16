@@ -37,9 +37,7 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Instrument Date</span>
-                <ionic-datepicker input-obj="instrumentDate">
-                    <button class="button button-large button-positive"> {{instrumentDate.inputDate | date:instrumentDate.dateFormat}}</button>
-                </ionic-datepicker>
+                <input type="date" ng-model="user_input.instrumentdate">
             </label>
 
             <label class="item item-input item-stacked-label">

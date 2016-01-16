@@ -7,7 +7,6 @@ var receipt_module = angular.module('starter', [
     'ionic',
     'ngCordova',
     'ion-autocomplete',
-    'ionic-datepicker',
     'pascalprecht.translate'
 ])
 
@@ -41,6 +40,11 @@ var receipt_module = angular.module('starter', [
             controller: 'MainController',
             abstract: true
         })
+        .state('root.developer', {
+            url: '/developer',
+            templateUrl: 'components/developer/developer.html',
+            controller: 'DeveloperController'
+        })
         .state('root.login', {
             url: '/',
             templateUrl: 'components/login/login.html',
@@ -51,7 +55,9 @@ var receipt_module = angular.module('starter', [
                     console.log(JSON.stringify(settings));
                     console.log(typeof settings.sid);
                     if (typeof settings.sid !== 'undefined') {
-                        $timeout(function() { $state.go('root.home') },0);
+                        $timeout(function () {
+                            $state.go('root.home')
+                        }, 0);
                     }
                 }
             }

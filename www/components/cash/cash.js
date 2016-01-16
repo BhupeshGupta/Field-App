@@ -24,7 +24,7 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
         var sigImg = signaturePad.toDataURL();
         $scope.signature = sigImg;
     };
-    
+
     $scope.company_search = function (query) {
         var promise = $q.defer();
         DocumentService.search('Company', query, {}).success(function (data) {
@@ -48,6 +48,34 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
         account: '',
         amount: ''
     }
+
+
+    $scope.createVoucher = function () {
+        DocumentService.create('Journal Voucher', {
+            "naming_series": "KJV-",
+            "voucher_type": "Journal Voucher",
+            "doctype": "Journal Voucher",
+//            "user_remark": $scope.user_input.remarks,
+            "docstatus": 1,
+            "company": $scope.user_input.company[0].value,
+            "entries": [
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "debit": $scope.user_input.amount,
+                    "account": $scope.user_input.bank_account[0].value
+                },
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "credit": $scope.user_input.amount,
+                    "account": $scope.user_input.customer_account[0].value
+                }
+            ],
+            "posting_date": moment().format("YYYY-MM-DD")
+        }).then(
+            function (success) {
+                console.log(success);
+            });
+    };
 
 
 });

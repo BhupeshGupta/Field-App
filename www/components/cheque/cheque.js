@@ -15,7 +15,7 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
         bank_account: '',
         amount: '',
         instrumentnumber: '',
-        instrumentdate: '',
+        instrumentdate: new Date(),
         instrumentbank: '',
         remarks: ''
     };

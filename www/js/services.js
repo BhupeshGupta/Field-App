@@ -7,6 +7,98 @@ receipt_module.config(function ($httpProvider) {
     $httpProvider.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
 });
 
+
+// Global Loading
+receipt_module.config(function ($httpProvider) {
+    $httpProvider.interceptors.push(function ($rootScope, $q) {
+        return {
+            request: function (config) {
+                if (config.loading && config.loading == true)
+                    $rootScope.$broadcast('loading:show');
+                return config
+            },
+            response: function (response) {
+                $rootScope.$broadcast('loading:hide');
+                return response
+            },
+            requestError: function (err) {
+                $rootScope.$broadcast('loading:hide');
+                return err;
+            },
+            responseError: function (err) {
+                $rootScope.$broadcast('loading:hide');
+                return $q.reject(err);
+            }
+        }
+    })
+});
+receipt_module.run(function ($rootScope, $ionicLoading) {
+    $rootScope.$on('loading:show', function () {
+        $ionicLoading.show({
+            template: '<i class="icon ion-loading-c"></i><br/>Loading...',
+            animation: 'fade-in',
+            showBackdrop: true,
+            delay: 1000
+        })
+    })
+
+    $rootScope.$on('loading:hide', function () {
+        $ionicLoading.hide()
+    })
+});
+
+// UA & Error Interceptor
+receipt_module.config(function ($httpProvider) {
+    $httpProvider.interceptors.push(function ($q, $injector) {
+        return {
+            request: function (config) {
+                config.headers['User-Id'] = JSON.stringify(device);
+                return config
+            },
+            responseError: function (rejection) {
+                var stat = rejection.status;
+                var msg = '';
+                
+                // Solve circular dependency
+                var $ionicPopup = $injector.get('$ionicPopup');
+                
+                console.log(rejection);
+                
+                // ERP specific error extraction
+                if (rejection.data.message)
+                    msg = rejection.data.message;
+                else if (rejection.data._server_messages)
+                    msg = rejection.data._server_messages;
+                
+                // Generic error extraction
+                else if (stat == 403)
+                    msg = 'Login Required';
+//                    var $rootScope = $injector.get('$rootScope');
+//                    $rootScope.$broadcast('user:logout');
+                else if (stat == 500)
+                    msg = 'Internal Server Error';
+                else if (stat == 501)
+                    msg = 'Server Error';
+                else if (stat == 502)
+                    msg = 'Server is Offline';
+                else if (stat == 503)
+                    msg = 'Server is Overload or down';
+                else if (stat == 504)
+                    msg = 'Server is Offline';
+
+                if (msg != '')
+                    $ionicPopup.alert({
+                        title: 'Error',
+                        template: msg
+                    });
+
+                return $q.reject(rejection);
+            }
+        }
+    })
+});
+
+
 receipt_module.service('getInvoiceMetaData', function ($http, SettingsFactory) {
     this.get_meta = function (meta) {
         return $http({
@@ -60,7 +152,11 @@ receipt_module.factory('UserService', function ($http, SettingsFactory) {
                 pwd: pwd
             };
             var url = SettingsFactory.getServerBaseUrl() + '/api/method/login?' + $.param(data);
-            return $http.post(url);
+            return $http({
+                url: url,
+                method: 'POST',
+                loading: true
+            });
         }
     };
 
@@ -80,7 +176,11 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 filters: JSON.stringify(filters)
             }
             var url = SettingsFactory.getServerBaseUrl() + '?' + $.param(data);
-            return $http.get(url);
+            return $http({
+                url: url,
+                loading: true,
+                method: 'GET'
+            });
         },
         create: function (documentType, document) {
             return $http.post(

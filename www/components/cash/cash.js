@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('cashFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService) {
+receipt_module.controller('cashFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope) {
 
     $scope.uploadConfirmation = function () {
         $state.go('root.cash.enter_data_manually');
@@ -9,8 +9,26 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
     var signaturePad = null;
 
     $scope.startTakeSignature = function () {
-        console.log(document.getElementById('cash_details'));
-        $state.go('root.cash.review');
+        $rootScope.cash_detail_image_detail = {
+            image: '',
+            width: '',
+            height: ''
+        };
+
+        html2canvas(document.getElementById('cash_details'), {
+            onrendered: function (canvas) {
+                $rootScope.cash_detail_image_detail = {
+                    image: canvas.toDataURL(),
+                    width: canvas.width,
+                    height: canvas.height
+                };
+                console.log($rootScope.cash_detail_image_detail);
+                console.log('FROM CASH DETAIL CONTROLLER');
+                $state.go('root.cash.review');
+            }
+        });
+
+
     };
 
     console.log("Hi from Cash Controller");
@@ -82,23 +100,13 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
 
 
 // Signature Pad Controller
-receipt_module.controller('take_signature_controller', function ($scope, $rootScope, $q) {
-
-
-    var deferred = $q.defer();
-    var render_promise = deferred.promise;
-    var cash_detail_image_detail = {};
-
-    html2canvas(document.getElementById('cash_details'), {
-        onrendered: function (canvas) {
-            cash_detail_image_detail.image = canvas.toDataURL();
-            cash_detail_image_detail.width = canvas.width;
-            cash_detail_image_detail.height = canvas.height;
-            deferred.resolve();
-        }
-    });
+receipt_module.controller('takeCashSignatureController', function ($scope, $rootScope, $q) {
 
     var make_canvas = function () {
+        var cash_detail_image_detail = $rootScope.cash_detail_image_detail;
+        console.log($rootScope.cash_detail_image_detail);
+        console.log('FROM CASH REVIEW CONTROLLER');
+        
         document.getElementById("signature_canvas_div").innerHTML = "<canvas id='signatureCanvas' style='border: 1px solid black;'></canvas>";
         var signatureCanvas = document.getElementById('signatureCanvas');
 
@@ -114,18 +122,16 @@ receipt_module.controller('take_signature_controller', function ($scope, $rootSc
         new SignaturePad(signatureCanvas);
     }
 
-    render_promise.then(function () {
-        console.log(cash_detail_image_detail.image);
-        make_canvas();
-    });
+    make_canvas();
 
 
-    $scope.clear_canvas = function () {
+    $scope.clearCanvas = function () {
         make_canvas();
     };
 
     $rootScope.$on('signature_canvas_clear', function () {
         make_canvas();
+        console.log("cleat invoked.");
     });
 
 });

@@ -14,7 +14,7 @@ var receipt_module = angular.module('starter', [
     url: '/api'
 })
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, UserService) {
     $ionicPlatform.ready(function () {
         if (window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -29,6 +29,8 @@ var receipt_module = angular.module('starter', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
+        
+        UserService.get_startup_data();
     });
 })
 
@@ -138,7 +140,7 @@ var receipt_module = angular.module('starter', [
             views: {
                 'cash_view': {
                     templateUrl: 'components/cash/forms/cash_signature.html',
-                    controller: 'take_signature_controller'
+                    controller: 'takeCashSignatureController'
                 }
             }
         });

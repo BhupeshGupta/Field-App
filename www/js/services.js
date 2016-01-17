@@ -49,10 +49,24 @@ receipt_module.run(function ($rootScope, $ionicLoading) {
 
 // UA & Error Interceptor
 receipt_module.config(function ($httpProvider) {
-    $httpProvider.interceptors.push(function ($q, $injector) {
+    var popUp = null;
+    $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout, $cordovaNetwork) {
         return {
             request: function (config) {
-                config.headers['User-Id'] = JSON.stringify(device);
+                // Create and append user id
+                config.headers['User-Id'] = JSON.stringify(window.device);
+
+                //                // Check for internet connectivity
+                //                if ($cordovaNetwork.isOffline() && !popUp) {
+                //                    // Solve circular dependency
+                //                    var $ionicPopup = $injector.get('$ionicPopup');
+                //                    $ionicPopup.alert({
+                //                        title: 'Error',
+                //                        template: '<p>Please connect to internet!</p>'
+                //                    });
+                //                    config.timeout = 0;
+                //                }
+
                 return config
             },
             responseError: function (rejection) {
@@ -65,17 +79,18 @@ receipt_module.config(function ($httpProvider) {
                 console.log(rejection);
                 
                 // ERP specific error extraction
-                if (rejection.data.message)
+                if (rejection.data && rejection.data.message)
                     msg = rejection.data.message;
-                else if (rejection.data._server_messages)
+                else if (rejection.data && rejection.data._server_messages)
                     msg = rejection.data._server_messages;
                 
                 // Generic error extraction
-                else if (stat == 403)
+                else if (stat == 403) {
                     msg = 'Login Required';
-//                    var $rootScope = $injector.get('$rootScope');
-//                    $rootScope.$broadcast('user:logout');
-                else if (stat == 500)
+                    $timeout(function () {
+                        $rootScope.$broadcast('user:logout')
+                    }, 0);
+                } else if (stat == 500)
                     msg = 'Internal Server Error';
                 else if (stat == 501)
                     msg = 'Server Error';
@@ -157,6 +172,19 @@ receipt_module.factory('UserService', function ($http, SettingsFactory) {
                 method: 'POST',
                 loading: true
             });
+        },
+
+        get_startup_data: function () {
+            var data = {
+                cmd: 'startup',
+                _type: 'POST'
+            };
+            return $http({
+                url: SettingsFactory.getServerBaseUrl(),
+                data: $.param(data),
+                method: 'POST'
+            });
+            
         }
     };
 
@@ -172,7 +200,6 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 doctype: documentType,
                 cmd: 'frappe.widgets.search.search_link',
                 _type: 'GET',
-                sid: SettingsFactory.getSid(),
                 filters: JSON.stringify(filters)
             }
             var url = SettingsFactory.getServerBaseUrl() + '?' + $.param(data);

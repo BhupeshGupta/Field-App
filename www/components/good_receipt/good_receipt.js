@@ -1,4 +1,4 @@
-receipt_module.controller('good_receipt_controller', function ($scope, $rootScope, $state, $cordovaToast, $cordovaCamera, $cordovaFile, $cordovaGeolocation, get_customer_live, images_link_empty, images_link_filled, get_vehicle_live, create_new_good_receipt, canvas_signature, send_image) {
+receipt_module.controller('good_receipt_controller', function ($scope, $rootScope, $state, $cordovaToast, $cordovaCamera, $cordovaFile, $cordovaGeolocation, get_customer_live, images_link_empty, images_link_filled, get_vehicle_live, create_new_good_receipt, canvas_signature, send_image, $q, DocumentService) {
     var me = this;
 
     $scope.new_good_receipt_object = {
@@ -18,14 +18,18 @@ receipt_module.controller('good_receipt_controller', function ($scope, $rootScop
 
     $scope.new_good_receipt_search_object = {
         vehicle_search: function (query) {
-            filters = {};
-            fields = ['name', 'description'];
-            return get_vehicle_live.live_feed(query, filters, fields);
+            var promise = $q.defer();
+            DocumentService.search('Transportation Vehicle', query, {}).success(function (data) {
+                promise.resolve(data.results);
+            });
+            return promise.promise;
         },
         customer_search: function (query) {
-            filters = {};
-            fields = ['name', 'description'];
-            return get_customer_live.live_feed(query, filters, fields);
+            var promise = $q.defer();
+            DocumentService.search('Customer', query, {enabled: 1, sale_enabled: 1}).success(function (data) {
+                promise.resolve(data.results);
+            });
+            return promise.promise;
         },
         item_images_empty: images_link_empty,
         item_images_filled: images_link_filled,

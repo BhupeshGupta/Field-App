@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('HomeController', ['$scope', '$state', function ($scope, $state) {
+receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', 'UserService', '$q', function ($scope, $state, $rootScope, UserService, $q) {
 
     $scope.goodsReceiptFlow = function () {
         console.log("gr flow init");
@@ -25,4 +25,11 @@ receipt_module.controller('HomeController', ['$scope', '$state', function ($scop
 
     console.log("Hi from Home Controller");
     //    $scope.msg = 'Working';
+
+
+    $scope.isAuthorized = function (doctype) {
+        console.log(JSON.stringify($rootScope.startup));
+        return $.inArray(doctype, $rootScope.startup.can_write) > -1;
+    }
+
 }]);

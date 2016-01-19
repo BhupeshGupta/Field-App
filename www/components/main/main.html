@@ -29,9 +29,12 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <!--           ng-click="logout()"-->
-                <ion-item menu-close menu-close ng-click="logout()">
-                    Logout
+                <ion-item menu-close menu-close>
+                    <div class="item item-avatar">
+                        <img ng-src="{{ startup.user.image }}">
+                        <h2>{{ startup.user.fullname }}</h2>
+                        <p ng-click="logout()">Logout</p>
+                    </div>                    
                 </ion-item>
                 
                 <ion-item menu-close menu-close>

@@ -159,8 +159,10 @@ receipt_module.factory('SettingsFactory', [function () {
 }]);
 
 
-receipt_module.factory('UserService', function ($http, SettingsFactory) {
-    var factory = {
+receipt_module.factory('UserService', function ($http, SettingsFactory, $rootScope, $q) {
+    $rootScope.userLoaded = false;
+    
+    var factory = {    
         login: function (usr, pwd) {
             var data = {
                 usr: usr,
@@ -174,6 +176,7 @@ receipt_module.factory('UserService', function ($http, SettingsFactory) {
             });
         },
 
+        // function used by loadUser function
         get_startup_data: function () {
             var data = {
                 cmd: 'startup',
@@ -184,8 +187,32 @@ receipt_module.factory('UserService', function ($http, SettingsFactory) {
                 data: $.param(data),
                 method: 'POST'
             });
-            
+        },
+
+        loadUser: function (force) {
+            var defferd = $q.defer();
+            if (!$rootScope.userLoaded) {
+                console.log($rootScope.startup);
+                
+               this.get_startup_data().then(function (data) {
+                   $rootScope.startup = {
+                       user: data.data.user_info[data.data.user.name],
+                       can_write: data.data.user.can_write,
+                       server_time: data.data.server_date
+                   };
+                   defferd.resolve();
+                   $rootScope.userLoaded = true;
+               }).catch(function () {
+                   defferd.reject();
+                   $rootScope.$broadcast('user:logout');
+               })
+            }
+            else
+                defferd.resolve();
+
+            return defferd.promise;
         }
+
     };
 
     return factory;

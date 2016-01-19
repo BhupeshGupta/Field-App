@@ -14,7 +14,7 @@ var receipt_module = angular.module('starter', [
     url: '/api'
 })
 
-.run(function ($ionicPlatform, UserService) {
+.run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
         if (window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -29,10 +29,31 @@ var receipt_module = angular.module('starter', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-        
-        UserService.get_startup_data();
+
     });
 })
+
+//.run(function ($ionicPlatform, UserService, SettingsFactory) {
+//    $ionicPlatform.ready(function () {
+//        UserService.get_startup_data().then(function (data) {
+//            if (data.data.server_date !== moment().format('YYYY-MM-DD'))
+//                $ionicPopup.alert({
+//                    template: '<p>There seems to be date issue. Please check device date.</p>',
+//                    title: 'Error'
+//                });
+//
+//            // Save to settings settings
+//            var settings = SettingsFactory.get();
+//            settings.startup = {
+//                user: data.data.user_info[data.data.user.name],
+//                can_write: data.data.user.can_write
+//            };
+//            SettingsFactory.set(settings);
+//            console.log(JSON.stringify(settings));
+//        });
+//
+//    });
+//})
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
@@ -67,7 +88,16 @@ var receipt_module = angular.module('starter', [
         .state('root.home', {
             url: '/home',
             templateUrl: 'components/home/home.html',
-            controller: 'HomeController'
+            controller: 'HomeController',
+            resolve: {
+                user: function (UserService, $q) {
+                    var defer = $q.defer();
+                    UserService.loadUser().then(function () {
+                       defer.resolve(); 
+                    });
+                    return defer.promise;
+                }
+            }
         })
 
     .state('root.invoice', {

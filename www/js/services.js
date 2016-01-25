@@ -82,7 +82,7 @@ receipt_module.config(function ($httpProvider) {
                 if (rejection.data && rejection.data.message)
                     msg = rejection.data.message;
                 else if (rejection.data && rejection.data._server_messages)
-                    msg = rejection.data._server_messages;
+                    msg = JSON.parse(rejection.data._server_messages).join('\n');
                 
                 // Generic error extraction
                 else if (stat == 403) {

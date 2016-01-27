@@ -117,7 +117,7 @@ receipt_module.config(function ($httpProvider) {
 receipt_module.service('getInvoiceMetaData', function ($http, SettingsFactory) {
     this.get_meta = function (meta) {
         return $http({
-            url: SettingsFactory.getServerBaseUrl() + '/?' + $.param({
+            url: SettingsFactory.getERPServerBaseUrl() + '/?' + $.param({
                 cmd: "flows.flows.controller.ephesoft_integration.get_meta",
                 doc: meta,
                 _type: 'POST',
@@ -150,7 +150,7 @@ receipt_module.factory('SettingsFactory', [function () {
     return {
         get: _retrieveSettings,
         set: _saveSettings,
-        getServerBaseUrl: function () {
+        getERPServerBaseUrl: function () {
             return _retrieveSettings().serverBaseUrl;
         },
         getSid: function () {
@@ -172,7 +172,7 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
                 usr: usr,
                 pwd: pwd
             };
-            var url = SettingsFactory.getServerBaseUrl() + '/api/method/login?' + $.param(data);
+            var url = SettingsFactory.getERPServerBaseUrl() + '/api/method/login?' + $.param(data);
             return $http({
                 url: url,
                 method: 'POST',
@@ -187,7 +187,7 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
                 _type: 'POST'
             };
             return $http({
-                url: SettingsFactory.getServerBaseUrl(),
+                url: SettingsFactory.getERPServerBaseUrl(),
                 data: $.param(data),
                 method: 'POST'
             });
@@ -230,7 +230,7 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 _type: 'GET',
                 filters: JSON.stringify(filters)
             }
-            var url = SettingsFactory.getServerBaseUrl() + '?' + $.param(data);
+            var url = SettingsFactory.getERPServerBaseUrl() + '?' + $.param(data);
             return $http({
                 url: url,
                 loading: true,
@@ -238,7 +238,7 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
             });
         },
         create: function (documentType, document, review) {
-            var server = SettingsFactory.getServerBaseUrl();
+            var server = SettingsFactory.getERPServerBaseUrl();
 
             if (typeof review != 'undefined' && review) {
                 var server = SettingsFactory.getReviewServerBaseUrl() + '/review';

@@ -146,4 +146,19 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
         console.log(JSON.stringify(transformed_data));
         return transformed_data
     }
+
+    function prepareForView(data) {
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.cheque_data = moment(transformed_data.cheque_data).toDate();
+        transformed_data.entries[1].account = [{
+            value: transformed_data.entries[1].account
+        }];
+        transformed_data.entries[0].account = [{
+            value: transformed_data.entries[0].account
+        }];
+        transformed_data.company = [{
+            value: transformed_data.company
+        }];
+        return transformed_data
+    }
 }

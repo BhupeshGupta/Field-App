@@ -63,7 +63,7 @@ function fileDataService($http, SettingsFactory, $cordovaFile) {
         }), file.name);
 
         var uploadUrl = SettingsFactory.getReviewServerBaseUrl() +
-            '/file/uploadmultipart/';
+            '/files/uploadmultipart/';
 
         return $http.post(uploadUrl, fd, {
             transformRequest: angular.identity,

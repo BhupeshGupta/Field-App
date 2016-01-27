@@ -1,6 +1,12 @@
 'use strict';
 
-receipt_module.controller('chequeFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService) {
+angular.module('starter')
+    .controller('chequeFlowController', chequeFlowController);
+
+function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
+    DocumentService, FileFactory, FileDataService) {
+
+    var vm = this;
 
     $scope.uploadConfirmation = function () {
         $state.go('root.invoice.enter_data_manually');
@@ -8,17 +14,32 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
 
     console.log("Hi from Cheque Controller");
 
-
     $scope.user_input = {
-        company: '',
-        customer_account: '',
-        bank_account: '',
-        amount: '',
-        instrumentnumber: '',
-        instrumentdate: new Date(),
-        instrumentbank: '',
-        remarks: ''
-    };
+        "naming_series": "JV-",
+        "voucher_type": "Bank Voucher",
+        "doctype": "Journal Voucher",
+        "cheque_no": '',
+        "user_remark": '',
+        "docstatus": 1,
+        "cheque_date": moment().format("YYYY-MM-DD"),
+        "company": '',
+        "reference_bank": '',
+        "entries": [
+            // Bank Account in case of receipt
+            {
+                "doctype": "Journal Voucher Detail",
+                "debit": '',
+                "account": ''
+            },
+            // Customer's Account in case of receipt
+            {
+                "doctype": "Journal Voucher Detail",
+                "credit": '',
+                "account": ''
+            }
+        ],
+        "posting_date": moment().format("YYYY-MM-DD")
+    }
 
     $scope.company_search = function (query) {
         var promise = $q.defer();
@@ -61,62 +82,68 @@ receipt_module.controller('chequeFlowController', function ($scope, $state, $q, 
         }
     };
 
-    var options = {
-        quality: 75,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        allowEdit: false,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 300,
-        targetHeight: 300,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
-    };
+
 
     $scope.takePic1 = function () {
-        return $q(function (resolve, reject) {
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                $scope.pic1 = "data:image/jpeg;base64," + imageData;
-                resolve();
-            }, function (err) {
-                reject();
+
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 1200,
+            targetHeight: 1600,
+            cameraDirection: Camera.Direction.FRONT,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        };
+
+        return $cordovaCamera.getPicture(options).then(
+            function (imageURI) {
+                var image_name = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+                return FileFactory.moveFileFromCameraToExtrenalDir(image_name);
+            }).then(
+            function (fileInfo) {
+                $cordovaCamera.cleanup();
+                return $q.when(fileInfo);
             });
-        });
     }
+
     $scope.captureAndReview = function () {
         $scope.takePic1().then(function (image) {
+            vm.capturedCameraImage = image;
             $state.go('root.cheque.review');
         })
     };
 
     $scope.createVoucher = function () {
-        DocumentService.create('Journal Voucher', {
-            "naming_series": "JV-",
-            "voucher_type": "Bank Voucher",
-            "doctype": "Journal Voucher",
-            "cheque_no": $scope.user_input.instrumentnumber,
-            "user_remark": $scope.user_input.remarks,
-            "docstatus": 1,
-            "cheque_date": $scope.user_input.instrumentdate,
-            "company": $scope.user_input.company[0].value,
-            "reference_bank": $scope.user_input.instrumentbank.split('T')[0],
-            "entries": [
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "debit": $scope.user_input.amount,
-                    "account": $scope.user_input.bank_account[0].value
-                },
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "credit": $scope.user_input.amount,
-                    "account": $scope.user_input.customer_account[0].value
-                }
-            ],
-            "posting_date": moment().format("YYYY-MM-DD")
-        }).then(
-            function(success) {
+        $scope.user_input.entries[1].credit = $scope.user_input.entries[0].debit
+        DocumentService.create('Journal Voucher', prepareForErp($scope.user_input), true).then(
+            function (success) {
                 console.log(success);
+                FileDataService.uploadFileFromDisk(
+                    vm.capturedCameraImage,
+                    success.data.requestId, ['Cheque Image'],
+                    true
+                ).then(function () {
+                    alert('File uploaded');
+                }).catch(function (error) {
+                    alert('File Not uploaded');
+                    console.log(error);
+                })
+
             });
     };
 
-});
+    function prepareForErp(data) {
+        // Create a deep copy
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.company = transformed_data.company[0].value;
+        transformed_data.entries[0].account = transformed_data.entries[0].account[0].value;
+        transformed_data.entries[1].account = transformed_data.entries[1].account[0].value;
+        transformed_data.cheque_date = moment(transformed_data.cheque_date).format("YYYY-MM-DD");
+        console.log(JSON.stringify(transformed_data));
+        return transformed_data
+    }
+}

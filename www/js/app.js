@@ -75,8 +75,6 @@ var receipt_module = angular.module('starter', [
             resolve: {
                 settings: function (SettingsFactory, $state, $timeout) {
                     var settings = SettingsFactory.get();
-                    console.log(JSON.stringify(settings));
-                    console.log(typeof settings.sid);
                     if (typeof settings.sid !== 'undefined') {
                         $timeout(function () {
                             $state.go('root.home')
@@ -93,7 +91,7 @@ var receipt_module = angular.module('starter', [
                 user: function (UserService, $q) {
                     var defer = $q.defer();
                     UserService.loadUser().then(function () {
-                       defer.resolve(); 
+                        defer.resolve();
                     });
                     return defer.promise;
                 }

@@ -28,7 +28,6 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
 
 
     $scope.isAuthorized = function (doctype) {
-        console.log(JSON.stringify($rootScope.startup));
         return $.inArray(doctype, $rootScope.startup.can_write) > -1;
     }
 

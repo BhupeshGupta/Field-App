@@ -72,18 +72,18 @@ receipt_module.config(function ($httpProvider) {
             responseError: function (rejection) {
                 var stat = rejection.status;
                 var msg = '';
-                
+
                 // Solve circular dependency
                 var $ionicPopup = $injector.get('$ionicPopup');
-                
+
                 console.log(rejection);
-                
+
                 // ERP specific error extraction
                 if (rejection.data && rejection.data.message)
                     msg = rejection.data.message;
                 else if (rejection.data && rejection.data._server_messages)
                     msg = JSON.parse(rejection.data._server_messages).join('\n');
-                
+
                 // Generic error extraction
                 else if (stat == 403) {
                     msg = 'Login Required';
@@ -133,6 +133,7 @@ receipt_module.factory('SettingsFactory', [function () {
     var _settingsKey = "appSettings",
         defaultSettings = {
             serverBaseUrl: '/api',
+            reviewServerBaseUrl: '/review',
             language: 'en'
         };
 
@@ -154,6 +155,9 @@ receipt_module.factory('SettingsFactory', [function () {
         },
         getSid: function () {
             return _retrieveSettings().sid;
+        },
+        getReviewServerBaseUrl: function () {
+            return 'http://192.168.31.124:1337';
         }
     }
 }]);
@@ -161,8 +165,8 @@ receipt_module.factory('SettingsFactory', [function () {
 
 receipt_module.factory('UserService', function ($http, SettingsFactory, $rootScope, $q) {
     $rootScope.userLoaded = false;
-    
-    var factory = {    
+
+    var factory = {
         login: function (usr, pwd) {
             var data = {
                 usr: usr,
@@ -192,22 +196,19 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
         loadUser: function (force) {
             var defferd = $q.defer();
             if (!$rootScope.userLoaded) {
-                console.log($rootScope.startup);
-                
-               this.get_startup_data().then(function (data) {
-                   $rootScope.startup = {
-                       user: data.data.user_info[data.data.user.name],
-                       can_write: data.data.user.can_write,
-                       server_time: data.data.server_date
-                   };
-                   defferd.resolve();
-                   $rootScope.userLoaded = true;
-               }).catch(function () {
-                   defferd.reject();
-                   $rootScope.$broadcast('user:logout');
-               })
-            }
-            else
+                this.get_startup_data().then(function (data) {
+                    $rootScope.startup = {
+                        user: data.data.user_info[data.data.user.name],
+                        can_write: data.data.user.can_write,
+                        server_time: data.data.server_date
+                    };
+                    defferd.resolve();
+                    $rootScope.userLoaded = true;
+                }).catch(function () {
+                    defferd.reject();
+                    $rootScope.$broadcast('user:logout');
+                })
+            } else
                 defferd.resolve();
 
             return defferd.promise;
@@ -236,11 +237,17 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 method: 'GET'
             });
         },
-        create: function (documentType, document) {
-            return $http.post(
-                SettingsFactory.getServerBaseUrl() + '/api/resource/' + documentType + '/',
+        create: function (documentType, document, review) {
+            var server = SettingsFactory.getServerBaseUrl();
+
+            if (typeof review != 'undefined' && review) {
+                var server = SettingsFactory.getReviewServerBaseUrl() + '/review';
+            }
+
+            return $http.post(server + '/api/resource/' + documentType + '/',
                 $.param({
-                    data: JSON.stringify(document)
+                    data: JSON.stringify(document),
+                    sid: SettingsFactory.getSid()
                 })
             );
         }

@@ -55,5 +55,21 @@
     "INSTRUMENT_BANK": "Instrument Bank",
     "REMARKS": "Remarks",
     "CAPTURE": "Capture",
-    "RETAKE": "Retake"
+    "RETAKE": "Retake",
+    "INVOICE": "Invoice",
+    "LOGIN": "Login",
+    "EMAIL_ID": "Email ID",
+    "PASSWORD": "Password",
+    "SIGN_IN": "Sign In",
+    "TYPE": "Type",
+    "CONSIGNMENT_NOTE": "Consignment Note",
+    "SALES_INVOICE": "Sales Invoice",
+    "PULL_INVOICE_DETAILS": "Pull Inovice Details",
+    "INVOICE": "Invoice",
+    "SCAN": "Scan",
+    "ENTER_MANUALLY": "Enter Manually",
+    "ENTER": "Enter",
+    "SIGN": "Sign",
+    "GOODS_RECEIPT": "Goods Receipt"
+
 }

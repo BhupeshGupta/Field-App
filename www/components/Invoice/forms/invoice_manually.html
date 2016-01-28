@@ -1,5 +1,5 @@
 <div class="bar bar-subheader">
-    <h2 class="title">{{'Invoice' | translate }}</h2>
+    <h2 class="title">{{'INVOICE' | translate }}</h2>
 </div>
 <div>
     <br>
@@ -11,11 +11,11 @@
 
         <label class="item item-input item-select">
             <div class="input-label">
-               {{'Type'| translate }} 
+                {{'TYPE'| translate }}
             </div>
             <select ng-model="user_input.type">
-                <option selected>{{'Consignment Note' | translate }}</option>
-                <option>{{'Sales Invoice' | translate }}</option>
+                <option selected>{{'CONSINGMENT_NOTE' | translate }}</option>
+                <option>{{'SALES_INVOICE' | translate }}</option>
             </select>
         </label>
 
@@ -25,7 +25,7 @@
             </label>
 
             <button class="button button-block button-positive" ng-click="getMetedata(user_input)">
-                {{'Pull Invoice Details' | translate }}
+                {{'PULL_INVOICE_DETAILS' | translate }}
             </button>
         </div>
     </div>

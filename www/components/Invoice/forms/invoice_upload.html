@@ -1,35 +1,37 @@
 <ion-view>
-<div class="bar bar-subheader">
-    <h2 class="title">Invoice</h2>
-</div>
-<br>
-<br>
-<br>
-<br>
+    <div class="bar bar-subheader">
+        <h2 class="title">{{'INVOICE' | translate }}</h2>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
-<ion-content>
-<br><br>
+    <ion-content>
+        <br>
+        <br>
 
-<div class="item item-body">
-    <img data-ng-src="{{pic1}}">
-    <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic1()">  {{'Retake' | translate}}</button>
+        <div class="item item-body">
+            <img data-ng-src="{{pic1}}">
+            <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic1()"> {{'RETAKE' | translate}}</button>
 
-</div>
+        </div>
 
-<div class="item item-body">
-    <img data-ng-src="{{pic2}}">
-    <button class="button icon ion-refresh button-clear button-dark"  ng-click="takePic2()">  {{'Retake'| translate}}</button>
-    <p>
-        {{ metadata }}
-    </p>
+        <div class="item item-body">
+            <img data-ng-src="{{pic2}}">
+            <button class="button icon ion-refresh button-clear button-dark" ng-click="takePic2()"> {{'RETAKE'| translate}}</button>
+            <p>
+                {{ metadata }}
+            </p>
 
-</div>
-</div>
-<br><br>
-</ion-content>
+        </div>
+        </div>
+        <br>
+        <br>
+    </ion-content>
 
 
-<div class="bar bar-footer">
-  <button class="col col-20 col-offset-80 button button-right button-balanced">{{'Upload' | translate }}</button>
-</div>
+    <div class="bar bar-footer">
+        <button class="col col-20 col-offset-80 button button-right button-balanced">{{'UPLOAD' | translate }}</button>
+    </div>
 </ion-view>

@@ -8,14 +8,14 @@
             <!--  Customer Name  -->
 
             <div class="item item-input item-stacked-label">
-                <span class="input-label">Customer Name</span>
+                <span class="input-label">{{'CUSTOMER_NAME' | translate}}</span>
                 <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.customer_name" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.customer_search(query)" placeholder="{{'CUSTOMER_NAME' | translate}}" />
                 </label>
             </div>
             <!-- Voucher ID  -->
 
             <div class="item item-input item-stacked-label">
-                <span class="input-label">Voucher ID</span>
+                <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
 
                 <input type="number" min="1" ng-model="new_good_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" required>
                 </label>
@@ -23,15 +23,15 @@
 
             <!--  Vehicle Number  -->
             <div class="item item-input item-stacked-label">
-                <span class="input-label">Vehicle Number</span>
+                <span class="input-label">{{'VEHICLE_NUMBER' | translate}}</span>
                 <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.vehicle_number" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.vehicle_search(query)" placeholder="{{'VEHICLE_NUMBER' | translate}}" />
                 </label>
             </div>
 
             <!-- Customer Document Id -->
             <div class="item item-input item-stacked-label">
-                <span class="input-label">Customer Document Id</span>
-                    <input type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}">
+                <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
+                <input type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}">
                 </label>
             </div>
 

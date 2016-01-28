@@ -3,47 +3,27 @@
         </br>
         </br>
         <div class="content padding has-header">
-            
-            <button
-            class="button button-block button-outline button-positive"
-            ng-click="goodsReceiptFlow()"
-            ng-show="isAuthorized('Goods Receipt')"
-            >
-                {{ 'Goods Receipt' | translate }}
+
+            <button class="button button-block button-outline button-positive" ng-click="goodsReceiptFlow()" ng-show="isAuthorized('Goods Receipt')">
+                {{ 'GOODS_RECEIPT' | translate }}
             </button>
-            
-            <button
-            class="button button-block button-outline button-positive"
-            ng-click="paymentReceiptFlow()"
-            ng-show="isAuthorized('Payment Receipt')"
-            >
-                {{ 'Payment Receipt' | translate }}
+
+            <button class="button button-block button-outline button-positive" ng-click="paymentReceiptFlow()" ng-show="isAuthorized('Payment Receipt')">
+                {{ 'PAYMENT_RECEIPT' | translate }}
             </button>
-            
-            <button
-            class="button button-block  button-outline button-positive"
-            ng-click="cashFlow()"
-            ng-show="isAuthorized('Journal Voucher')"
-            >
-                {{'Cash' | translate }}
+
+            <button class="button button-block  button-outline button-positive" ng-click="cashFlow()" ng-show="isAuthorized('Journal Voucher')">
+                {{'CASH' | translate }}
             </button>
-            
-            <button
-            class="button button-block  button-outline button-positive"
-            ng-click="invoiceFlow()"
-            ng-show="isAuthorized('Indent Invoice')"
-            >
-                {{ 'Invoice' | translate }}
+
+            <button class="button button-block  button-outline button-positive" ng-click="invoiceFlow()" ng-show="isAuthorized('Indent Invoice')">
+                {{ 'INVOICE' | translate }}
             </button>
-            
-            <button
-            class="button button-block  button-outline button-positive"
-            ng-click="chequeFlow()"
-            ng-show="isAuthorized('Journal Voucher')"
-            >
-                {{ 'Cheque' | translate }}
+
+            <button class="button button-block  button-outline button-positive" ng-click="chequeFlow()" ng-show="isAuthorized('Journal Voucher')">
+                {{ 'CHEQUE' | translate }}
             </button>
-            
+
         </div>
     </ion-content>
 </ion-nav-view>

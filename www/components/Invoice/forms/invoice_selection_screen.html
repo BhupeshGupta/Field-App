@@ -1,21 +1,27 @@
 <div class="bar bar-subheader">
-  <h2 class="title">Invoice</h2>
-</div><div>
-<br><br><br><br><br>
+    <h2 class="title">{{'INVOICE' | translate }}</h2>
+</div>
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 
     <button class="button button-block button-stable" ng-click="scanBarcode()">
-    <i class="icon ion-loading-c"></i>{{'Scan' | translate }} QR Code
-    <a class="button icon-right ion-chevron-right button-calm">Scan</a>
+        <i class="icon ion-loading-c"></i>{{'SCAN' | translate }} QR Code
+        <a class="button icon-right ion-chevron-right button-calm">Scan</a>
     </button>
 </div>
 <br>
 <button class="button button-block button-light button icon">OR</button>
 
-<br><br>
+<br>
+<br>
 
 <div>
-    <button class="button button-block button-stable"  ng-click="invoiceEnterMaually()">
-     <i class="icon ion-loading-c"></i> {{'Enter Manually'| translate }}
-    <a class="button icon-right ion-chevron-right button-calm">{{'Enter' | translate}}</a>
+    <button class="button button-block button-stable" ng-click="invoiceEnterMaually()">
+        <i class="icon ion-loading-c"></i> {{'ENTER_MANUALLY' | translate }}
+        <a class="button icon-right ion-chevron-right button-calm">{{'ENTER' | translate}}</a>
     </button>
 </div>

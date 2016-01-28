@@ -56,6 +56,22 @@
     "NSTRUMENT_BANK": "बैंक की चेक",
     "REMARKS": "टिप्पणियाँ",
     "CAPTURE": "तस्वीर लो",
-    "RETAKE": "फिर पिक्चर ले"
+    "RETAKE": "फिर पिक्चर ले",
+    "INVOICE": "बीजक",
+    "LOGIN": "लॉग इन करें",
+    "EMAIL_ID": "ईमेल आईडी",
+    "PASSWORD": "पासवर्ड",
+    "SIGN_IN": "साइन इन करें",
+    "TYPE": "प्रकार",
+    "CONSINGMENT_NOTE": "कन्साइनमेंट नोट",
+    "SALES_INVOICE": "सेल्स इन्वाइस",
+    "PULL_INVOICE_DETAILS": "पुल इन्वाइस डीटेल्स",
+    "INVOICE": "इनोविसे",
+    "SCAN": "स्कॅन",
+    "ENTER_MANUALLY": "एंटर मॅन्यूयेली",
+    "ENTER": "एंटर",
+    "SIGN": "साइन",
+    "INSTRUMENT_BANK": "बॅंक का स्चेक",
+    "GOODS_RECEIPT": "गूड्स गूड्स"
 
 }

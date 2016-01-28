@@ -1,16 +1,16 @@
 <ion-modal-view>
     <ion-header-bar>
-        <h1 class="title">Login</h1>
+        <h1 class="title">{{'LOGIN' | translate }}</h1>
     </ion-header-bar>
     <ion-content>
         <form ng-submit="doLogin()">
             <div class="list">
                 <label class="item item-input">
-                    <span class="input-label">Email ID</span>
+                    <span class="input-label">{{'EMAIL_ID' | translate }}</span>
                     <input type="text" ng-model="loginData.username">
                 </label>
                 <label class="item item-input">
-                    <span class="input-label" ng-init="passwordInputType = 'password'">Password</span>
+                    <span class="input-label" ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }}</span>
 
                     <input type="{{passwordInputType}}" ng-model="loginData.password">
                     <a class="button button-clear" style="padding-right: 15%" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
@@ -19,7 +19,7 @@
 
                 </label>
                 <label class="item">
-                    <button class="button button-block button-positive" ng-click="login_func()">Sign In</button>
+                    <button class="button button-block button-positive" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
                 </label>
             </div>
         </form>

@@ -37,5 +37,25 @@
     "ITEM": "आइटम",
     "TAKE_NEW_IMAGE": "नई छवि ले",
     "SKIP": "स्किप",
-    "DETAILS": "विवरण"
+    "DETAILS": "विवरण",
+    "CASH": "धन",
+    "COMPANY": "कंपनी",
+    "ACCOUNT": "खाता",
+    "AMOUNT": "मात्रा",
+    "COMPANY_NAME": "कंपनी का नाम",
+    "ACCOUNT_NAME": "खाते का नाम",
+    "CLEAR": "स्पष्ट",
+    "AMOUNT_IN": "राशि इसमें",
+    "UPLOAD": "भार डालना",
+    "CHEQUE": "चेक",
+    "COMPANY": "कंपनी",
+    "CUSTOMER_ACCOUNT": "ग्राहक खाता",
+    "BANK_ACCOUNT": "बैंक खाता",
+    "INSTRUMENT_NUMBER": "चेक नंबर",
+    "INSTRUMENT_DATE": "चेक की तारीख",
+    "NSTRUMENT_BANK": "बैंक की चेक",
+    "REMARKS": "टिप्पणियाँ",
+    "CAPTURE": "तस्वीर लो",
+    "RETAKE": "फिर पिक्चर ले"
+
 }

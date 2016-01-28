@@ -2,29 +2,29 @@
     <br>
     <br>
     <div class="bar bar-light">
-        <h1 class="title">{{'Cash' | translate }}</h1>
+        <h1 class="title">{{'CASH' | translate }}</h1>
     </div>
     <ion-content>
         <br>
         <br>
         <div class="list" id="cash_details">
             <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'Company' | translate }}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="{{'Company Name' | translate }}" max-selected-items="1" />
+                <span class="input-label">{{'COMPANY' | translate }}</span>
+                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="{{'COMPANY_NAME' | translate }}" max-selected-items="1" />
 
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'Account' | translate }}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'Account Number' | translate }}" max-selected-items="1" />
+                <span class="input-label">{{'ACCOUNT' | translate }}</span>
+                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'ACCOUNT_NAME' | translate }}" max-selected-items="1" />
 
             </label>
             <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'Amount' | translate }}</span>
-                <input type="text" placeholder="{{'Amount' | translate }} {{'in' | translate }} ₹">
+                <span class="input-label">{{'AMOUNT' | translate }}</span>
+                <input type="text" placeholder="{{'AMOUNT_IN' | translate }}  ₹">
             </label>
         </div>
         <button class="button button-block button-positive" ng-click="startTakeSignature()">
-            {{'Take Signature' | translate }}
+            {{'TAKE_SIGNATURE' | translate }}
         </button>
     </ion-content>
 </ion-view>

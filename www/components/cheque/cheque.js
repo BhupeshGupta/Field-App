@@ -52,7 +52,8 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
     $scope.account_search = function (query) {
         var promise = $q.defer();
         DocumentService.search('Account', query, {
-            company: $scope.user_input.company[0].value
+            company: $scope.user_input.company[0].value,
+            group_or_ledger: 'Ledger'
         }).success(function (data) {
             promise.resolve(data.results);
         });

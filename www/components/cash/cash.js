@@ -1,14 +1,82 @@
 'use strict';
 
-receipt_module.controller('cashFlowController', function ($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope) {
+receipt_module.controller('cashFlowController', cashFlowController);
 
-    $scope.uploadConfirmation = function () {
-        $state.go('root.cash.enter_data_manually');
-    };
+function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope) {
+    console.log("Hi from Cash Controller");
 
     var signaturePad = null;
 
-    $scope.startTakeSignature = function () {
+    $scope.startTakeSignature = transactTakeSignature;
+    $scope.clearCanvas = clearCanvas;
+    $scope.saveCanvas = saveCanvas;
+
+    $scope.company_search = company_search;
+    $scope.account_search = account_search;
+    $scope.createVoucher = createVoucher;
+
+    $scope.user_input = {
+        company: '',
+        account: '',
+        amount: ''
+    }
+
+    function createVoucher() {
+        DocumentService.create('Journal Voucher', {
+            "naming_series": "KJV-",
+            "voucher_type": "Journal Voucher",
+            "doctype": "Journal Voucher",
+            //            "user_remark": $scope.user_input.remarks,
+            "docstatus": 1,
+            "company": $scope.user_input.company[0].value,
+            "entries": [
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "debit": $scope.user_input.amount,
+                    "account": $scope.user_input.bank_account[0].value
+                },
+                {
+                    "doctype": "Journal Voucher Detail",
+                    "credit": $scope.user_input.amount,
+                    "account": $scope.user_input.customer_account[0].value
+                }
+            ],
+            "posting_date": moment().format("YYYY-MM-DD")
+        }).then(function (success) {
+            console.log(success);
+        });
+
+    };
+
+    function company_search(query) {
+        var promise = $q.defer();
+        DocumentService.search('Company', query, {}).success(function (data) {
+            promise.resolve(data.results);
+        });
+        return promise.promise;
+    };
+
+    function account_search(query) {
+        var promise = $q.defer();
+        DocumentService.search('Account', query, {
+            company: $scope.user_input.company[0].value,
+group_or_ledger: 'Ledger'
+        }).success(function (data) {
+            promise.resolve(data.results);
+        });
+        return promise.promise;
+    };
+
+    function clearCanvas() {
+        signaturePad.clear();
+    };
+
+    function saveCanvas() {
+        var sigImg = signaturePad.toDataURL();
+        $scope.signature = sigImg;
+    };
+
+    function transactTakeSignature() {
         $rootScope.cash_detail_image_detail = {
             image: '',
             width: '',
@@ -27,76 +95,9 @@ receipt_module.controller('cashFlowController', function ($scope, $state, $q, $h
                 $state.go('root.cash.review');
             }
         });
-
-
     };
 
-    console.log("Hi from Cash Controller");
-
-
-    $scope.clearCanvas = function () {
-        signaturePad.clear();
-    };
-
-    $scope.saveCanvas = function () {
-        var sigImg = signaturePad.toDataURL();
-        $scope.signature = sigImg;
-    };
-
-    $scope.company_search = function (query) {
-        var promise = $q.defer();
-        DocumentService.search('Company', query, {}).success(function (data) {
-            promise.resolve(data.results);
-        });
-        return promise.promise;
-    };
-
-    $scope.account_search = function (query) {
-        var promise = $q.defer();
-        DocumentService.search('Account', query, {
-            company: $scope.user_input.company[0].value
-        }).success(function (data) {
-            promise.resolve(data.results);
-        });
-        return promise.promise;
-    };
-
-    $scope.user_input = {
-        company: '',
-        account: '',
-        amount: ''
-    }
-
-
-    $scope.createVoucher = function () {
-        DocumentService.create('Journal Voucher', {
-            "naming_series": "KJV-",
-            "voucher_type": "Journal Voucher",
-            "doctype": "Journal Voucher",
-//            "user_remark": $scope.user_input.remarks,
-            "docstatus": 1,
-            "company": $scope.user_input.company[0].value,
-            "entries": [
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "debit": $scope.user_input.amount,
-                    "account": $scope.user_input.bank_account[0].value
-                },
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "credit": $scope.user_input.amount,
-                    "account": $scope.user_input.customer_account[0].value
-                }
-            ],
-            "posting_date": moment().format("YYYY-MM-DD")
-        }).then(
-            function (success) {
-                console.log(success);
-            });
-    };
-
-
-});
+}
 
 
 // Signature Pad Controller
@@ -106,7 +107,7 @@ receipt_module.controller('takeCashSignatureController', function ($scope, $root
         var cash_detail_image_detail = $rootScope.cash_detail_image_detail;
         console.log($rootScope.cash_detail_image_detail);
         console.log('FROM CASH REVIEW CONTROLLER');
-        
+
         document.getElementById("signature_canvas_div").innerHTML = "<canvas id='signatureCanvas' style='border: 1px solid black;'></canvas>";
         var signatureCanvas = document.getElementById('signatureCanvas');
 

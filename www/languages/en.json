@@ -70,6 +70,12 @@
     "ENTER_MANUALLY": "Enter Manually",
     "ENTER": "Enter",
     "SIGN": "Sign",
-    "GOODS_RECEIPT": "Goods Receipt"
+    "GOODS_RECEIPT": "Goods Receipt",
+    "DOCUMENT_NUMBER": "Document Number",
+    "ARUN_LOGISTICS_FIELD_APP": "Arun Logistics Field App",
+    "DATA": "Data",
+    "ERRORS": "Errors",
+    "CHECK_FOR_UPDATE": "Check For Update",
+    "UPDATE": "Update"
 
 }

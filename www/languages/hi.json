@@ -46,14 +46,14 @@
     "ACCOUNT_NAME": "खाते का नाम",
     "CLEAR": "स्पष्ट",
     "AMOUNT_IN": "राशि इसमें",
-    "UPLOAD": "भार डालना",
+    "UPLOAD": "अपलोड",
     "CHEQUE": "चेक",
     "COMPANY": "कंपनी",
     "CUSTOMER_ACCOUNT": "ग्राहक खाता",
     "BANK_ACCOUNT": "बैंक खाता",
     "INSTRUMENT_NUMBER": "चेक नंबर",
     "INSTRUMENT_DATE": "चेक की तारीख",
-    "NSTRUMENT_BANK": "बैंक की चेक",
+    "INSTRUMENT_BANK": "बैंक का नाम",
     "REMARKS": "टिप्पणियाँ",
     "CAPTURE": "तस्वीर लो",
     "RETAKE": "फिर पिक्चर ले",
@@ -71,7 +71,12 @@
     "ENTER_MANUALLY": "एंटर मॅन्यूयेली",
     "ENTER": "एंटर",
     "SIGN": "साइन",
-    "INSTRUMENT_BANK": "बॅंक का स्चेक",
-    "GOODS_RECEIPT": "गूड्स गूड्स"
+    "GOODS_RECEIPT": "गूड्स गूड्स",
+    "DOCUMENT_NUMBER": "डॉक्युमेंट नंबर",
+    "ARUN_LOGISTICS_FIELD_APP": "अरुन लजिस्टिक्स फील्ड अप",
+    "DATA": "डेटा",
+    "ERRORS": "एरर",
+    "CHECK_FOR_UPDATE": "चेक फोर अपडेट",
+    "UPDATE": "अपडेट"
 
 }

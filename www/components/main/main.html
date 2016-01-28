@@ -8,7 +8,7 @@
             </ion-nav-back-button>
 
             <ion-nav-title>
-                <h1 class="title">Arun Logistics Field App</h1>
+                <h1 class="title">{{'ARUN_LOGISTICS_FIELD_APP' | translate }}</h1>
             </ion-nav-title>
 
 
@@ -34,9 +34,9 @@
                         <img ng-src="{{ startup.user.image }}">
                         <h2>{{ startup.user.fullname }}</h2>
                         <p ng-click="logout()">Logout</p>
-                    </div>                    
+                    </div>
                 </ion-item>
-                
+
                 <ion-item menu-close menu-close>
                     <div ng-show="location_lock == 0">
                         <i class="ion-android-locate"></i><span style="padding-left: 7%">GPS Locking</span>
@@ -62,15 +62,15 @@
                 <br/>
 
                 <div class="item item-divider">
-                    Uploads (0)
+                    {{'UPLOAD' | translate}} (0)
                 </div>
                 <ion-item menu-close href="#/app/browse">
-                    Upload Data
+                    {{'UPLOAD' | translate}} {{'DATA' | translate }}
                 </ion-item>
                 <br/>
 
                 <ion-item menu-close href="#/app/playlists">
-                    Upload Errors
+                    {{'UPLOAD' | translate}} {{'ERRORS' | translate}}
                 </ion-item>
                 <ion-item menu-close href="#/app/playlists">
                     Show Database
@@ -83,10 +83,10 @@
                     Version (v1)
                 </div>
                 <ion-item menu-close href="#/app/playlists">
-                    Check for update
+                    {{'CHECK_FOR_UPDATE' | translate}}
                 </ion-item>
                 <ion-item menu-close href="#/app/playlists">
-                    Update
+                    {{'UPDATE' | translate}}
                 </ion-item>
             </ion-list>
         </ion-content>

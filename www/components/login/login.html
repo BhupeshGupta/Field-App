@@ -2,25 +2,30 @@
     <ion-header-bar>
         <h1 class="title">{{'LOGIN' | translate }}</h1>
     </ion-header-bar>
-    <ion-content>
-        <form ng-submit="doLogin()">
+    <ion-content ng-controller="ValController">
+        <form name="logForm" novalidate ng-submit="doLogin()">
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">{{'EMAIL_ID' | translate }}</span>
-                    <input type="text" ng-model="loginData.username">
+                    <input name="username" type="text" ng-model="loginData.username" ng-required="true" required/>
                 </label>
                 <label class="item item-input">
                     <span class="input-label" ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }}</span>
 
-                    <input type="{{passwordInputType}}" ng-model="loginData.password">
+                    <input name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
                     <a class="button button-clear" style="padding-right: 15%" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
                         <i class="icon ion-ios-eye"></i>
                     </a>
 
                 </label>
+
                 <label class="item">
-                    <button class="button button-block button-positive" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
+                    <button class="button button-block button-positive" ng-disabled="logForm.$invalid" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
                 </label>
+            </div>
+            <div class="padding">
+                <p ng-show="logForm.username.$error.required">* Username is required</p>
+                <p ng-show="logForm.password.$error.required">* Password is required</p>
             </div>
         </form>
     </ion-content>

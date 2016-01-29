@@ -2,68 +2,79 @@
     <ion-header-bar class="bar bar-subheader bar-stable">
         <h2 class="title">{{'PAYMENT_RECEIPT_INFORMATION' | translate}}</h2>
     </ion-header-bar>
-    <ion-content>
-        <div>
-            <br>
-            <div class="list">
-                <!-- Stock Owner  -->
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">{{'STOCK_OWNER' | translate}}</span>
-                    <input type="text" class="autocomplete" ion-autocomplete ng-model="new_payment_receipt.stock_owner" item-view-value-key="value" items-method="new_payment_receipt_search.stock_owner_search(query)" placeholder="{{'STOCK_OWNER' | translate}}" />
-                </label>
+    <ion-content ng-controller="ValController">
+        <form name="PR_Form" novalidate>
 
-                <!-- Voucher ID  -->
-                <label class="item item-input item-stacked-label">
-                    <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
+            <div>
+                <br>
+                <div class="list">
+                    <!-- Stock Owner  -->
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">{{'STOCK_OWNER' | translate}}</span>
+                        <input type="text" class="autocomplete" ion-autocomplete ng-model="new_payment_receipt.stock_owner" item-view-value-key="value" items-method="new_payment_receipt_search.stock_owner_search(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" ng-required="true" />
+                    </label>
 
-                    <input type="number" min="1" ng-model="new_payment_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" required>
-                </label>
-            
+                    <!-- Voucher ID  -->
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
 
-            <!--  Quantity  -->
+                        <input type="number" min="1" ng-model="new_payment_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" ng-required="true" required>
+                    </label>
 
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'QUANTITY' | translate}}</span>
-                <input type="number" min="1" ng-model="new_payment_receipt.quantity" placeholder="{{'QUANTITY' | translate}}" required>
-            </label>
 
-        <!--  Amount Per Item  -->
+                    <!--  Quantity  -->
 
-        <label class="item item-input item-stacked-label">
-            <span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span>
-            <input type="number" min="1" ng-model="new_payment_receipt.amount_per_item" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" required>
-        </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">{{'QUANTITY' | translate}}</span>
+                        <input type="number" min="1" ng-model="new_payment_receipt.quantity" placeholder="{{'QUANTITY' | translate}}" name="quantity" ng-required="true" required>
+                    </label>
 
-        <!-- Item  -->
-        <div class="list">
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    {{'ITEM' | translate}}
+                    <!--  Amount Per Item  -->
+
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span>
+                        <input type="number" min="1" ng-model="new_payment_receipt.amount_per_item" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" name="amount" ng-required="true" required>
+                    </label>
+
+                    <!-- Item  -->
+                    <div class="list">
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                                {{'ITEM' | translate}}
+                            </div>
+                            <select ng-model="new_payment_receipt.item">
+                                <option>FC19</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <!-- Transaction Type  -->
+                    <div class="list">
+                        <label class="item item-input item-select">
+                            <div class="input-label">
+                                {{'TRANSACTION_TYPE' | translate}}
+                            </div>
+                            <select ng-model="new_payment_receipt.transaction_type">
+                                <option>{{'REFILL' | translate}}</option>
+                                <option>{{'TV_OUT' | translate}}</option>
+                                <option>{{'NEW_CONNECTION' | translate}}</option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
-                <select ng-model="new_payment_receipt.item">
-                    <option>FC19</option>
-                </select>
-            </label>
-        </div>
+                <div class="padding">
+                    <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
+                    <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
+                    <p ng-show="PR_Form.quantity.$error.required">*Please fill the Quantity</p>
+                    <p ng-show="PR_Form.amount.$error.required">*Total Amount is required</p>
 
-        <!-- Transaction Type  -->
-        <div class="list">
-            <label class="item item-input item-select">
-                <div class="input-label">
-                    {{'TRANSACTION_TYPE' | translate}}
+
                 </div>
-                <select ng-model="new_payment_receipt.transaction_type">
-                    <option>{{'REFILL' | translate}}</option>
-                    <option>{{'TV_OUT' | translate}}</option>
-                    <option>{{'NEW_CONNECTION' | translate}}</option>
-                </select>
-            </label>
-        </div>
-        </div>
 
-        </div>
+            </div>
+        </form>
     </ion-content>
     <ion-footer-bar class="bar-light">
-        <button class="col col-20 col-offset-80 button button-right button-balanced" on-tap="payment_receipt_next()">{{'NEXT' | translate}}</button>
+        <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" on-tap="payment_receipt_next()">{{'NEXT' | translate}}</button>
     </ion-footer-bar>
 </ion-view>

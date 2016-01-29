@@ -5,55 +5,68 @@
     <div class="bar bar-light">
         <h1 class="title">{{'CHEQUE' | translate }}</h1>
     </div>
-    <ion-content>
-
-        <br>
-        <br>
-        <div class="list">
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'COMPANY' | translate }}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="{{'COMPANY' | translate}}" max-selected-items="1" />
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'CUSTOMER_ACCOUNT' | translate}}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.entries[1].account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'CUSTOMER_ACCOUNT' | translate}}" max-selected-items="1" />
-
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'BANK_ACCOUNT' | translate }}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.entries[0].account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'BANK_ACCOUNT' | translate }}" max-selected-items="1" />
-
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'AMOUNT' | translate}}</span>
-                <input type="number" placeholder="{{'AMOUNT' | translate }}" ng-model="user_input.entries[0].debit">
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'INSTRUMENT_NUMBER' | translate }}</span>
-                <input type="text" placeholder="Cheque/DD Number" ng-model="user_input.cheque_no">
-            </label>
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'INSTRUMENT_DATE' | translate }}</span>
-                <input type="date" ng-model="user_input.cheque_date">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'INSTRUMENT_BANK' | translate}}</span>
-                <input type="text" placeholder="Cheque/DD Bank Name" ng-model="user_input.reference_bank">
-            </label>
-            <label class="item item-input item-floating-label">
-                <span class="input-label">{{'REMARKS' | translate}}</span>
-                <input type="text" placeholder="{{'REMARKS' | translate }}" ng-model="user_input.user_remark">
-            </label>
+    <ion-content ng-controller="ValController">
+        <form name="cheque_Form" novalidate>
 
 
-            <button class="button button-block button-positive" ng-click="captureAndReview()">
-                {{'CAPTURE' | translate}}
-            </button>
+            <br>
+            <br>
+            <div class="list">
 
-        </div>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'COMPANY' | translate }}</span>
+                    <input name="company" ng-required="true" ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.company" items-method="company_search(query)" item-view-value-key="value" placeholder="{{'COMPANY' | translate}}" max-selected-items="1" />
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'CUSTOMER_ACCOUNT' | translate}}</span>
+                    <input name="customer_account" ng-required="true" ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.entries[1].account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'CUSTOMER_ACCOUNT' | translate}}" max-selected-items="1" />
+
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'BANK_ACCOUNT' | translate }}</span>
+                    <input name="bank_account" ng-required="true" ion-autocomplete type="text" class="ion-autocomplete" ng-model="user_input.entries[0].account" items-method="account_search(query)" item-view-value-key="value" placeholder="{{'BANK_ACCOUNT' | translate }}" max-selected-items="1" />
+
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'AMOUNT' | translate}}</span>
+                    <input name="amount" ng-required="true" type="number" placeholder="{{'AMOUNT' | translate }}" ng-model="user_input.entries[0].debit">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'INSTRUMENT_NUMBER' | translate }}</span>
+                    <input name="i_n" ng-required="true" type="text" placeholder="Cheque/DD Number" ng-model="user_input.cheque_no">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'INSTRUMENT_DATE' | translate }}</span>
+                    <input name="i_d" ng-required="true" type="date" ng-model="user_input.cheque_date">
+                </label>
+
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">{{'INSTRUMENT_BANK' | translate}}</span>
+                    <input name="i_b" ng-required="true" type="text" placeholder="Cheque/DD Bank Name" ng-model="user_input.reference_bank">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">{{'REMARKS' | translate}}</span>
+                    <input type="text" placeholder="{{'REMARKS' | translate }}" ng-model="user_input.user_remark">
+                </label>
+
+                <div class="padding">
+                    <p ng-show="cheque_Form.company.$error.required">* Company Name is required</p>
+                    <p ng-show="cheque_Form.customer_account.$error.required">* Customer Account is required</p>
+                    <p ng-show="cheque_Form.bank_account.$error.required">* Bank Account is required</p>
+                    <p ng-show="cheque_Form.amount.$error.required">* Amount is required</p>
+                    <p ng-show="cheque_Form.i_n.$error.required">* Cheque Number is required</p>
+                    <p ng-show="cheque_Form.i_d.$error.required">* Cheque Date is required</p>
+                    <p ng-show="cheque_Form.i_b.$error.required">* Cheque's Bank Name is required</p>
+
+                </div>
+                <button class="button button-block button-positive" ng-disabled="cheque_Form.$invalid" ng-click="captureAndReview()">
+                    {{'CAPTURE' | translate}}
+                </button>
+
+            </div>
+
+        </form>
     </ion-content>
 </ion-view>

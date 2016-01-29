@@ -171,5 +171,15 @@ var receipt_module = angular.module('starter', [
                     controller: 'takeCashSignatureController'
                 }
             }
-        });
+        })
+})
+
+.controller("ValController", function ($scope) {
+
+    $scope.submit = function (username) {
+
+        alert("Thanks " + username);
+
+    }
+
 });

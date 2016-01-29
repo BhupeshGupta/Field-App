@@ -2,43 +2,52 @@
     <ion-header-bar class="bar bar-subheader bar-stable">
         <h2 class="title">{{'CUSTOMER_NAME' | translate}}</h2>
     </ion-header-bar>
-    <ion-content>
+    <ion-content ng-controller="ValController">
         <div>
             <br>
-            <!--  Customer Name  -->
+            <form name="GR_Form" novalidate>
+                <!--  Customer Name  -->
 
-            <div class="item item-input item-stacked-label">
-                <span class="input-label">{{'CUSTOMER_NAME' | translate}}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.customer_name" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.customer_search(query)" placeholder="{{'CUSTOMER_NAME' | translate}}" />
-                </label>
-            </div>
-            <!-- Voucher ID  -->
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">{{'CUSTOMER_NAME' | translate}}</span>
+                    <input name="customer_name" ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.customer_name" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.customer_search(query)" placeholder="{{'CUSTOMER_NAME' | translate}}" ng-required="true" required/>
+                    </label>
+                </div>
+                <!-- Voucher ID  -->
 
-            <div class="item item-input item-stacked-label">
-                <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
 
-                <input type="number" min="1" ng-model="new_good_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" required>
-                </label>
-            </div>
+                    <input name="voucher_id" type="number" min="1" ng-model="new_good_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" required ng-required="true" required>
+                    </label>
+                </div>
 
-            <!--  Vehicle Number  -->
-            <div class="item item-input item-stacked-label">
-                <span class="input-label">{{'VEHICLE_NUMBER' | translate}}</span>
-                <input ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.vehicle_number" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.vehicle_search(query)" placeholder="{{'VEHICLE_NUMBER' | translate}}" />
-                </label>
-            </div>
+                <!--  Vehicle Number  -->
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">{{'VEHICLE_NUMBER' | translate}}</span>
+                    <input name="vehicle_number" ion-autocomplete type="text" class="ion-autocomplete" ng-model="new_good_receipt.vehicle_number" item-view-value-key="value" max-selected-items="1" items-method="new_good_receipt_search.vehicle_search(query)" placeholder="{{'VEHICLE_NUMBER' | translate}}" ng-required="true" required />
+                    </label>
+                </div>
 
-            <!-- Customer Document Id -->
-            <div class="item item-input item-stacked-label">
-                <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
-                <input type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}">
-                </label>
-            </div>
+                <!-- Customer Document Id -->
+                <div class="item item-input item-stacked-label">
+                    <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
+                    <input name="customer_document" type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" ng-required="true" required/>
+                    </label>
+                </div>
 
         </div>
         </div>
+        <div class="padding">
+            <p ng-show="GR_Form.customer_name.$error.required">* Customer Name is required</p>
+            <p ng-show="GR_Form.voucher_id.$error.required">*Voucher ID is required</p>
+            <p ng-show="GR_Form.vehicle_number.$error.required">* Vehicle Number is required</p>
+            <p ng-show="GR_Form.customer_document.$error.required">* Customer Document ID is required</p>
+        </div>
+
+        <ion-footer-bar class="bar-light">
+            <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="GR_Form.$invalid" on-tap="customer_name_next()">{{'NEXT' | translate}}</button>
+            </form>
     </ion-content>
-    <ion-footer-bar class="bar-light">
-        <button class="col col-20 col-offset-80 button button-right button-balanced" on-tap="customer_name_next()">{{'NEXT' | translate}}</button>
     </ion-footer-bar>
 </ion-view>

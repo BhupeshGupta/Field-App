@@ -61,20 +61,21 @@
                             </select>
                         </label>
                     </div>
+
                 </div>
+
                 <div class="padding">
+                    </br>
                     <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
                     <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
                     <p ng-show="PR_Form.quantity.$error.required">*Please fill the Quantity</p>
                     <p ng-show="PR_Form.amount.$error.required">*Total Amount is required</p>
-
-
                 </div>
 
+
+
+                <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" ng-click="payment_receipt_next()">{{'NEXT' | translate}}</button>
             </div>
         </form>
     </ion-content>
-    <ion-footer-bar class="bar-light">
-        <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" on-tap="payment_receipt_next()">{{'NEXT' | translate}}</button>
-    </ion-footer-bar>
 </ion-view>

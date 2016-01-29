@@ -39,7 +39,7 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
             }
         ],
         "posting_date": moment().format("YYYY-MM-DD")
-    }
+    };
 
     $scope.company_search = function (query) {
         var promise = $q.defer();
@@ -47,7 +47,7 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
             promise.resolve(data.results);
         });
         return promise.promise;
-    }
+    };
 
     $scope.account_search = function (query) {
         var promise = $q.defer();
@@ -145,7 +145,7 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
         transformed_data.entries[1].account = transformed_data.entries[1].account[0].value;
         transformed_data.cheque_date = moment(transformed_data.cheque_date).format("YYYY-MM-DD");
         console.log(JSON.stringify(transformed_data));
-        return transformed_data
+        return transformed_data;
     }
 
     function prepareForView(data) {
@@ -160,6 +160,6 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
         transformed_data.company = [{
             value: transformed_data.company
         }];
-        return transformed_data
+        return transformed_data;
     }
 }

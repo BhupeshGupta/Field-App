@@ -28,7 +28,6 @@
     "cordova-plugin-file",
     "cordova-plugin-geolocation",
     "cordova-plugin-device",
-    "cordova-plugin-crosswalk-webview",
     "cordova-plugin-splashscreen",
     "cordova-plugin-network-information"
   ],

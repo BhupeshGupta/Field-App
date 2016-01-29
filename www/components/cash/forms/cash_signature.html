@@ -1,15 +1,11 @@
-<ion-view>  
-<ion-pane>
-      <ion-content class='has-header padding' scroll='false'>
-          <div id='signature_canvas_div'></div>
-          <div class='button-bar'>
-              <a class='button button-energized' ng-click="clearCanvas()">{{'Clear' | translate }}</a>
-          </div>
-          <br>
-          <img ng-src='{{signature}}'/>
-      </ion-content>
+<ion-view>
+    <ion-pane>
+        <ion-content class="has-header padding" scroll="false">
+            <div proof-pad accept="cc.acceptSignaturePad" clear="clearSignaturePad" height="520" width="385" dataurl="signatureC.bg"></div>
+        </ion-content>
         <div class="bar bar-footer">
-        <button ng-click="clearCanvas()" class="col col-20 col-offset-80 button button-right button-balanced">{{'Upload' | translate }}</button>
-    </div>
+            <button ng-click="clearSignaturePad()" class="col col-20 button button-right button-balanced">{{ 'CLEAR' | translate }}</button>
+            <button ng-click="acceptAndUpload()" class="col col-20 col-offset-80 button button-right button-balanced">{{ 'UPLOAD' | translate }}</button>
+        </div>
     </ion-pane>
-    </ion-view> 
+</ion-view>

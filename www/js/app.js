@@ -131,7 +131,8 @@ var receipt_module = angular.module('starter', [
     .state('root.cheque', {
             url: '/cheque',
             templateUrl: 'components/cheque/cheque.html',
-            controller: 'chequeFlowController'
+            controller: 'chequeFlowController',
+            controllerAs: 'cc'
         })
         .state('root.cheque.details', {
             url: '/cheque/cheque_details',
@@ -153,7 +154,8 @@ var receipt_module = angular.module('starter', [
     .state('root.cash', {
             url: '/cheque',
             templateUrl: 'components/cash/cash.html',
-            controller: 'cashFlowController'
+            controller: 'cashFlowController',
+            controllerAs: 'cc'
         })
         .state('root.cash.details', {
             url: '/cash/cash/cash_details',
@@ -167,11 +169,10 @@ var receipt_module = angular.module('starter', [
             url: '/cash/cash_review',
             views: {
                 'cash_view': {
-                    templateUrl: 'components/cash/forms/cash_signature.html',
-                    controller: 'takeCashSignatureController'
+                    templateUrl: 'components/cash/forms/cash_signature.html'
                 }
             }
-        })
+        });
 })
 
 .controller("ValController", function ($scope) {

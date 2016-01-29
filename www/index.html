@@ -6,7 +6,12 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src &apos;self&apos; &apos;unsafe-inline&apos;; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *;">
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src *;
+    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval';
+    img-src * 'self' data:;
+    ">
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -29,7 +34,7 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    
+
     <script src="js/app_old.js"></script>
     <script src="js/services_old.js"></script>
     <script src="lib/angular-translate/angular-translate.min.js"></script>
@@ -43,18 +48,19 @@
     <script src="components/good_receipt/good_receipt.js"></script>
     <script src="components/developer/developer.js"></script>
     <script src="js/services.js"></script>
-    <script src='lib/signature_pad/signature_pad.js'></script>
+    <script src="lib/signature_pad/signature_pad.js"></script>
     <script src="js/directives.js"></script>
 
     <script src="lib/ion-autocomplete/dist/ion-autocomplete.min.js"></script>
     <script src="lib/ionic-datepicker/dist/ionic-datepicker.bundle.min.js"></script>
-    
+
     <script src="lib/moment/min/moment.min.js"></script>
-    
+
     <script src="components/payment_receipt/payment_receipt.js"></script>
     <script src="components/main/main.js"></script>
 
     <script src="js/file.service.js"></script>
+    <script src="js/utils.js"></script>
 
 </head>
 

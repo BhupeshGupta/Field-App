@@ -2,8 +2,10 @@
 
 receipt_module.controller('cashFlowController', cashFlowController);
 
-function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope) {
+function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope, FileDataService, Utils, $cordovaFile) {
     console.log("Hi from Cash Controller");
+
+    var vm = this;
 
     var signaturePad = null;
 
@@ -13,40 +15,66 @@ function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentS
 
     $scope.company_search = company_search;
     $scope.account_search = account_search;
-    $scope.createVoucher = createVoucher;
+    $scope.acceptAndUpload = acceptAndUpload;
+
 
     $scope.user_input = {
-        company: '',
-        account: '',
-        amount: ''
-    }
-
-    function createVoucher() {
-        DocumentService.create('Journal Voucher', {
-            "naming_series": "KJV-",
-            "voucher_type": "Journal Voucher",
-            "doctype": "Journal Voucher",
-            //            "user_remark": $scope.user_input.remarks,
-            "docstatus": 1,
-            "company": $scope.user_input.company[0].value,
-            "entries": [
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "debit": $scope.user_input.amount,
-                    "account": $scope.user_input.bank_account[0].value
-                },
-                {
-                    "doctype": "Journal Voucher Detail",
-                    "credit": $scope.user_input.amount,
-                    "account": $scope.user_input.customer_account[0].value
-                }
-            ],
-            "posting_date": moment().format("YYYY-MM-DD")
-        }).then(function (success) {
-            console.log(success);
-        });
-
+        "naming_series": "KJV-",
+        "voucher_type": "Cash Voucher",
+        "doctype": "Journal Voucher",
+        "user_remark": "",
+        "docstatus": 0,
+        "company": "",
+        "entries": [
+            // Bank Account in case of receipt
+            {
+                "doctype": "Journal Voucher Detail",
+                "debit": '',
+                "account": ''
+            },
+            // Customer's Account in case of receipt
+            {
+                "doctype": "Journal Voucher Detail",
+                "credit": '',
+                "account": ''
+            }
+        ],
+        "posting_date": moment().format("YYYY-MM-DD")
     };
+
+    function acceptAndUpload() {
+        var request_creation_promise = DocumentService.create('Journal Voucher', prepareForErp($scope.user_input), true);
+
+        var signature = vm.acceptSignaturePad();
+        var file_name = Utils.guid();
+        var signature_blob = FileDataService.dataURItoBlob(signature.dataUrl, 'image/png');
+        var signature_file_promise = $cordovaFile.writeFile(cordova.file.dataDirectory, file_name, signature_blob, true);
+        //        var signature_file_promise = $cordovaFile.writeFile(cordova.file.dataDirectory, file_name, signature.dataUrl, true);
+
+
+        $q.all([request_creation_promise, signature_file_promise])
+            .then(function (values) {
+                var request_result = values[0];
+                var signature_result = values[1];
+                console.log(values);
+
+                FileDataService.uploadFileFromDisk({
+                        dir: cordova.file.dataDirectory,
+                        file: file_name
+                    },
+                    request_result.data.requestId, ['Cash Signature'],
+                    true
+                ).then(function () {
+                    alert('File uploaded');
+                }).catch(function (error) {
+                    alert('File Not uploaded');
+                    console.log(error);
+                });
+
+            });
+
+
+    }
 
     function company_search(query) {
         var promise = $q.defer();
@@ -54,85 +82,75 @@ function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentS
             promise.resolve(data.results);
         });
         return promise.promise;
-    };
+    }
 
     function account_search(query) {
         var promise = $q.defer();
         DocumentService.search('Account', query, {
             company: $scope.user_input.company[0].value,
-group_or_ledger: 'Ledger'
+            group_or_ledger: 'Ledger'
         }).success(function (data) {
             promise.resolve(data.results);
         });
         return promise.promise;
-    };
+    }
 
     function clearCanvas() {
         signaturePad.clear();
-    };
+    }
 
     function saveCanvas() {
         var sigImg = signaturePad.toDataURL();
         $scope.signature = sigImg;
-    };
+    }
 
     function transactTakeSignature() {
-        $rootScope.cash_detail_image_detail = {
-            image: '',
-            width: '',
-            height: ''
-        };
-
         html2canvas(document.getElementById('cash_details'), {
             onrendered: function (canvas) {
-                $rootScope.cash_detail_image_detail = {
-                    image: canvas.toDataURL(),
+                $scope.signatureC = {
+                    bg: canvas.toDataURL(),
                     width: canvas.width,
                     height: canvas.height
                 };
-                console.log($rootScope.cash_detail_image_detail);
-                console.log('FROM CASH DETAIL CONTROLLER');
                 $state.go('root.cash.review');
             }
         });
-    };
-
-}
-
-
-// Signature Pad Controller
-receipt_module.controller('takeCashSignatureController', function ($scope, $rootScope, $q) {
-
-    var make_canvas = function () {
-        var cash_detail_image_detail = $rootScope.cash_detail_image_detail;
-        console.log($rootScope.cash_detail_image_detail);
-        console.log('FROM CASH REVIEW CONTROLLER');
-
-        document.getElementById("signature_canvas_div").innerHTML = "<canvas id='signatureCanvas' style='border: 1px solid black;'></canvas>";
-        var signatureCanvas = document.getElementById('signatureCanvas');
-
-        var ctx = signatureCanvas.getContext("2d");
-        signatureCanvas.width = window.innerWidth;
-        signatureCanvas.height = window.innerHeight - 170;
-
-        var background = new Image();
-        background.src = cash_detail_image_detail.image;
-        background.onload = function () {
-            ctx.drawImage(background, 0, 0, background.width, background.height, 0, 0, cash_detail_image_detail.width, cash_detail_image_detail.height);
-        }
-        new SignaturePad(signatureCanvas);
     }
 
-    make_canvas();
+    function prepareForErp(data) {
+        // Create a deep copy
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.company = transformed_data.company[0].value;
+        // copy over amount & account
+        transformed_data.entries[0].debit = transformed_data.entries[1].credit;
+        transformed_data.entries[0].account = transformed_data.entries[1].account;
 
 
-    $scope.clearCanvas = function () {
-        make_canvas();
-    };
+        if (transformed_data.entries[0].account !== '') {
+            transformed_data.entries[0].account = transformed_data.entries[0].account[0].value;
+        }
+        if (transformed_data.entries[1].account !== '') {
+            transformed_data.entries[1].account = transformed_data.entries[1].account[0].value;
+        }
+        return transformed_data;
+    }
 
-    $rootScope.$on('signature_canvas_clear', function () {
-        make_canvas();
-        console.log("cleat invoked.");
-    });
+    function prepareForView(data) {
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        if (transformed_data.entries[1].account != '') {
+            transformed_data.entries[1].account = [{
+                value: transformed_data.entries[1].account
+        }];
+        }
+        if (transformed_data.entries[0].account != '') {
+            transformed_data.entries[0].account = [{
+                value: transformed_data.entries[0].account
+        }];
+        }
+        transformed_data.company = [{
+            value: transformed_data.company
+        }];
+        return transformed_data;
+    }
 
-});
+}

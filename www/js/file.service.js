@@ -22,7 +22,7 @@ function fileFactory($q, $cordovaFile) {
             });
         });
     }
-};
+}
 
 
 
@@ -32,26 +32,26 @@ angular.module('starter')
 function fileDataService($http, SettingsFactory, $cordovaFile) {
     return {
         uploadFileFromDisk: uploadFileFromDisk,
-        uploadFile: uploadFile
-    }
+        uploadFile: uploadFile,
+        dataURItoBlob: dataURItoBlob,
+        writeToFile: writeToFile
+    };
 
     function uploadFileFromDisk(file, requestId, tags, datauriformat) {
         return $cordovaFile
             .readAsDataURL(file.dir, file.file).then(function (file_data) {
+                var file_type;
                 if (datauriformat) {
                     file_type = file_data.split(',')[0].split(';')[0].split(':')[1];
                     file_data = dataURItoBlob(file_data);
                 }
-                console.log(datauriformat);
-                console.log(file_type);
-                console.log(file_data);
                 return uploadFile({
                     data: file_data,
                     name: 'file',
-                    type: file_type
+                    type: file_type === undefined ? '' : file_type
                 }, requestId, tags);
             });
-    };
+    }
 
     function uploadFile(file, requestId, tags) {
         // Preserve Order, Node Skipper Plugin expects add feilds before file data
@@ -72,9 +72,9 @@ function fileDataService($http, SettingsFactory, $cordovaFile) {
             }
         }).then(function (res) {
             console.log(JSON.stringify(res.data));
-        })
+        });
 
-    };
+    }
 
     function dataURItoBlob(dataURI, imgType) {
         var isSemicolonExist = (dataURI.indexOf(',') >= 0) ? true : false;
@@ -92,6 +92,10 @@ function fileDataService($http, SettingsFactory, $cordovaFile) {
             type: imgType
         });
         return blob;
-    };
+    }
+
+    function writeToFile(file, data) {
+        $cordovaFile.writeFile(file.dir, file.name, data, true);
+    }
 
 }

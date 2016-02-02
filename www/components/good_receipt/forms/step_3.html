@@ -1,6 +1,6 @@
 <ion-view>
     <ion-header-bar class="bar bar-subheader bar-stable">
-        <h2 class="title">{{'ITEM_RECEIVED_QUANTITY' | translate}}</h2>
+        <h2 class="title">{{'ITEM_DELIEVERED_QUANTITY' | translate}}</h2>
     </ion-header-bar>
     <ion-content>
         <div>
@@ -8,12 +8,12 @@
             <div class="row">
                 <label class="item item-input" style="width:100%;">
                     <span class="input-label">{{'QUANTITY' | translate}}</span>
-                    <input type="number" min="1" ng-model="new_good_receipt.item_received_quantity" required>
+                    <input type="number" min="1" ng-model="new_good_receipt.item_delievered_quantity" required>
                 </label>
             </div>
         </div>
     </ion-content>
     <ion-footer-bar class="bar-light">
-        <button class="col col-20 col-offset-80 button button-right button-balanced" on-tap="item_received_quantity_next()">{{'NEXT' | translate}}</button>
+        <button class="col col-20 col-offset-80 button button-right button-balanced" ui-sref="root.good_receipt.step4">{{'NEXT' | translate}}</button>
     </ion-footer-bar>
 </ion-view>

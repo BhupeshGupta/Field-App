@@ -2,13 +2,18 @@
     <ion-header-bar class="bar bar-subheader bar-stable">
         <h2 class="title">{{'SIGNATURE' | translate}}</h2>
     </ion-header-bar>
-    <ion-content scroll="false">
-        <div id="signature_canvas_div">
-        </div>
 
+    <ion-content scroll="false">
+        <div proof-pad accept="grc.acceptSignaturePad" clear="clearSignaturePad" height="430" width="340" dataurl="grc.signature.bg" style="
+            margin-left: 10px;
+            margin-top: 10px:
+        ">
+        </div>
     </ion-content>
+
     <ion-footer-bar class="bar-light">
-        <button class='button button-positive' style="padding: 0 30px;" ng-click='clear_canvas()'>{{'CLEAR' | translate}}</button>
+        <button class="button button-positive" style="padding: 0 30px;" ng-click="clearSignaturePad()">{{'CLEAR' | translate}}</button>
         <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="take_signature_next()">{{'NEXT' | translate}}</button>
     </ion-footer-bar>
+
 </ion-view>

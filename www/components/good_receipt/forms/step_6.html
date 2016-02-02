@@ -1,0 +1,40 @@
+<ion-view>
+    <ion-content>
+        <br>
+        <br>
+        <br>
+        <div class="bar bar-header bar-stable">
+            <h1 class="title">Additional Information</h1>
+        </div>
+        <div class="list">
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Shortage</span>
+                <input type="number" step="any" placeholder="Shortage">
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Excess</span>
+                <input type="number" step="any" placeholder="Excess">
+            </label>
+
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Residue</span>
+                <input type="number" step="any" placeholder="Residue">
+            </label>
+
+            <!-- Customer Document Id -->
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
+                <input name="customer_document" type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
+            </label>
+
+        </div>
+
+        <button class="button button-large button-balanced" ui-sref="root.good_receipt.step7">
+            Next
+        </button>
+
+    </ion-content>
+
+</ion-view>

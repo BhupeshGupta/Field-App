@@ -1,3 +1,88 @@
+'use strict';
+
+angular.module('starter')
+    .controller('GoodsReceiptController', goodsReceiptController);
+
+function goodsReceiptController($scope, $state, Persistence, DocumentService, $q, gr_config) {
+    var vm = this;
+    vm.autocomplete_customer = autocomplete_customer;
+    vm.autocomplete_vehicle = autocomplete_vehicle;
+    vm.gr_config = gr_config;
+    vm.set_item = set_item;
+    vm.moveToSignatureForm = moveToSignatureForm;
+
+    vm.signature = {
+        bg: ''
+    };
+
+    vm.user_input = {
+        "goods_receipt_number": "",
+        "transaction_date": moment().format("YYYY-MM-DD"),
+        "customer": {},
+        "vehicle": {},
+
+        "item_delivered": "",
+        "delivered_quantity": "",
+        "delivered_remarks": "",
+
+        "item_received": "",
+        "received_quantity": "",
+        "received_remarks": "",
+
+        "customer_document_id": "",
+        "delivery_type": "Refill",
+        "excess": "",
+        "residue": "",
+        "short": "",
+        "remarks": "",
+
+
+        "doctype": "Goods Receipt",
+        "docstatus": 1,
+        "company": "Arun Logistics",
+
+        "posting_date": moment().format("YYYY-MM-DD"),
+        "location_latitude": "",
+        "location_longitude": ""
+    };
+
+    function autocomplete_vehicle(query) {
+        return DocumentService.search('Transportation Vehicle', query, {})
+            .then(function (success) {
+                return success.data.results;
+            });
+    }
+
+    function autocomplete_customer(query) {
+        return DocumentService.search('Customer', query, {
+            enabled: 1,
+            sale_enabled: 1
+        }).then(function (success) {
+            return success.data.results;
+        });
+    }
+
+    function set_item(mode, item, nextState) {
+        vm.user_input['item_' + mode] = item.id;
+        $state.go(nextState);
+    }
+
+    function moveToSignatureForm() {
+        html2canvas(document.getElementById('review_template'), {
+            onrendered: function (canvas) {
+                vm.signature.bg = canvas.toDataURL();
+                //                $scope.new_good_receipt_search.take_signature_button_disable = false;
+                //                $rootScope.$emit('signature_canvas_clear', {});
+                $state.transitionTo('root.good_receipt.step8');
+            }
+        });
+
+    }
+
+}
+
+
+
 receipt_module.controller('good_receipt_controller', function ($scope, $rootScope, $state, $cordovaToast, $cordovaCamera, $cordovaFile, $cordovaGeolocation, get_customer_live, images_link_empty, images_link_filled, get_vehicle_live, create_new_good_receipt, canvas_signature, send_image, $q, DocumentService) {
     var me = this;
 
@@ -26,7 +111,10 @@ receipt_module.controller('good_receipt_controller', function ($scope, $rootScop
         },
         customer_search: function (query) {
             var promise = $q.defer();
-            DocumentService.search('Customer', query, {enabled: 1, sale_enabled: 1}).success(function (data) {
+            DocumentService.search('Customer', query, {
+                enabled: 1,
+                sale_enabled: 1
+            }).success(function (data) {
                 promise.resolve(data.results);
             });
             return promise.promise;
@@ -210,7 +298,7 @@ receipt_module.controller('good_receipt_controller', function ($scope, $rootScop
         $scope.new_good_receipt.item_received_name = $scope.new_good_receipt_search.item_images_filled[index].id;
         $state.transitionTo('root.good_receipt.item_received_quantity');
     };
-    
+
     $scope.item_received_name_next = function () {
         $state.transitionTo('root.good_receipt.acknowledgement');
     };

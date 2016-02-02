@@ -11,45 +11,70 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
         .state('root.good_receipt', {
             url: '/good_receipt',
             templateUrl: 'components/good_receipt/good_receipt.html',
-            controller: 'good_receipt_controller'
+            controller: 'GoodsReceiptController',
+            controllerAs: 'grc'
         })
-        .state('root.good_receipt.customer_name', {
-            url: '/customer_name',
+        .state('root.good_receipt.step1', {
+            url: '/step1',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/customer_name.html'
+                    templateUrl: 'components/good_receipt/forms/step_1.html'
                 }
             }
         })
-        .state('root.good_receipt.item_delievered_name', {
-            url: '/item_delievered_name',
+        .state('root.good_receipt.step2', {
+            url: '/step2',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/item_delievered_name.html'
+                    templateUrl: 'components/good_receipt/forms/step_2.html'
                 }
             }
         })
-        .state('root.good_receipt.item_delievered_quantity', {
-            url: '/item_delievered_quantity',
+        .state('root.good_receipt.step3', {
+            url: '/step3',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/item_delievered_quantity.html'
+                    templateUrl: 'components/good_receipt/forms/step_3.html'
                 }
             }
         })
-        .state('root.good_receipt.item_received_name', {
-            url: '/item_received_name',
+        .state('root.good_receipt.step4', {
+            url: '/step4',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/item_received_name.html'
+                    templateUrl: 'components/good_receipt/forms/step_4.html'
                 }
             }
         })
-        .state('root.good_receipt.item_received_quantity', {
-            url: '/item_received_quantity',
+        .state('root.good_receipt.step5', {
+            url: '/step5',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/item_received_quantity.html'
+                    templateUrl: 'components/good_receipt/forms/step_5.html'
+                }
+            }
+        })
+        .state('root.good_receipt.step6', {
+            url: '/step6',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_6.html'
+                }
+            }
+        })
+        .state('root.good_receipt.step7', {
+            url: '/step7',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_7.html'
+                }
+            }
+        })
+        .state('root.good_receipt.step8', {
+            url: '/step8',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_8.html'
                 }
             }
         })
@@ -103,45 +128,53 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
 });
 
 
-receipt_module.constant('images_link_empty', [
-    {
-        img_url: 'img/ec19.jpg',
-        id: 'EC19',
-        name: 'EC19'
-    }, {
-        img_url: 'img/ec35.jpg',
-        id: 'EC35',
-        name: 'EC35'
-    }, {
-        img_url: 'img/ec475vot.jpg',
-        id: 'EC47.5',
-        name: 'EC47.5'
-    }, {
-        img_url: 'img/ec475lot.png',
-        id: 'EC47.5L',
-        name: 'EC47.5LOT'
-    }
-]);
-
-receipt_module.constant('images_link_filled', [
-    {
-        img_url: 'img/fc19.jpg',
-        id: 'FC19',
-        name: 'FC19'
-    }, {
-        img_url: 'img/fc35.jpg',
-        id: 'FC35',
-        name: 'FC35'
-    }, {
-        img_url: 'img/fc475vot.jpg',
-        id: 'FC47.5',
-        name: 'FC47.5'
-    }, {
-        img_url: 'img/fc475lot.png',
-        id: 'FC47.5L',
-        name: 'FC47.5LOT'
-    }
-]);
+angular.module('starter')
+    .constant('gr_config', {
+        filled: [
+            {
+                img_url: 'img/fc19.jpg',
+                id: 'FC19',
+                name: 'FC19'
+            },
+            {
+                img_url: 'img/fc35.jpg',
+                id: 'FC35',
+                name: 'FC35'
+            },
+            {
+                img_url: 'img/fc475vot.jpg',
+                id: 'FC47.5',
+                name: 'FC47.5'
+            },
+            {
+                img_url: 'img/fc475lot.png',
+                id: 'FC47.5L',
+                name: 'FC47.5LOT'
+            }
+        ],
+        empty: [
+            {
+                img_url: 'img/ec19.jpg',
+                id: 'EC19',
+                name: 'EC19'
+            },
+            {
+                img_url: 'img/ec35.jpg',
+                id: 'EC35',
+                name: 'EC35'
+            },
+            {
+                img_url: 'img/ec475vot.jpg',
+                id: 'EC47.5',
+                name: 'EC47.5'
+            },
+            {
+                img_url: 'img/ec475lot.png',
+                id: 'EC47.5L',
+                name: 'EC47.5LOT'
+            }
+        ]
+    });
 
 
 // Signature

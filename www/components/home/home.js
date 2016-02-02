@@ -4,7 +4,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
 
     $scope.goodsReceiptFlow = function () {
         console.log("gr flow init");
-        $state.go('root.good_receipt.customer_name');
+        $state.go('root.good_receipt.step1');
     };
 
     $scope.paymentReceiptFlow = function () {
@@ -24,11 +24,9 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
     };
 
     console.log("Hi from Home Controller");
-    //    $scope.msg = 'Working';
-
 
     $scope.isAuthorized = function (doctype) {
         return $.inArray(doctype, $rootScope.startup.can_write) > -1;
-    }
+    };
 
 }]);

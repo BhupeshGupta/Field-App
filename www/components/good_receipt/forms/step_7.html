@@ -1,0 +1,79 @@
+<ion-view>
+
+    <ion-header-bar class="bar bar-subheader bar-stable">
+        <h2 class="title">{{'REVIEW' | translate}}</h2>
+    </ion-header-bar>
+
+    <ion-content scroll="false">
+        <div id="review_template">
+            <div class="row">
+                <div class="col col-50">
+                    Voucher No. {{ grc.user_input.goods_receipt_number }}
+                </div>
+                <div class="col col-50">
+                    Date: {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}
+                </div>
+            </div>
+
+            <div class="row">
+                Customer: {{ grc.user_input.customer[0].value }}
+            </div>
+
+            <div class="row">
+                Vehicle: {{ grc.user_input.vehicle[0].value }}
+            </div>
+
+            <table>
+                <thead>
+                    <th>Item</th>
+                    <th>Filled Cyl.</th>
+                    <th>Empty Cyl.</th>
+                    <th>Txn Type.</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>47.5Kg</td>
+                        <td>10</td>
+                        <td></td>
+                        <td>Delivered</td>
+                    </tr>
+                    <tr>
+                        <td>19Kg</td>
+                        <td></td>
+                        <td>10</td>
+                        <td>Reveived</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Short</td>
+                        <td>Residue</td>
+                        <td>Excess</td>
+                    </tr>
+                    <tr>
+                        <td>0Kg</td>
+                        <td>1Kg</td>
+                        <td>0Kg</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Doc Id</td>
+                        <td colspan="2">hghghhg</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Remarks: dhgsfhdgfshdfgsfdgsfdjgfsjdhskjdg diy sfdu fsygdyjsd sugd</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </ion-content>
+
+    <ion-footer-bar class="bar-light">
+        <button class="button button-positive" style="padding: 0 30px;" ng-click="clearSignaturePad()">{{'CLEAR' | translate}}</button>
+        <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
+    </ion-footer-bar>
+
+</ion-view>

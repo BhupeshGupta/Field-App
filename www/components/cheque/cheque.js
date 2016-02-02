@@ -4,7 +4,7 @@ angular.module('starter')
     .controller('chequeFlowController', chequeFlowController);
 
 function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
-    DocumentService, FileFactory, FileDataService) {
+    DocumentService, FileFactory, FileDataService, $ionicPopup, Persistence) {
 
     var vm = this;
 
@@ -58,7 +58,7 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
             promise.resolve(data.results);
         });
         return promise.promise;
-    }
+    };
 
     $scope.instrumentDate = {
         inputDate: new Date(), //Optional
@@ -78,12 +78,9 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
             console.log('No date selected');
         } else {
             $scope.user_input.instrumentdate = moment(val).format("YYYY-MM-DD");
-            console.log('Selected date is : ', val)
             $scope.instrumentDate.inputDate = val;
         }
     };
-
-
 
     $scope.takePic1 = function () {
 
@@ -109,31 +106,47 @@ function chequeFlowController($scope, $state, $q, $http, $cordovaCamera,
                 $cordovaCamera.cleanup();
                 return $q.when(fileInfo);
             });
-    }
+    };
 
     $scope.captureAndReview = function () {
         $scope.takePic1().then(function (image) {
             vm.capturedCameraImage = image;
             $state.go('root.cheque.review');
-        })
+        });
     };
 
     $scope.createVoucher = function () {
-        $scope.user_input.entries[1].credit = $scope.user_input.entries[0].debit
-        DocumentService.create('Journal Voucher', prepareForErp($scope.user_input), true).then(
-            function (success) {
-                console.log(success);
-                FileDataService.uploadFileFromDisk(
-                    vm.capturedCameraImage,
-                    success.data.requestId, ['Cheque Image'],
-                    true
-                ).then(function () {
-                    alert('File uploaded');
-                }).catch(function (error) {
-                    alert('File Not uploaded');
-                    console.log(error);
-                })
+        $scope.user_input.entries[1].credit = $scope.user_input.entries[0].debit;
+        DocumentService.create('Journal Voucher', prepareForErp($scope.user_input), true)
+            .then(
+                function (success) {
 
+                    // Save file to database
+                    var db_file = new Persistence.Entities.Files({
+                        fileName: success.data.requestId + '_img',
+                        parentId: success.data.requestId,
+                        uploaded: 0,
+                        fdir: vm.capturedCameraImage.dir,
+                        fname: vm.capturedCameraImage.file
+                    });
+                    Persistence.add(db_file);
+
+                    return FileDataService.uploadFileFromDisk(
+                        vm.capturedCameraImage,
+                        success.data.requestId, ['Cheque Image'],
+                        true
+                    ).catch(function (error) {
+                        console.log(error);
+                        return $q.reject("Unable to upload file");
+                    });
+                })
+            .then(function () {
+                $ionicPopup.alert({
+                    title: 'Success',
+                    template: 'Request has been created!'
+                }).then(function () {
+                    $state.go('root.home');
+                });
             });
     };
 

@@ -29,7 +29,7 @@
         </ion-header-bar>
         <ion-content>
             <ion-list>
-                <ion-item menu-close menu-close>
+                <ion-item menu-close>
                     <div class="item item-avatar">
                         <img ng-src="{{ startup.user.image }}">
                         <h2>{{ startup.user.fullname }}</h2>
@@ -37,7 +37,7 @@
                     </div>
                 </ion-item>
 
-                <ion-item menu-close menu-close>
+                <ion-item menu-close>
                     <div ng-show="location_lock == 0">
                         <i class="ion-android-locate"></i><span style="padding-left: 7%">GPS Locking</span>
                     </div>
@@ -72,7 +72,7 @@
                 <ion-item menu-close href="#/app/playlists">
                     {{'UPLOAD' | translate}} {{'ERRORS' | translate}}
                 </ion-item>
-                <ion-item menu-close href="#/app/playlists">
+                <ion-item menu-close href="#/db">
                     Show Database
                 </ion-item>
                 <ion-item menu-close ng-click="open_developer_pane()">

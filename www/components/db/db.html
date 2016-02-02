@@ -1,0 +1,20 @@
+<ion-view>
+    <ion-content>
+        <div class="bar bar-header bar-stable">
+            <h1 class="title">Database</h1>
+        </div>
+        <br>
+        <br>
+        <ul class="list">
+            <li class="item" ng-repeat="file in dbc.files">
+                Logical Name: {{ file.fileName }}
+                <br> Request Id: {{ file.parentId }}
+                <br> Uploaded: {{ file.uploaded == 0 ? 'No': 'Yes' }}
+                <br> File Dir: {{ file.fdir }}
+                <br> File Name: {{ file.fname }}
+                <br> File Id (PK): {{ file.id }}
+            </li>
+        </ul>
+
+    </ion-content>
+</ion-view>

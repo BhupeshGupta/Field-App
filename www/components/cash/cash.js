@@ -2,7 +2,9 @@
 
 receipt_module.controller('cashFlowController', cashFlowController);
 
-function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope, FileDataService, Utils, $cordovaFile) {
+function cashFlowController(
+    $scope, $state, $q, $http, $cordovaCamera, DocumentService, $rootScope,
+    FileDataService, Utils, $cordovaFile, $ionicPopup, Persistence) {
     console.log("Hi from Cash Controller");
 
     var vm = this;
@@ -49,31 +51,40 @@ function cashFlowController($scope, $state, $q, $http, $cordovaCamera, DocumentS
         var file_name = Utils.guid();
         var signature_blob = FileDataService.dataURItoBlob(signature.dataUrl, 'image/png');
         var signature_file_promise = $cordovaFile.writeFile(cordova.file.dataDirectory, file_name, signature_blob, true);
-        //        var signature_file_promise = $cordovaFile.writeFile(cordova.file.dataDirectory, file_name, signature.dataUrl, true);
-
 
         $q.all([request_creation_promise, signature_file_promise])
             .then(function (values) {
                 var request_result = values[0];
-                var signature_result = values[1];
-                console.log(values);
 
-                FileDataService.uploadFileFromDisk({
+                // Save file to database
+                var db_file = new Persistence.Entities.Files({
+                    fileName: request_result.data.requestId + '_signature',
+                    parentId: request_result.data.requestId,
+                    uploaded: 0,
+                    fdir: cordova.file.dataDirectory,
+                    fname: file_name
+                });
+                Persistence.add(db_file);
+
+                return FileDataService.uploadFileFromDisk({
                         dir: cordova.file.dataDirectory,
                         file: file_name
                     },
                     request_result.data.requestId, ['Cash Signature'],
                     true
-                ).then(function () {
-                    alert('File uploaded');
-                }).catch(function (error) {
-                    alert('File Not uploaded');
+                ).catch(function (error) {
                     console.log(error);
+                    return $q.reject(error);
                 });
-
+            })
+            .then(function () {
+                $ionicPopup.alert({
+                    title: 'Success',
+                    template: 'Request has been created!'
+                }).then(function () {
+                    $state.go('root.home');
+                });
             });
-
-
     }
 
     function company_search(query) {

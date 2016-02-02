@@ -14,8 +14,6 @@ function fileFactory($q, $cordovaFile) {
             fileName,
             cordova.file.dataDirectory
         ).then(function () {
-            console.log(cordova.file.dataDirectory);
-            console.log(fileName);
             return $q.when({
                 dir: cordova.file.dataDirectory,
                 file: fileName
@@ -78,7 +76,6 @@ function fileDataService($http, SettingsFactory, $cordovaFile) {
 
     function dataURItoBlob(dataURI, imgType) {
         var isSemicolonExist = (dataURI.indexOf(',') >= 0) ? true : false;
-        alert(isSemicolonExist);
         var binary = [];
         if (isSemicolonExist)
             binary = atob(dataURI.split(',')[1]);

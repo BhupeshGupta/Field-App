@@ -56,18 +56,20 @@ var receipt_module = angular.module('starter', [
 //})
 
 .config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/');
 
-    $stateProvider.state('root', {
+        $stateProvider.state('root', {
             templateUrl: 'components/main/main.html',
             controller: 'MainController',
             abstract: true
         })
+
         .state('root.developer', {
             url: '/developer',
             templateUrl: 'components/developer/developer.html',
             controller: 'DeveloperController'
         })
+
         .state('root.login', {
             url: '/',
             templateUrl: 'components/login/login.html',
@@ -77,12 +79,21 @@ var receipt_module = angular.module('starter', [
                     var settings = SettingsFactory.get();
                     if (typeof settings.sid !== 'undefined') {
                         $timeout(function () {
-                            $state.go('root.home')
+                            $state.go('root.home');
                         }, 0);
                     }
                 }
             }
         })
+
+        .state('root.db', {
+            url: '/db',
+            templateUrl: 'components/db/db.html',
+            controller: 'DbController',
+            controllerAs: 'dbc'
+        })
+
+
         .state('root.home', {
             url: '/home',
             templateUrl: 'components/home/home.html',
@@ -98,89 +109,84 @@ var receipt_module = angular.module('starter', [
             }
         })
 
-    .state('root.invoice', {
-            url: '/invoice',
-            templateUrl: 'components/invoice/invoice.html',
-            controller: 'InvoiceFlowController'
-        })
-        .state('root.invoice.selection', {
-            url: '/invoice',
-            views: {
-                'invoice_view': {
-                    templateUrl: 'components/invoice/forms/invoice_selection_screen.html'
+        .state('root.invoice', {
+                url: '/invoice',
+                templateUrl: 'components/invoice/invoice.html',
+                controller: 'InvoiceFlowController'
+            })
+            .state('root.invoice.selection', {
+                url: '/invoice',
+                views: {
+                    'invoice_view': {
+                        templateUrl: 'components/invoice/forms/invoice_selection_screen.html'
+                    }
                 }
-            }
-        })
-        .state('root.invoice.enter_data_manually', {
-            url: '/invoice/enter_data_manually',
-            views: {
-                'invoice_view': {
-                    templateUrl: 'components/invoice/forms/invoice_manually.html'
+            })
+            .state('root.invoice.enter_data_manually', {
+                url: '/invoice/enter_data_manually',
+                views: {
+                    'invoice_view': {
+                        templateUrl: 'components/invoice/forms/invoice_manually.html'
+                    }
                 }
-            }
-        })
-        .state('root.invoice.invoicereview', {
-            url: '/invoice/invoicereview',
-            views: {
-                'invoice_view': {
-                    templateUrl: 'components/invoice/forms/invoice_upload.html'
+            })
+            .state('root.invoice.invoicereview', {
+                url: '/invoice/invoicereview',
+                views: {
+                    'invoice_view': {
+                        templateUrl: 'components/invoice/forms/invoice_upload.html'
+                    }
                 }
-            }
-        })
+            })
 
-    .state('root.cheque', {
-            url: '/cheque',
-            templateUrl: 'components/cheque/cheque.html',
-            controller: 'chequeFlowController',
-            controllerAs: 'cc'
-        })
-        .state('root.cheque.details', {
-            url: '/cheque/cheque_details',
-            views: {
-                'cheque_view': {
-                    templateUrl: 'components/cheque/forms/cheque_detail.html'
+        .state('root.cheque', {
+                url: '/cheque',
+                templateUrl: 'components/cheque/cheque.html',
+                controller: 'chequeFlowController',
+                controllerAs: 'cc'
+            })
+            .state('root.cheque.details', {
+                url: '/cheque/cheque_details',
+                views: {
+                    'cheque_view': {
+                        templateUrl: 'components/cheque/forms/cheque_detail.html'
+                    }
                 }
-            }
-        })
-        .state('root.cheque.review', {
-            url: '/cheque/cheque_review',
-            views: {
-                'cheque_view': {
-                    templateUrl: 'components/cheque/forms/cheque_review.html'
+            })
+            .state('root.cheque.review', {
+                url: '/cheque/cheque_review',
+                views: {
+                    'cheque_view': {
+                        templateUrl: 'components/cheque/forms/cheque_review.html'
+                    }
                 }
-            }
-        })
+            })
 
-    .state('root.cash', {
-            url: '/cheque',
-            templateUrl: 'components/cash/cash.html',
-            controller: 'cashFlowController',
-            controllerAs: 'cc'
-        })
-        .state('root.cash.details', {
-            url: '/cash/cash/cash_details',
-            views: {
-                'cash_view': {
-                    templateUrl: 'components/cash/forms/cash_details.html'
+        .state('root.cash', {
+                url: '/cheque',
+                templateUrl: 'components/cash/cash.html',
+                controller: 'cashFlowController',
+                controllerAs: 'cc'
+            })
+            .state('root.cash.details', {
+                url: '/cash/cash/cash_details',
+                views: {
+                    'cash_view': {
+                        templateUrl: 'components/cash/forms/cash_details.html'
+                    }
                 }
-            }
-        })
-        .state('root.cash.review', {
-            url: '/cash/cash_review',
-            views: {
-                'cash_view': {
-                    templateUrl: 'components/cash/forms/cash_signature.html'
+            })
+            .state('root.cash.review', {
+                url: '/cash/cash_review',
+                views: {
+                    'cash_view': {
+                        templateUrl: 'components/cash/forms/cash_signature.html'
+                    }
                 }
-            }
-        });
-})
-
-.controller("ValController", function ($scope) {
-
-    $scope.submit = function (username) {
-
-        alert("Thanks " + username);
-
-    }
-
-});
+            });
+    })
+    .controller("ValController", function ($scope) {
+        $scope.submit = function (username) {
+            alert("Thanks " + username);
+        };
+    });

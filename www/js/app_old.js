@@ -92,21 +92,14 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
             url: '/payment_receipt',
             abstract: true,
             templateUrl: 'components/payment_receipt/payment_receipt.html',
-            controller: 'payment_receipt_controller'
+            controller: 'PaymentReceiptController',
+            controllerAs: 'prc'
         })
-        .state('root.payment_receipt.payment_receipt_information', {
-            url: '/payment_receipt_information',
+        .state('root.payment_receipt.step1', {
+            url: '/step1',
             views: {
                 'payment_receipt_content_view': {
-                    templateUrl: 'components/payment_receipt/forms/payment_receipt_information.html'
-                }
-            }
-        })
-        .state('root.payment_receipt.payment_receipt_acknowledgement', {
-            url: '/payment_receipt_acknowledgement',
-            views: {
-                'payment_receipt_content_view': {
-                    templateUrl: 'components/payment_receipt/forms/payment_receipt_acknowledgement.html'
+                    templateUrl: 'components/payment_receipt/forms/step_1.html'
                 }
             }
         });

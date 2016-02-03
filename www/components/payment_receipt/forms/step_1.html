@@ -11,29 +11,31 @@
                     <!-- Stock Owner  -->
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">{{'STOCK_OWNER' | translate}}</span>
-                        <input type="text" class="autocomplete" ion-autocomplete ng-model="new_payment_receipt.stock_owner" item-view-value-key="value" items-method="new_payment_receipt_search.stock_owner_search(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" ng-required="true" />
+                        <input type="text" class="autocomplete" max-selected-items="1" ion-autocomplete ng-model="prc.user_input.stock_owner" item-view-value-key="value" items-method="prc.autoCompleteStockOwner(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" required/>
                     </label>
 
                     <!-- Voucher ID  -->
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
-
-                        <input type="number" min="1" ng-model="new_payment_receipt.voucher_id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" ng-required="true" required>
+                        <input type="number" min="1" ng-model="prc.user_input.id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" required>
+                    </label>
+                    <!-- Customer -->
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Customer</span>
+                        <input type="text" placeholder="Customer Name" ng-model="prc.user_input.customer" required>
                     </label>
 
 
                     <!--  Quantity  -->
-
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">{{'QUANTITY' | translate}}</span>
-                        <input type="number" min="1" ng-model="new_payment_receipt.quantity" placeholder="{{'QUANTITY' | translate}}" name="quantity" ng-required="true" required>
+                        <input type="number" min="1" ng-model="prc.user_input.qty" placeholder="{{'QUANTITY' | translate}}" name="quantity" required>
                     </label>
 
                     <!--  Amount Per Item  -->
-
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span>
-                        <input type="number" min="1" ng-model="new_payment_receipt.amount_per_item" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" name="amount" ng-required="true" required>
+                        <input type="number" min="1" ng-model="prc.user_input.amount_per_item" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" name="amount" required>
                     </label>
 
                     <!-- Item  -->
@@ -42,8 +44,8 @@
                             <div class="input-label">
                                 {{'ITEM' | translate}}
                             </div>
-                            <select ng-model="new_payment_receipt.item">
-                                <option>FC19</option>
+                            <select ng-model="prc.user_input.item">
+                                <option selected>FC19</option>
                             </select>
                         </label>
                     </div>
@@ -54,27 +56,30 @@
                             <div class="input-label">
                                 {{'TRANSACTION_TYPE' | translate}}
                             </div>
-                            <select ng-model="new_payment_receipt.transaction_type">
-                                <option>{{'REFILL' | translate}}</option>
+                            <select ng-model="prc.user_input.transaction_type">
+                                <option selected>{{'REFILL' | translate}}</option>
                                 <option>{{'TV_OUT' | translate}}</option>
                                 <option>{{'NEW_CONNECTION' | translate}}</option>
                             </select>
                         </label>
+                        <label class="item item-input item-floating-label">
+                            <span class="input-label">Remarks</span>
+                            <input type="text" placeholder="Remakrs" ng-model="prc.user_input.remarks" required>
+                        </label>
+
                     </div>
 
                 </div>
 
                 <div class="padding">
-                    </br>
+                    <br>
                     <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
                     <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
-                    <p ng-show="PR_Form.quantity.$error.required">*Please fill the Quantity</p>
-                    <p ng-show="PR_Form.amount.$error.required">*Total Amount is required</p>
+                    <p ng-show="PR_Form.quantity.$error.required">* Please fill the Quantity</p>
+                    <p ng-show="PR_Form.amount.$error.required">* Amount is required</p>
                 </div>
 
-
-
-                <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" ng-click="payment_receipt_next()">{{'NEXT' | translate}}</button>
+                <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" ng-click="prc.acceptAndCreateVoucher()">{{'UPDATE' | translate}}</button>
             </div>
         </form>
     </ion-content>

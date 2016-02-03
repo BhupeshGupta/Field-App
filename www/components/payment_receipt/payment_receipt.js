@@ -1,89 +1,58 @@
-console.log("Hello from Payment Receipt Controller!!");
+'use strict';
+
+angular.module('starter')
+    .controller('PaymentReceiptController', paymentReceiptController);
 
 
-receipt_module.controller('payment_receipt_controller', function ($scope, $state, $cordovaToast, get_stock_owner, create_new_payment_receipt, DocumentService, $q) {
-    var me = this;
+function paymentReceiptController(
+    $state, $cordovaToast, get_stock_owner, create_new_payment_receipt, DocumentService
+) {
+    var vm = this;
 
-    $scope.new_payment_receipt_object = {
-        quantity: '',
-        amount_per_item: '',
+    vm.autoCompleteStockOwner = autoCompleteStockOwner;
+    vm.acceptAndCreateVoucher = acceptAndCreateVoucher;
+
+    vm.user_input = {
+        id: '',
         stock_owner: {},
-        voucher_id: '',
-        transaction_type: 'Refill',
-        item: 'FC19'
+        item: '',
+        qty: '',
+        transaction_type: '',
+        amount_per_item: '',
+        customer: '',
+        remarks: '',
+
+        total: '',
+
+        docstatus: 1,
+        company: "VK Logistics",
+        stock_date: moment().format("YYYY-MM-DD"),
+        posting_date: moment().format("YYYY-MM-DD"),
     };
 
-    $scope.new_payment_receipt = angular.copy($scope.new_payment_receipt_object);
 
-    $scope.new_payment_receipt_search = {
-        stock_owner_search: function (query) {
-            var promise = $q.defer();
-            DocumentService.search('Sales Person', query, {}).success(function (data) {
-                promise.resolve(data.results);
+    function autoCompleteStockOwner(query) {
+        return DocumentService.search('Sales Person', query, {})
+            .then(function (success) {
+                return success.data.results;
             });
-            return promise.promise;
-        },
-        confirm_disable: false
-    };
-
-
-    // Log Out Event
-    $scope.$on('log_out_event', function (event, args) {
-        delete $scope.new_payment_receipt;
-        $scope.new_payment_receipt = angular.copy($scope.new_payment_receipt_object);
-    });
-
-
-    // Create Payment Receipt
-    me.create_payment_receipt = function () {
-        $scope.new_payment_receipt_search.confirm_disable = true;
-        now_date = moment().format("YYYY-MM-DD");
-        now_time = moment().format("HH:mm:ss");
-        qty = $scope.new_payment_receipt.quantity;
-        amt_per_item = $scope.new_payment_receipt.amount_per_item;
-        total = qty * amt_per_item;
-        data = {
-            stock_owner: $scope.new_payment_receipt.stock_owner.value,
-            qty: qty,
-            docstatus: 1,
-            transaction_type: $scope.new_payment_receipt.transaction_type,
-            id: $scope.new_payment_receipt.voucher_id.toString(),
-            stock_owner: $scope.new_payment_receipt.stock_owner.value,
-            qty: qty,
-            amount_per_item: amt_per_item,
-            total: total,
-            company: "VK Logistics",
-            stock_date: now_date,
-            posting_date: now_date,
-            posting_time: now_time,
-            fiscal_year: "2015-16",
-            item: $scope.new_payment_receipt.item
-        };
-        
-        
-        
-        DocumentService.create('Payment Receipt', data)
-            .success(function (data) {
-                $scope.new_payment_receipt_search.confirm_disable = false;
-                delete $scope.new_payment_receipt;
-                $scope.new_payment_receipt = angular.copy($scope.new_payment_receipt_object);
-                $state.transitionTo('main.select_receipt');
-            })
-            .error(function (data) {
-                $scope.new_payment_receipt_search.confirm_disable = false;
-                if (data._server_messages)
-                    message = JSON.parse(data._server_messages);
-                else
-                    message = "Server Error";
-                $cordovaToast.show(message[0], 'short', 'bottom');
-            });
-    };
-
-    $scope.payment_receipt_next = function () {
-        $state.transitionTo('root.payment_receipt.payment_receipt_acknowledgement');
-    };
-
-    $scope.payment_receipt_acknowledgement = function () {
-        me.create_payment_receipt();
     }
-});
+
+    function acceptAndCreateVoucher() {
+        return DocumentService.create('Payment Receipt', prepareForErp(vm.user_input), false)
+            .success(function (success) {
+                alert("Success");
+                $state.transitionTo('root.home');
+            });
+    }
+
+    function prepareForErp(data) {
+        // Create a deep copy
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.stock_owner = transformed_data.stock_owner[0].value;
+        transformed_data.id = transformed_data.id.toString();
+        transformed_data.total = transformed_data.qty * transformed_data.amount_per_item;
+        return transformed_data;
+    }
+
+}

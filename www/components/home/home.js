@@ -8,7 +8,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
     };
 
     $scope.paymentReceiptFlow = function () {
-        $state.go('root.payment_receipt.payment_receipt_information');
+        $state.go('root.payment_receipt.step1');
     };
 
     $scope.cashFlow = function () {

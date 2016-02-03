@@ -244,13 +244,17 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 var server = SettingsFactory.getReviewServerBaseUrl() + '/review';
             }
 
-            return $http.post(server + '/api/resource/' + documentType + '/',
-                $.param({
+            return $http({
+                url: server + '/api/resource/' + documentType + '/',
+                loading: true,
+                method: 'POST',
+                data: $.param({
                     data: JSON.stringify(document),
                     sid: SettingsFactory.getSid(),
                     "client": "app"
                 })
-            );
+            });
+
         }
     };
 

@@ -31,16 +31,32 @@
                     <th>Txn Type.</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>47.5Kg</td>
-                        <td>10</td>
-                        <td></td>
+                    <tr ng-show="grc.user_input.item_delivered">
+                        <td>{{ grc.user_input.item_delivered }}</td>
+                        <td>
+                            <span ng-show="grc.user_input.item_delivered.indexOf('FC') > -1">
+                                {{ grc.user_input.delivered_quantity }}
+                            </span>
+                        </td>
+                        <td>
+                            <span ng-show="grc.user_input.item_delivered.indexOf('EC') > -1">
+                                {{ grc.user_input.delivered_quantity }}
+                            </span>
+                        </td>
                         <td>Delivered</td>
                     </tr>
-                    <tr>
-                        <td>19Kg</td>
-                        <td></td>
-                        <td>10</td>
+                    <tr ng-show="grc.user_input.item_received">
+                        <td>{{ grc.user_input.item_received }}</td>
+                        <td>
+                            <span ng-show="grc.user_input.item_received.indexOf('FC') > -1">
+                                {{ grc.user_input.received_quantity }}
+                            </span>
+                        </td>
+                        <td>
+                            <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
+                                {{ grc.user_input.received_quantity }}
+                            </span>
+                        </td>
                         <td>Reveived</td>
                     </tr>
                 </tbody>
@@ -48,22 +64,22 @@
 
             <table>
                 <tbody>
-                    <tr>
+                    <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
                         <td>Short</td>
                         <td>Residue</td>
                         <td>Excess</td>
                     </tr>
-                    <tr>
-                        <td>0Kg</td>
-                        <td>1Kg</td>
-                        <td>0Kg</td>
+                    <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
+                        <td>{{ grc.user_input.short }}</td>
+                        <td>{{ grc.user_input.residue }}</td>
+                        <td>{{ grc.user_input.excess }}</td>
                     </tr>
-                    <tr>
+                    <tr ng-show="grc.user_input.customer_document_id">
                         <td>Customer Doc Id</td>
-                        <td colspan="2">hghghhg</td>
+                        <td colspan="2">{{ grc.user_input.customer_document_id }}</td>
                     </tr>
-                    <tr>
-                        <td colspan="3">Remarks: dhgsfhdgfshdfgsfdgsfdjgfsjdhskjdg diy sfdu fsygdyjsd sugd</td>
+                    <tr ng-show="grc.user_input.delivered_remarks || grc.user_input.received_remarks">
+                        <td colspan="3">Remarks: {{ grc.user_input.delivered_remarks }} {{ grc.user_input.received_remarks }}</td>
                     </tr>
                 </tbody>
             </table>

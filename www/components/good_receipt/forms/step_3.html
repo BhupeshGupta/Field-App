@@ -5,12 +5,16 @@
     <ion-content>
         <div>
             <br>
-            <div class="row">
+            <div>
                 <label class="item item-input" style="width:100%;">
                     <span class="input-label">{{'QUANTITY' | translate}}</span>
-                    <input type="number" min="1" ng-model="new_good_receipt.item_delievered_quantity" required>
+                    <input type="number" min="1" ng-model="grc.user_input.delivered_quantity" required>
                 </label>
             </div>
+            <label class="item item-input item-floating-label" style="width:100%;">
+                <span class="input-label">Remarks</span>
+                <input type="text" placeholder="Remarks" ng-model="grc.user_input.delivered_remarks">
+            </label>
         </div>
     </ion-content>
     <ion-footer-bar class="bar-light">

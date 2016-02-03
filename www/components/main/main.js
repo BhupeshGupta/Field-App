@@ -46,6 +46,7 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
         var get_location = function () {
             $cordovaGeolocation.getCurrentPosition(posOptions)
                 .then(function (position) {
+                    console.log(position);
                     $scope.location_lock = 1;
                     console.log("Location Locked");
                     console.log(myPopup);
@@ -63,7 +64,7 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
                         });
                     }
                 });
-        }
+        };
         get_location();
     });
 

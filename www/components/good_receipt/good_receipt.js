@@ -3,13 +3,19 @@
 angular.module('starter')
     .controller('GoodsReceiptController', goodsReceiptController);
 
-function goodsReceiptController($scope, $state, Persistence, DocumentService, $q, gr_config) {
+function goodsReceiptController(
+    $scope, $state, Persistence, DocumentService, $q, gr_config, Utils,
+    $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile
+) {
+
     var vm = this;
     vm.autocomplete_customer = autocomplete_customer;
     vm.autocomplete_vehicle = autocomplete_vehicle;
     vm.gr_config = gr_config;
     vm.set_item = set_item;
     vm.moveToSignatureForm = moveToSignatureForm;
+    vm.captureSignatureAndCaptureImage = captureSignatureAndCaptureImage;
+    vm.acceptAndUpload = acceptAndUpload;
 
     vm.signature = {
         bg: ''
@@ -71,14 +77,104 @@ function goodsReceiptController($scope, $state, Persistence, DocumentService, $q
         html2canvas(document.getElementById('review_template'), {
             onrendered: function (canvas) {
                 vm.signature.bg = canvas.toDataURL();
-                //                $scope.new_good_receipt_search.take_signature_button_disable = false;
-                //                $rootScope.$emit('signature_canvas_clear', {});
                 $state.transitionTo('root.good_receipt.step8');
             }
         });
 
     }
 
+    function captureSignatureAndCaptureImage(nextState) {
+        // Dump Signature To File
+        var signature = vm.acceptSignaturePad();
+        var file_name = Utils.guid();
+        var signature_blob = FileDataService.dataURItoBlob(signature.dataUrl, 'image/png');
+        $cordovaFile.writeFile(cordova.file.dataDirectory, file_name, signature_blob, true)
+            .then(function (file) {
+                vm.signature.signatureFile = file;
+            });
+
+        // Start Geo-lock
+        $cordovaGeolocation.getCurrentPosition({
+            timeout: 10000,
+            enableHighAccuracy: true
+        }).then(function (location) {
+            vm.user_input.location_latitude = location.coords.latitude;
+            vm.user_input.location_longitude = location.coords.longitude;
+            //location.coords.accuracy;
+            console.log(location);
+            alert("Location Captured!");
+        }).catch(function (error) {
+            console.log(error);
+            alert(error);
+        });
+
+        // Capture & dump file
+        captureImage()
+            .then(function (cameraFile) {
+                vm.signature.cameraFile = cameraFile;
+                $state.transitionTo('root.good_receipt.step9');
+            });
+
+    }
+
+    function acceptAndUpload() {
+        var gr_creation_promise = DocumentService.create('Goods Receipt', prepareForErp(vm.user_input), false);
+        gr_creation_promise.then(function () {
+            alert('success');
+        }).catch(function (error) {
+            console.log(error);
+            alert('lol!!');
+        });
+
+        //        gr_creation_promise.then(function () {
+        //            return FileDataService.uploadFileFromDisk(
+        //                vm.signature.cameraFile,
+        //                success.data.requestId, ['Cheque Image'],
+        //                true
+        //            ).catch(function (error) {
+        //                console.log(error);
+        //                return $q.reject("Unable to upload file");
+        //            });
+        //        })
+
+
+    }
+
+    function captureImage() {
+
+        var options = {
+            quality: 75,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 1200,
+            targetHeight: 1600,
+            cameraDirection: Camera.Direction.FRONT,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        };
+
+        return $cordovaCamera.getPicture(options).then(
+            function (imageURI) {
+                var image_name = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+                return FileFactory.moveFileFromCameraToExtrenalDir(image_name);
+            }).then(
+            function (fileInfo) {
+                $cordovaCamera.cleanup();
+                return $q.when(fileInfo);
+            });
+    }
+
+    function prepareForErp(data) {
+        // Create a deep copy
+        var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.customer = transformed_data.customer[0].value;
+        transformed_data.vehicle = transformed_data.vehicle[0].value;
+        transformed_data.transaction_date = moment(transformed_data.transaction_date).format("YYYY-MM-DD");
+        transformed_data.remarks = transformed_data.delivered_remarks + '\n' + transformed_data.received_remarks;
+        return transformed_data;
+    }
 }
 
 

@@ -10,23 +10,23 @@
 
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Shortage</span>
-                <input type="number" step="any" placeholder="Shortage">
+                <input type="number" step="any" placeholder="Shortage" ng-model="grc.user_input.short">
             </label>
 
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Excess</span>
-                <input type="number" step="any" placeholder="Excess">
+                <input type="number" step="any" placeholder="Excess" ng-model="grc.user_input.excess">
             </label>
 
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Residue</span>
-                <input type="number" step="any" placeholder="Residue">
+                <input type="number" step="any" placeholder="Residue" ng-model="grc.user_input.residue">
             </label>
 
             <!-- Customer Document Id -->
             <label class="item item-input item-stacked-label">
                 <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
-                <input name="customer_document" type="text" ng-model="new_good_receipt.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
+                <input name="customer_document" type="text" ng-model="grc.user_input.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
             </label>
 
         </div>

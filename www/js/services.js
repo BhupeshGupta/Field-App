@@ -15,11 +15,11 @@ receipt_module.config(function ($httpProvider) {
             request: function (config) {
                 if (config.loading && config.loading == true)
                     $rootScope.$broadcast('loading:show');
-                return config
+                return config;
             },
             response: function (response) {
                 $rootScope.$broadcast('loading:hide');
-                return response
+                return response;
             },
             requestError: function (err) {
                 $rootScope.$broadcast('loading:hide');
@@ -29,8 +29,8 @@ receipt_module.config(function ($httpProvider) {
                 $rootScope.$broadcast('loading:hide');
                 return $q.reject(err);
             }
-        }
-    })
+        };
+    });
 });
 receipt_module.run(function ($rootScope, $ionicLoading) {
     $rootScope.$on('loading:show', function () {
@@ -39,12 +39,12 @@ receipt_module.run(function ($rootScope, $ionicLoading) {
             animation: 'fade-in',
             showBackdrop: true,
             delay: 1000
-        })
-    })
+        });
+    });
 
     $rootScope.$on('loading:hide', function () {
-        $ionicLoading.hide()
-    })
+        $ionicLoading.hide();
+    });
 });
 
 // UA & Error Interceptor
@@ -67,7 +67,7 @@ receipt_module.config(function ($httpProvider) {
                 //                    config.timeout = 0;
                 //                }
 
-                return config
+                return config;
             },
             responseError: function (rejection) {
                 var stat = rejection.status;
@@ -101,7 +101,7 @@ receipt_module.config(function ($httpProvider) {
                 else if (stat == 504)
                     msg = 'Server is Offline';
 
-                if (msg != '')
+                if (msg !== '')
                     $ionicPopup.alert({
                         title: 'Error',
                         template: msg
@@ -109,8 +109,8 @@ receipt_module.config(function ($httpProvider) {
 
                 return $q.reject(rejection);
             }
-        }
-    })
+        };
+    });
 });
 
 
@@ -159,7 +159,7 @@ receipt_module.factory('SettingsFactory', [function () {
         getReviewServerBaseUrl: function () {
             return 'http://192.168.31.124:1337';
         }
-    }
+    };
 }]);
 
 
@@ -207,7 +207,7 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
                 }).catch(function () {
                     defferd.reject();
                     $rootScope.$broadcast('user:logout');
-                })
+                });
             } else
                 defferd.resolve();
 
@@ -247,7 +247,8 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
             return $http.post(server + '/api/resource/' + documentType + '/',
                 $.param({
                     data: JSON.stringify(document),
-                    sid: SettingsFactory.getSid()
+                    sid: SettingsFactory.getSid(),
+                    "client": "app"
                 })
             );
         }

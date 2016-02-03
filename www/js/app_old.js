@@ -78,32 +78,17 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
-        .state('root.good_receipt.acknowledgement', {
-            url: '/acknowledgement',
+        .state('root.good_receipt.step9', {
+            url: '/step9',
             views: {
                 'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/acknowledgement.html'
+                    templateUrl: 'components/good_receipt/forms/step_9.html'
                 }
             }
         })
-        .state('root.good_receipt.take_signature', {
-            url: '/take_signature',
-            views: {
-                'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/take_signature.html',
-                    controller: 'take_signature_controller'
-                }
-            }
-        })
-        .state('root.good_receipt.take_picture_location', {
-            url: '/take_signature',
-            views: {
-                'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/take_picture_location.html'
-                }
-            }
-        })
-        .state('root.payment_receipt', {
+
+
+    .state('root.payment_receipt', {
             url: '/payment_receipt',
             abstract: true,
             templateUrl: 'components/payment_receipt/payment_receipt.html',

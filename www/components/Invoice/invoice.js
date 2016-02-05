@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('InvoiceFlowController', function ($ionicModal, $scope, $state, $cordovaBarcodeScanner, getInvoiceMetaData, $cordovaCamera, $q) {
+receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionicModal, $scope, $state, $cordovaBarcodeScanner, getInvoiceMetaData, $cordovaCamera, $q, FileFactory) {
 
     //    $scope.invoiceScanCode = function () {
     //        $state.go('invoice.scan');
@@ -57,95 +57,83 @@ receipt_module.controller('InvoiceFlowController', function ($ionicModal, $scope
         );
     };
 
+
+
     $scope.showImage = function (index) {
-        $scope.selectedImage = $scope.docs[index];
-        $scope.selectedImage.index = index;
+        var object = $scope.docs[index];
+        if (object.action == "addNew") {
+
+            $scope.data = {};
+
+            var myPopup = $ionicPopup.show({
+                templateUrl: 'templates/invoice-selection-popup.html',
+                title: 'Select Documrnt Type',
+                scope: $scope,
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        type: 'button-default',
+                    },
+                    {
+                        text: '<b>Capture</b>',
+                        type: 'button-positive',
+                        onTap: function (e) {
+                            if (!$scope.data.response) {
+                                e.preventDefault();
+                            } else {
+                                return $scope.data.response;
+                            }
+                        }
+                    }
+                ]
+            });
+            myPopup.then(function (label) {
+                if (!label) return;
+                $scope.takePic1().then(function (image) {
+                    console.log(JSON.stringify(image));
+                    $scope.docs.splice(-1, 0, {
+                        label: label,
+                        src: 'cdv' + image.dir + image.file
+                    });
+                });
+            });
+
+
+
+        } else if (object.action == "addSelf") {
+            $scope.takePic1().then(function (image) {
+                $scope.docs.splice(object.index, 1, {
+                    label: object.label,
+                    src: image.dir + image.file
+                });
+            });
+
+        } else {
+            $scope.selectedImage = $scope.docs[index];
+            $scope.selectedImage.index = index;
+        }
     };
 
     $scope.docs = [
         {
             label: "Material Bill",
-            src: "img/ionic.png"
+            src: "",
+            action: "addSelf"
         },
         {
             label: "Consignment Note",
             src: "img/fc19.jpg"
         },
         {
-            label: "Excise Invoice",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Consignment Note",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Material Bill",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Excise Invoice",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Consignment Note",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Material Bill",
-            src: "img/ionic.png"
-        },
-        {
-            label: "Excise Invoice",
-            src: "img/ionic.png"
+            label: "Add",
+            src: "img/icon-plus.png",
+            action: "addNew"
         }
     ];
 
     $scope.selectedImage = $scope.docs[0];
     $scope.selectedImage.index = 0;
 
-    var options = {
-        quality: 75,
-        destinationType: Camera.DestinationType.DATA_URL,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        allowEdit: false,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 300,
-        targetHeight: 300,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false
-    };
-
-    $scope.takePic1 = function () {
-        return $q(function (resolve, reject) {
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                $scope.pic1 = "data:image/jpeg;base64," + imageData;
-                resolve();
-            }, function (err) {
-                reject();
-            });
-        });
-    };
-
-    $scope.takePic2 = function () {
-        return $q(function (resolve, reject) {
-            $cordovaCamera.getPicture(options).then(function (imageData) {
-                $scope.pic2 = "data:image/jpeg;base64," + imageData;
-                resolve();
-            }, function (err) {
-                reject();
-            });
-        });
-    };
-
-
-    $scope.takePicture = function () {
-        $scope.takePic1().then(function () {
-            $scope.takePic2().then(function () {
-                $state.go('root.invoice.invoicereview');
-            });
-        });
-    };
 
     $scope.showImagesInModel = function () {
         $scope.showModal('templates/image-zoom-view.html');
@@ -171,5 +159,34 @@ receipt_module.controller('InvoiceFlowController', function ($ionicModal, $scope
         $scope.selectedImage = $scope.docs[index];
         $scope.selectedImage.index = 0;
     };
+    $scope.captureAndReview = function () {
+        $state.go('root.invoice.step_3');
+    };
+
+    $scope.takePic1 = function () {
+        var options = {
+            quality: 100,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 1960,
+            targetHeight: 2560,
+            cameraDirection: Camera.Direction.FRONT,
+            saveToPhotoAlbum: false,
+            correctOrientation: true
+        };
+
+        return $cordovaCamera.getPicture(options).then(
+            function (imageURI) {
+                var image_name = imageURI.substring(imageURI.lastIndexOf('/') + 1);
+                return FileFactory.moveFileFromCameraToExtrenalDir(image_name);
+            }).then(
+            function (fileInfo) {
+                $cordovaCamera.cleanup();
+                return $q.when(fileInfo);
+            });
+    };
+
 
 });

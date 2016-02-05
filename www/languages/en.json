@@ -76,6 +76,7 @@
     "DATA": "Data",
     "ERRORS": "Errors",
     "CHECK_FOR_UPDATE": "Check For Update",
-    "UPDATE": "Update"
+    "UPDATE": "Update",
+    "CONSINGMENT_NOTE": "Consigment Note"
 
 }

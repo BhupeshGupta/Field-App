@@ -88,7 +88,7 @@ receipt_module.config(function ($httpProvider) {
                 else if (stat == 403) {
                     msg = 'Login Required';
                     $timeout(function () {
-                        $rootScope.$broadcast('user:logout')
+                        $rootScope.$broadcast('user:logout');
                     }, 0);
                 } else if (stat == 500)
                     msg = 'Internal Server Error';

@@ -42,3 +42,44 @@ label.item.valid-lr {
     width: 97%;
     border: 1px solid black;
 }
+.glass {
+    mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, #ffffff 75%, #ffffff 75%, rgba(255, 255, 255, 0.2) 100%);
+}
+div .glass {
+    background: linear-gradient(90deg, rgba(255, 255, 255, .4) 0%, rgba(255, 255, 255, .5) 25%, rgba(255, 255, 255, .5) 75%, rgba(255, 255, 255, .4) 100%);
+}
+div .glass button {
+    color: rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
+    text-decoration: none;
+}
+div .glass button:active {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0);
+    color: rgba(0, 0, 0, 0.7);
+}
+.image-list-thumb {
+    padding: 2px 2px 2px 2px;
+    height: 150px;
+}
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+.transparent {
+    background: rgba(0, 0, 0, 0.7);
+}
+.slider {
+    width: 100%;
+    height: 100%;
+}
+.image {
+    width: 100%;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center, center;
+}

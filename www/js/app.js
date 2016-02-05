@@ -134,7 +134,15 @@ var receipt_module = angular.module('starter', [
                 url: '/invoice/invoicereview',
                 views: {
                     'invoice_view': {
-                        templateUrl: 'components/invoice/forms/invoice_upload.html'
+                        templateUrl: 'components/invoice/forms/invoice_review.html'
+                    }
+                }
+            })
+            .state('root.invoice.step3', {
+                url: '/invoice/step3',
+                views: {
+                    'invoice_view': {
+                        templateUrl: 'components/invoice/forms/step_3.html'
                     }
                 }
             })

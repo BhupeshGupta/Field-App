@@ -61,7 +61,6 @@ div .glass button:active {
 }
 .image-list-thumb {
     padding: 2px 2px 2px 2px;
-    height: 150px;
 }
 .image-modal {
     width: 100% !important;
@@ -82,4 +81,9 @@ div .glass button:active {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center, center;
+}
+.doc-thumb-border-mask {
+    -webkit-mask: url(img/icon-plus.png) 0 0;
+    -webkit-mask-size: 23vw 13.5vh;
+    -webkit-mask-repeat: no-repeat;
 }

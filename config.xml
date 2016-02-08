@@ -44,6 +44,8 @@
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png"/>
     <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external"/>
-    <access origin="cdvfile://*"/>
+    <access origin="cdvfile:*"/>
+    <allow-navigation href="cdvfile:*"/>
+    <allow-intent href="cdvfile:*"/>
   </platform>
 </widget>

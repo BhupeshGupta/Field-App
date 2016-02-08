@@ -178,7 +178,7 @@ receipt_module.value('login_sid', {
 // Angular Translate
 receipt_module.config(function ($translateProvider) {
     $translateProvider.useStaticFilesLoader({
-        prefix: '/languages/',
+        prefix: 'languages/',
         suffix: '.json'
     });
 

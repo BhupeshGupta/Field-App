@@ -10,30 +10,31 @@
             padding-left: 10px
             -webkit-overflow-scrolling: touch;
             -webkit-tap-highlight-color:rgba(0,0,0,0);
+            width: 100%;
+            padding-top: 3.5vh
             ">
 
                 <div ng-repeat="doc in docs" style="
                 display: inline-block;
-                background-color: #9697a3;
                 vertical-align: middle;
-                margin: 0 2px;
-                width: 22vw;
-                height: 19vh;
                 text-align: center;
+                width: 33%;
+                vertical-align: top;
                 ">
 
-                    <img style="
+                    <img class="doc-thumb-border-mask image-list-thumb" style="
                     padding-left: 10px;
                     padding-left: 10px;
-                    max-height: 13vh;
-                    " ng-src="{{doc.src}}" ng-click="showImage($index)" class="image-list-thumb" />
+                    width: 23vw;
+                    top: 0px;
+                    " ng-src="{{doc.src}}" ng-click="showImage($index)" />
 
                     <div style="
                     font-family: 'Helvetica Neue', Roboto, Helvetica, sans-serif;
-                    font-size: 11px;
-                    line-height: 14px;
+                    font-size: 13px;
+                    line-height: 16px;
                     padding: 0 0.5em;
-                    color: #fff;
+                    color: #4E4E4E;
                     margin: 0;
                     word-wrap: break-word;
                     white-space: normal;

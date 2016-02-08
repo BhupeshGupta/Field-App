@@ -93,7 +93,7 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
                     console.log(JSON.stringify(image));
                     $scope.docs.splice(-1, 0, {
                         label: label,
-                        src: 'cdv' + image.dir + image.file
+                        src: image.dir + image.file
                     });
                 });
             });
@@ -117,7 +117,7 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
     $scope.docs = [
         {
             label: "Material Bill",
-            src: "",
+            src: "img/icon-plus.png",
             action: "addSelf"
         },
         {

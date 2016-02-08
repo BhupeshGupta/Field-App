@@ -25,7 +25,6 @@
       "locator": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-toast"
     },
-    "cordova-plugin-file",
     "cordova-plugin-geolocation",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",

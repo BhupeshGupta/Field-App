@@ -16,17 +16,18 @@
 
                 <div ng-repeat="doc in docs" style="
                 display: inline-block;
-                vertical-align: middle;
-                text-align: center;
-                width: 33%;
                 vertical-align: top;
+                text-align: center;
+                width: 28.5%;
                 ">
 
-                    <img class="doc-thumb-border-mask image-list-thumb" style="
+                    <img class="image-list-thumb" style="
                     padding-left: 10px;
                     padding-left: 10px;
                     width: 23vw;
-                    top: 0px;
+                    height: 13.5vh;
+                    object-fit: cover;
+                    vertical-align: top;
                     " ng-src="{{doc.src}}" ng-click="showImage($index)" />
 
                     <div style="

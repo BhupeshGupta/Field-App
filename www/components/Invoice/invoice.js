@@ -120,10 +120,10 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
             src: "img/icon-plus.png",
             action: "addSelf"
         },
-        {
-            label: "Consignment Note",
-            src: "img/fc19.jpg"
-        },
+//        {
+//            label: "Consignment Note",
+//            src: "img/fc19.jpg"
+//        },
         {
             label: "Add",
             src: "img/icon-plus.png",

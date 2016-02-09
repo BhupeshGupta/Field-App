@@ -21,11 +21,9 @@
                 width: 28.5%;
                 ">
 
-                    <img class="image-list-thumb" style="
-                    padding-left: 10px;
-                    padding-left: 10px;
-                    width: 23vw;
-                    height: 13.5vh;
+                    <img class="image-list-thumb doc-thumb-border-mask" style="
+                    width: 21.5vw;
+                    height: 21.5vw;
                     object-fit: cover;
                     vertical-align: top;
                     " ng-src="{{doc.src}}" ng-click="showImage($index)" />
@@ -65,7 +63,7 @@
         </div>
         <div class="bar bar-footer">
             <button class="col col-20 button button-right button-balanced">Back</button>
-            <button class="col col-20 col-offset-80 button button-right button-balanced" ng-click="captureAndReview()">Next</button>
+            <button class="col col-20 col-offset-80 button button-right button-balanced" ng-click="computeMissingDocsAndGo()">Next</button>
         </div>
     </ion-content>
 

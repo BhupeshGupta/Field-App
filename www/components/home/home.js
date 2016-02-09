@@ -16,7 +16,7 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
     };
 
     $scope.invoiceFlow = function () {
-        $state.go('root.invoice.step3');
+        $state.go('root.invoice.step1');
     };
 
     $scope.chequeFlow = function () {

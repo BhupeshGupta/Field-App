@@ -1,6 +1,6 @@
 'use strict';
 
-receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionicModal, $scope, $state, $cordovaBarcodeScanner, getInvoiceMetaData, $cordovaCamera, $q, FileFactory) {
+receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionicModal, $scope, $state, $cordovaBarcodeScanner, getInvoiceMetaData, $cordovaCamera, $q, FileFactory, InvoiceDocumentCaptureService) {
 
     //    $scope.invoiceScanCode = function () {
     //        $state.go('invoice.scan');
@@ -16,7 +16,7 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
         $cordovaBarcodeScanner.scan().then(function (code) {
             alert(code.text);
             $scope.getMetedata(JSON.parse(code.text));
-        }, function (error) {
+        }, function () {
             alert("Unable to scan code. Proceed Manually");
         });
     };
@@ -47,9 +47,8 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
 
                 console.log(JSON.stringify($scope.metadata_list));
 
-                $state.go('root.invoice.invoicereview');
+                $state.go('root.invoice.step2');
 
-                //$scope.takePicture();
             },
             function (error) {
                 alert(error);
@@ -90,11 +89,12 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
             myPopup.then(function (label) {
                 if (!label) return;
                 $scope.takePic1().then(function (image) {
-                    console.log(JSON.stringify(image));
-                    $scope.docs.splice(-1, 0, {
+
+                    InvoiceDocumentCaptureService.addDocument({
                         label: label,
                         src: image.dir + image.file
                     });
+
                 });
             });
 
@@ -102,10 +102,10 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
 
         } else if (object.action == "addSelf") {
             $scope.takePic1().then(function (image) {
-                $scope.docs.splice(object.index, 1, {
-                    label: object.label,
-                    src: image.dir + image.file
-                });
+                InvoiceDocumentCaptureService.updateDocument({
+                    src: image.dir + image.file,
+                    action: ''
+                }, index);
             });
 
         } else {
@@ -117,6 +117,29 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
     $scope.docs = [
         {
             label: "Material Bill",
+            mandatory: true,
+            hasValue: false,
+            src: "img/icon-plus.png",
+            action: "addSelf"
+        },
+        {
+            label: "Excise Invoice",
+            mandatory: true,
+            hasValue: false,
+            src: "img/icon-plus.png",
+            action: "addSelf"
+        },
+        {
+            label: "Consignment Note",
+            mandatory: true,
+            hasValue: false,
+            src: "img/icon-plus.png",
+            action: "addSelf"
+        },
+        {
+            label: "Debit Note",
+            mandatory: true,
+            hasValue: false,
             src: "img/icon-plus.png",
             action: "addSelf"
         },
@@ -126,10 +149,13 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
 //        },
         {
             label: "Add",
+            mandatory: false,
             src: "img/icon-plus.png",
             action: "addNew"
         }
     ];
+
+    InvoiceDocumentCaptureService.setList($scope.docs);
 
     $scope.selectedImage = $scope.docs[0];
     $scope.selectedImage.index = 0;
@@ -155,12 +181,22 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
 
     $scope.deleteImage = function () {
         var index = $scope.selectedImage.index;
-        $scope.docs.splice(index, 1);
+        InvoiceDocumentCaptureService.deleteDocument(index);
         $scope.selectedImage = $scope.docs[index];
         $scope.selectedImage.index = 0;
     };
+
     $scope.captureAndReview = function () {
         $state.go('root.invoice.step_3');
+    };
+
+    $scope.computeMissingDocsAndGo = function () {
+        $scope.missingDocs = [];
+        angular.forEach($scope.docs, function (doc) {
+            if (doc.mandatory && !doc.hasValue)
+                $scope.missingDocs.push(doc);
+        });
+        $state.go('root.invoice.step4');
     };
 
     $scope.takePic1 = function () {
@@ -187,6 +223,5 @@ receipt_module.controller('InvoiceFlowController', function ($ionicPopup, $ionic
                 return $q.when(fileInfo);
             });
     };
-
 
 });

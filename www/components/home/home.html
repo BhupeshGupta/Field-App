@@ -7,6 +7,7 @@
 
                 <button class="button" style="background-color: rgba(255,0,255, 0);" ng-click="goodsReceiptFlow()" ng-show="isAuthorized('Goods Receipt')">
                     <img src="img/goods.png" width="100%">
+                    <br> {{ 'GOODS_RECEIPT' | translate }}
                 </button>
 
             </div>
@@ -15,6 +16,7 @@
 
                 <button class="button" style="background-color: rgba(255,0,255, 0);" ng-click="paymentReceiptFlow()" ng-show="isAuthorized('Payment Receipt')">
                     <img src="img/payment.png" width="100%">
+                    <br> {{ 'PAYMENT_RECEIPT' | translate }}
                 </button>
             </div>
 
@@ -24,12 +26,14 @@
             <div class="col col-50" align="left">
                 <button class="button" style="background-color: rgba(255,0,255, 0);" ng-click="cashFlow()" ng-show="isAuthorized('Journal Voucher')">
                     <img src="img/cash.png" width="100%">
+                    <br> {{'CASH' | translate }}
                 </button>
             </div>
 
             <div class="col col-50" align="right">
                 <button class="button" style="background-color: rgba(255,0,255, 0);" ng-click="invoiceFlow()" ng-show="isAuthorized('Indent Invoice')">
                     <img src="img/invoice.png" width="100%">
+                    <br>{{ 'INVOICE' | translate }}
                 </button>
             </div>
 
@@ -40,6 +44,8 @@
             <div class="col col-50" align="left">
                 <button class="button" style="background-color: rgba(255,0,255, 0);" ng-click="chequeFlow()" ng-show="isAuthorized('Journal Voucher')">
                     <img src="img/cheque.png" width="100%">
+                    <br> {{ 'CHEQUE' | translate }}
+
                 </button>
             </div>
 

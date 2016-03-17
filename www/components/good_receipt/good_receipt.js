@@ -154,7 +154,7 @@ function goodsReceiptController(
             })
             .catch(function (error) {
                 console.log(error);
-                alert('lol!!');
+                alert('GR: Upload of images failed.');
             });
     }
 

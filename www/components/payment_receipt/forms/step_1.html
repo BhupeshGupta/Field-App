@@ -1,5 +1,5 @@
 <ion-view title="{{'PAYMENT_RECEIPT_INFORMATION' | translate}}">
-    <ion-content class="module_wrap form_wrap" ng-controller="ValController">
+    <ion-content class="module_wrap form_wrap">
         <div class="main">
             <div class="main_form_wrap payment_rec">
                 <form name="PR_Form" novalidate>
@@ -26,7 +26,7 @@
                             <!--  Quantity  -->
                             <ion-item class="item item-input item-stacked-label">
                                 <label><span class="input-label">{{'QUANTITY' | translate}}</span></label>
-                                <input type="text" placeholder="{{'QUANTITY' | translate}}" ng-model="prc.user_input.customer" required>
+                                <input type="number" placeholder="{{'QUANTITY' | translate}}" ng-model="prc.user_input.qty" required>
                             </ion-item>
 
                             <!--  Amount Per Item  -->
@@ -44,7 +44,7 @@
                             <!-- Item  -->
                             <ion-item class="item item-input item-stacked-label">
                                 <label><span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span></label>
-                                <input type="text" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" ng-model="prc.user_input.customer" required>
+                                <input type="text" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" ng-model="prc.user_input.amount_per_item" required>
                             </ion-item>
 
 

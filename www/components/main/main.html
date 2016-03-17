@@ -42,22 +42,27 @@
                     </div>
                     <div ng-show="location_lock == 1">
                         <i class="ion-ios-location-outline"></i>
-                        <span class="list_dtl">GPS Retrying</span>
+                        <span class="list_dtl">GPS Locked</span>
                     </div>
                     <div ng-show="location_lock == 2">
                         <i class="ion-ios-location-outline"></i>
                         <span class="list_dtl">GPS Retrying</span>
                     </div>
                 </ion-item>
-                <ion-item ng-init="languageGroupShown=false;" ng-click="languageGroupShown=!languageGroupShown">
-                    <i class="icon accordian_icon" ng-class="languageGroupShown ? 'ion-minus' : 'ion-plus'"></i>
-                    <i class="ion-android-globe "></i><span class="list_dtl">{{'SELECT_LANGUAGE' | translate}}</span>
+
+
+                <ion-item ng-init="languageGroupShown=false;">
+                    <span on-tap="languageGroupShown=!languageGroupShown">
+                        <i class="icon accordian_icon" ng-class="languageGroupShown ? 'ion-minus' : 'ion-plus'"></i>
+                        <i class="ion-android-globe "></i><span class="list_dtl">{{'SELECT_LANGUAGE' | translate}}</span>
+                    </span>
+
                     <div ng-show="languageGroupShown">
                         <ion-item ng-click="switchLanguage('en')" class="item-accordion">
-                            <span class="s_sub_list"><input type="radio" name="lang" checked="checked"  /><label>English</label></span>
+                            <span class="s_sub_list"><input type="radio" name="lang" ng-checked="mc.selectedLangage == 'en'"/><label>English</label></span>
                         </ion-item>
                         <ion-item ng-click="switchLanguage('hi')" class="item-accordion">
-                            <span class="s_sub_list"><input type="radio" name="lang"/><label>हिन्दी</label></span>
+                            <span class="s_sub_list"><input type="radio" name="lang" ng-checked="mc.selectedLangage == 'hi'"/><label>हिन्दी</label></span>
                         </ion-item>
                     </div>
                 </ion-item>
@@ -73,7 +78,7 @@
                 </ion-item>
 
                 <ion-item menu-close href="javascript:void(0)">
-                    <span class="list_dtl">{{'VERSION_v1' | translate}}</span>
+                    <span class="list_dtl">{{'VERSION' | translate}}: 1.1</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/playlists">
                     <span class="list_dtl"> {{'CHECK_FOR_UPDATE' | translate}}</span>
@@ -86,25 +91,3 @@
     </ion-side-menu>
 
 </ion-side-menus>
-<script type="text/javascript">
-    function customRadio(radioName) {
-        var radioButton = $('input[name="' + radioName + '"]');
-        $(radioButton).each(function () {
-            $(this).wrap("<span class='custom-radio'></span>");
-            if ($(this).is(':checked')) {
-                $(this).parent().addClass("selected");
-            }
-        });
-        $(radioButton).click(function () {
-            if ($(this).is(':checked')) {
-                $(this).parent().addClass("selected");
-            }
-            $(radioButton).not(this).each(function () {
-                $(this).parent().removeClass("selected");
-            });
-        });
-    }
-    $(document).ready(function () {
-        customRadio("lang");
-    })
-</script>

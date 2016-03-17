@@ -79,11 +79,11 @@
     "UPDATE": "Update",
     "CONSINGMENT_NOTE": "Consigment Note",
     "DATE": "Date",
-    "SELECT_LANGUAGE":"Select Language",
+    "SELECT_LANGUAGE": "Select Language",
     "GPS_LOCKING": "GPS Locking",
-    "DEVELOPER_OPTIONS":"Developer options",
+    "DEVELOPER_OPTIONS": "Developer options",
     "CUSTOMER_DOCUMENT_ID": "Customer Document Id",
-    "USERNAME_IS_REQUIRED":     "User Name is Required",
+    "USERNAME_IS_REQUIRED": "User Name is Required",
     "VAHICLE_NO_IS_REQUIRED": "Vahical Number is Required",
     "VERSION_v1": "Version (V1)",
     "CLICK_HERE_TO_DELIVERED_REPORT":"Click Here to Delivered Report ",
@@ -91,6 +91,7 @@
     "QUANTITY":"Quantity",
     "SHORTAGE": "Shortage",
     "EXCESS": " Excess ",
-    "RESIDUE":"Residue"
+    "RESIDUE": "Residue",
+    "IS_REQUIRED": "is Requried"
 
 }

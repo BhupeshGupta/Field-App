@@ -1,6 +1,6 @@
 {
-    "name": "field-app",
-    "app_id": "",
+    "name": "Field Report",
+    "app_id": "field-app",
     "proxies": [
         {
           "path": "/api",

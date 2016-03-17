@@ -1,5 +1,4 @@
 <ion-side-menus enable-menu-with-back-views="true">
-
     <ion-side-menu-content edge-drag-threshold="true" drag-content="true">
 
         <ion-nav-bar class="bar-positive">
@@ -22,74 +21,90 @@
         <ion-nav-view></ion-nav-view>
 
     </ion-side-menu-content>
-
     <ion-side-menu side="right">
         <ion-header-bar class="bar-positive">
             <h1 class="title">Menu</h1>
         </ion-header-bar>
-        <ion-content>
+        <ion-content class="mainsidebar ion_outer">
             <ion-list>
                 <ion-item menu-close>
-                    <div class="item item-avatar">
-                        <img ng-src="{{ startup.user.image }}">
-                        <h2>{{ startup.user.fullname }}</h2>
+                    <div class="item item-avatar admin_block">
+                        <img src="../../img/user.png" alt="" />
+                        <!--<img ng-src="{{ startup.user.image }}">-->
+                        <h2>Administrator</h2>
                         <p ng-click="logout()">Logout</p>
                     </div>
                 </ion-item>
-
                 <ion-item menu-close>
                     <div ng-show="location_lock == 0">
-                        <i class="ion-android-locate"></i><span style="padding-left: 7%">GPS Locking</span>
+                        <i class="ion-ios-location-outline"></i>
+                        <span class="list_dtl">{{'GPS_LOCKING' | translate}}</span>
                     </div>
                     <div ng-show="location_lock == 1">
-                        <i class="ion-android-pin"></i><span style="padding-left: 7%">GPS Locked</span>
+                        <i class="ion-ios-location-outline"></i>
+                        <span class="list_dtl">GPS Retrying</span>
                     </div>
                     <div ng-show="location_lock == 2">
-                        <i class="ion-ios-close-outline"></i><span style="padding-left: 7%">GPS Retrying</span>
+                        <i class="ion-ios-location-outline"></i>
+                        <span class="list_dtl">GPS Retrying</span>
                     </div>
                 </ion-item>
-                <br/>
-
-                <div class="item item-divider">
-                    Select Language
-                </div>
-                <ion-item menu-close ng-click="switchLanguage('en')">
-                    English
-                </ion-item>
-                <ion-item menu-close ng-click="switchLanguage('hi')">
-                    हिन्दी
-                </ion-item>
-                <br/>
-
-                <div class="item item-divider">
-                    {{'UPLOAD' | translate}} (0)
-                </div>
-                <ion-item menu-close href="#/app/browse">
-                    {{'UPLOAD' | translate}} {{'DATA' | translate }}
-                </ion-item>
-                <br/>
-
-                <ion-item menu-close href="#/app/playlists">
-                    {{'UPLOAD' | translate}} {{'ERRORS' | translate}}
-                </ion-item>
-                <ion-item menu-close href="#/db">
-                    Show Database
+                <ion-item ng-init="languageGroupShown=false;" ng-click="languageGroupShown=!languageGroupShown">
+                    <i class="icon accordian_icon" ng-class="languageGroupShown ? 'ion-minus' : 'ion-plus'"></i>
+                    <i class="ion-android-globe "></i><span class="list_dtl">{{'SELECT_LANGUAGE' | translate}}</span>
+                    <div ng-show="languageGroupShown">
+                        <ion-item ng-click="switchLanguage('en')" class="item-accordion">
+                            <span class="s_sub_list"><input type="radio" name="lang" checked="checked"  /><label>English</label></span>
+                        </ion-item>
+                        <ion-item ng-click="switchLanguage('hi')" class="item-accordion">
+                            <span class="s_sub_list"><input type="radio" name="lang"/><label>हिन्दी</label></span>
+                        </ion-item>
+                    </div>
                 </ion-item>
                 <ion-item menu-close ng-click="open_developer_pane()">
-                    Developer Options
-                </ion-item>
-                <br/>
-                <div class="item item-divider">
-                    Version (v1)
-                </div>
-                <ion-item menu-close href="#/app/playlists">
-                    {{'CHECK_FOR_UPDATE' | translate}}
+                    <i class="ion-code "></i>
+                    <span class="list_dtl">{{'DEVELOPER_OPTIONS' | translate}}</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/playlists">
-                    {{'UPDATE' | translate}}
+                    <span class="list_dtl">{{'CHECK_FOR_UPDATE' | translate}}</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/playlists">
+                    <span class="list_dtl">{{'UPDATE' | translate}}</span>
+                </ion-item>
+
+                <ion-item menu-close href="javascript:void(0)">
+                    <span class="list_dtl">{{'VERSION_v1' | translate}}</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/playlists">
+                    <span class="list_dtl"> {{'CHECK_FOR_UPDATE' | translate}}</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/playlists">
+                    <span class="list_dtl">{{'UPDATE' | translate}}</span>
                 </ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>
 
 </ion-side-menus>
+<script type="text/javascript">
+    function customRadio(radioName) {
+        var radioButton = $('input[name="' + radioName + '"]');
+        $(radioButton).each(function () {
+            $(this).wrap("<span class='custom-radio'></span>");
+            if ($(this).is(':checked')) {
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function () {
+            if ($(this).is(':checked')) {
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function () {
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+    $(document).ready(function () {
+        customRadio("lang");
+    })
+</script>

@@ -1,95 +1,103 @@
-<ion-view>
-
-    <ion-header-bar class="bar bar-subheader bar-stable">
-        <h2 class="title">{{'REVIEW' | translate}}</h2>
-    </ion-header-bar>
-
-    <ion-content scroll="false">
-        <div id="review_template">
-            <div class="row">
-                <div class="col col-50">
-                    Voucher No. {{ grc.user_input.goods_receipt_number }}
+<ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
+    <ion-content scroll="false" class="module_wrap report_module">
+        <div class="main">
+            <div class="report_table" id="review_template">
+                <div class="item_ws">
+                    <h2 class="title">{{'REVIEW' | translate}}</h2>
                 </div>
-                <div class="col col-50">
-                    Date: {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}
-                </div>
-            </div>
-
-            <div class="row">
-                Customer: {{ grc.user_input.customer[0].value }}
-            </div>
-
-            <div class="row">
-                Vehicle: {{ grc.user_input.vehicle[0].value }}
-            </div>
-
-            <table>
-                <thead>
-                    <th>Item</th>
-                    <th>Filled Cyl.</th>
-                    <th>Empty Cyl.</th>
-                    <th>Txn Type.</th>
-                </thead>
-                <tbody>
-                    <tr ng-show="grc.user_input.item_delivered">
-                        <td>{{ grc.user_input.item_delivered }}</td>
-                        <td>
-                            <span ng-show="grc.user_input.item_delivered.indexOf('FC') > -1">
+                <ion-list>
+                    <!--  Shortage  -->
+                    <ion-item class="item item-input item-stacked-label date_field">
+                        <div class="row storage_dtl">
+                            <div class="col col-50">
+                                <p>{{'VOUCHER_ID' | translate}} {{ grc.user_input.goods_receipt_number }}</p>
+                            </div>
+                            <div class="col col-50">
+                                <p class="Text_R">{{'DATE' | translate}} : {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
+                            </div>
+                        </div>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <!-- Excess -->
+                    <ion-item class="item item-input item-stacked-label F_itemsfields">
+                        <table>
+                            <thead>
+                                <th> {{'ITEM' | translate}}</th>
+                                <th> {{'FILLED' | translate}}</th>
+                                <th> {{'EMPTY' | translate}}</th>
+                                <th>Txn Type.</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="grc.user_input.item_delivered">
+                                    <td>{{ grc.user_input.item_delivered }}</td>
+                                    <td>
+                                        <span ng-show="grc.user_input.item_delivered.indexOf('FC') > -1">
                                 {{ grc.user_input.delivered_quantity }}
                             </span>
-                        </td>
-                        <td>
-                            <span ng-show="grc.user_input.item_delivered.indexOf('EC') > -1">
+                                    </td>
+                                    <td>
+                                        <span ng-show="grc.user_input.item_delivered.indexOf('EC') > -1">
                                 {{ grc.user_input.delivered_quantity }}
                             </span>
-                        </td>
-                        <td>Delivered</td>
-                    </tr>
-                    <tr ng-show="grc.user_input.item_received">
-                        <td>{{ grc.user_input.item_received }}</td>
-                        <td>
-                            <span ng-show="grc.user_input.item_received.indexOf('FC') > -1">
+                                    </td>
+                                    <td>Delivered</td>
+                                </tr>
+                                <tr ng-show="grc.user_input.item_received">
+                                    <td>{{ grc.user_input.item_received }}</td>
+                                    <td>
+                                        <span ng-show="grc.user_input.item_received.indexOf('FC') > -1">
                                 {{ grc.user_input.received_quantity }}
                             </span>
-                        </td>
-                        <td>
-                            <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
+                                    </td>
+                                    <td>
+                                        <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
                                 {{ grc.user_input.received_quantity }}
                             </span>
-                        </td>
-                        <td>Reveived</td>
-                    </tr>
-                </tbody>
-            </table>
+                                    </td>
+                                    <td>Reveived</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ion-item>
+                    <ion-item class="item item-input item-stacked-label t_itemsfields">
+                        <table>
+                            <tbody>
+                                <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
+                                    <th>Short</th>
+                                    <th>Residue</th>
+                                    <th>Excess</th>
+                                </tr>
+                                <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
+                                    <td>{{ grc.user_input.short }}</td>
+                                    <td>{{ grc.user_input.residue }}</td>
 
-            <table>
-                <tbody>
-                    <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
-                        <td>Short</td>
-                        <td>Residue</td>
-                        <td>Excess</td>
-                    </tr>
-                    <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
-                        <td>{{ grc.user_input.short }}</td>
-                        <td>{{ grc.user_input.residue }}</td>
-                        <td>{{ grc.user_input.excess }}</td>
-                    </tr>
-                    <tr ng-show="grc.user_input.customer_document_id">
-                        <td>Customer Doc Id</td>
-                        <td colspan="2">{{ grc.user_input.customer_document_id }}</td>
-                    </tr>
-                    <tr ng-show="grc.user_input.delivered_remarks || grc.user_input.received_remarks">
-                        <td colspan="3">Remarks: {{ grc.user_input.delivered_remarks }} {{ grc.user_input.received_remarks }}</td>
-                    </tr>
-                </tbody>
-            </table>
+                                    <td>{{ grc.user_input.excess }}</td>
+                                </tr>
+                                <tr ng-show="grc.user_input.customer_document_id">
+                                    <td>Customer Doc Id</td>
+                                    <td colspan="2">{{ grc.user_input.customer_document_id }}</td>
+                                </tr>
+                                <tr ng-show="grc.user_input.delivered_remarks || grc.user_input.received_remarks">
+                                    <td colspan="3">Remarks: {{ grc.user_input.delivered_remarks }} {{ grc.user_input.received_remarks }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ion-item>
 
+
+                </ion-list>
+            </div>
+            <div class="btnnext_main">
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="btn-next" style="padding: 0 30px;" ng-click="clearSignaturePad()">{{'CLEAR' | translate}}</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="btn-next" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </ion-content>
-
-    <ion-footer-bar class="bar-light">
-        <button class="button button-positive" style="padding: 0 30px;" ng-click="clearSignaturePad()">{{'CLEAR' | translate}}</button>
-        <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
-    </ion-footer-bar>
-
 </ion-view>

@@ -57,7 +57,7 @@
     "CAPTURE": "Capture",
     "RETAKE": "Retake",
     "INVOICE": "Invoice",
-    "LOGIN": "Login",
+    "LOGIN": " Login",
     "EMAIL_ID": "Email ID",
     "PASSWORD": "Password",
     "SIGN_IN": "Sign In",
@@ -77,6 +77,20 @@
     "ERRORS": "Errors",
     "CHECK_FOR_UPDATE": "Check For Update",
     "UPDATE": "Update",
-    "CONSINGMENT_NOTE": "Consigment Note"
+    "CONSINGMENT_NOTE": "Consigment Note",
+    "DATE": "Date",
+    "SELECT_LANGUAGE":"Select Language",
+    "GPS_LOCKING": "GPS Locking",
+    "DEVELOPER_OPTIONS":"Developer options",
+    "CUSTOMER_DOCUMENT_ID": "Customer Document Id",
+    "USERNAME_IS_REQUIRED":     "User Name is Required",
+    "VAHICLE_NO_IS_REQUIRED": "Vahical Number is Required",
+    "VERSION_v1": "Version (V1)",
+    "CLICK_HERE_TO_DELIVERED_REPORT":"Click Here to Delivered Report ",
+    "CLICK_HERE_TO_RECIEVED_REPORT":"Click Here to Recieved Report ",
+    "QUANTITY":"Quantity",
+    "SHORTAGE": "Shortage",
+    "EXCESS": " Excess ",
+    "RESIDUE":"Residue"
 
 }

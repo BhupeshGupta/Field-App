@@ -1,37 +1,103 @@
-<ion-view>
-    <ion-header-bar class="bar bar-subheader bar-stable">
-        <h2 class="title">{{'ITEM_DELIEVERED_NAME' | translate}}</h2>
-    </ion-header-bar>
-    <ion-content>
-        <div>
-            <br>
-            <div class="row">
-                <div class="col-50" align="center">
-                    <div class="item item-divider">
-                        <h4 class="title">{{'FILLED' | translate}}</h4>
+<ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
+    <ion-content class="goods_reciepts module_wrap">
+        <div class="main">
+            <ion-list>
+
+                <!-- delivered item report start -->
+                <ion-item class="rec_active" ng-init="disabled = true; grc.devmodelshow = false; " ng-class="{arrow: grc.devmodelshow != ''} ">
+                    <div class="header-item">
+                        <div class="rec_recipet button1">
+                            <h3 ng-class="{active: grc.user_input.delivered_quantity && grc.user_input.delivered_quantity != ''}">{{'CLICK_HERE_TO_DELIVERED_REPORT' | translate}}<span class="expand"><i class="ion-ios-upload-outline"></i></span></h3>
+                        </div>
+                        <div class="row rec_txt_detail" ng-class="{sel: grc.user_input.item_delivered != ''}">
+                            <div class="col-60 h_contain">
+                                <div class="item_quant">
+                                    <label>{{'QUANTITY' | translate}} </label>
+                                    <input ng-change="grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!=''?disabled=false:disabled=true; grc.user_input.item_delivered = '' " ng-model="grc.user_input.delivered_quantity" type="number" placeholder="Enter the Quantity" required/>
+                                </div>
+                            </div>
+                            <div class="col-40 h_contain">
+                                <div class="item_img" ng-class="{active: grc.devmodelshow}">
+                                    <button ng-click="grc.devmodelshow = ! grc.devmodelshow" ng-class="{active: grc.user_input.item_delivered != ''}" ng-disabled="disabled" disabled>
+                                        <img ng-src="{{ grc.getItemDict(grc.user_input.item_delivered).img_url || 'img/blank_img.png' }}" alt="img.id">
+                                        <p ng-class="{sel: grc.user_input.item_delivered != ''}">{{ grc.getItemDict(grc.user_input.item_delivered).id }}</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <ion-list>
-                        <ion-item ng-repeat="img in grc.gr_config.filled" on-tap="grc.set_item('delivered', grc.gr_config.filled[$index], 'root.good_receipt.step3')">
-                            <img ng-src="{{img.img_url}}" alt="{{img.id}}">
-                            <h3 ng-bind="img.name"></h3>
-                        </ion-item>
-                    </ion-list>
-                </div>
-                <div class="col-50" align="center">
-                    <div class="item item-divider">
-                        <h4 class="title">{{'EMPTY' | translate}}</h4>
+                    <div class="rep_model" ng-show="grc.devmodelshow" ng-class="{sel: grc.user_input.item_delivered != ''}">
+                        <i class="top_arrow ion-android-arrow-dropdown"></i>
+                        <div class="filled_cyl_dtl cyl_dtl">
+                            <div class="cyl_items">
+                                <ion-list>
+                                    <ion-item ng-repeat="item in grc.gr_config.filled" on-tap="grc.set_item('delivered', grc.gr_config.filled[$index]);grc.devmodelshow=false" ng-class="{sel: grc.user_input.item_delivered == item.id}">
+                                        <img ng-src="{{item.img_url}}" alt="{{item.id}}">
+                                        <p ng-bind="item.name"></p>
+                                    </ion-item>
+                                </ion-list>
+                                <ion-list>
+                                    <ion-item ng-repeat="item in grc.gr_config.empty" on-tap="grc.set_item('delivered', grc.gr_config.empty[$index]);grc.devmodelshow=false" ng-class="{sel: grc.user_input.item_delivered == item.id}">
+                                        <img ng-src="{{item.img_url}}" alt="{{item.id}}">
+                                        <p ng-bind="item.name"></p>
+                                    </ion-item>
+                                </ion-list>
+                            </div>
+                        </div>
                     </div>
-                    <ion-list>
-                        <ion-item ng-repeat="img in grc.gr_config.empty" on-tap="grc.set_item('delivered', grc.gr_config.empty[$index], 'root.good_receipt.step3')">
-                            <img ng-src="{{img.img_url}}" alt="{{img.id}}">
-                            <h3 ng-bind="img.name"></h3>
-                        </ion-item>
-                    </ion-list>
-                </div>
+                </ion-item>
+                <!-- delivered item report end -->
+
+                <!-- recieved item report start -->
+                <ion-item class="rec_active" ng-init="disabled = true; grc.recmodelshow = false; enabled = true;" ng-class="{arrow: grc.repmodelshow != ''} ">
+                    <div class="header-item">
+                        <div class="rec_recipet button1">
+                            <h3 ng-class="{active: grc.user_input.received_quantity && grc.user_input.received_quantity != ''}">{{'CLICK_HERE_TO_RECIEVED_REPORT' | translate}}<span class="expand"><i class="ion-ios-download-outline"></i></span></h3>
+                        </div>
+                        <div class="row rec_txt_detail" ng-class="{sel: grc.user_input.item_received != ''}">
+                            <div class="col-60 h_contain">
+                                <div class="item_quant">
+                                    <label>{{'QUANTITY' | translate}} </label>
+                                    <input ng-change="grc.user_input.received_quantity && grc.user_input.received_quantity!=''?disabled=false:disabled=true; grc.user_input.item_received = ''  " ng-model="grc.user_input.received_quantity" type="number" placeholder="Enter the Quantity" required/>
+                                </div>
+                            </div>
+                            <div class="col-40 h_contain">
+                                <div class="item_img" ng-class="{active: grc.repmodelshow}">
+                                    <button ng-click="grc.repmodelshow = ! grc.repmodelshow" ng-class="{active: grc.user_input.item_delivered != ''}" ng-disabled="disabled" disabled>
+                                        <img ng-src="{{ grc.getItemDict(grc.user_input.item_received).img_url || 'img/blank_img.png'}}" alt="img.id">
+                                        <p ng-class="{sel: grc.user_input.item_received != ''}">{{ grc.getItemDict(grc.user_input.item_received).id }}</p>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rep_model" ng-show="grc.repmodelshow" ng-class="{sel: grc.user_input.item_delivered != ''}">
+                        <i class="top_arrow ion-android-arrow-dropdown"></i>
+                        <div class="filled_cyl_dtl cyl_dtl">
+                            <div class="cyl_items">
+                                <ion-list>
+                                    <ion-item ng-repeat="item in grc.gr_config.filled" on-tap="grc.set_item('received', grc.gr_config.filled[$index]);grc.repmodelshow=false" ng-class="{sel: grc.user_input.item_received == item.id}">
+                                        <img ng-src="{{item.img_url}}" alt="{{item.id}}">
+                                        <p ng-bind="item.name"></p>
+                                    </ion-item>
+                                </ion-list>
+                                <ion-list>
+                                    <ion-item ng-repeat="item in grc.gr_config.empty" on-tap="grc.set_item('received', grc.gr_config.empty[$index]);grc.repmodelshow=false" ng-class="{sel: grc.user_input.item_received == item.id}">
+                                        <img ng-src="{{item.img_url}}" alt="{{item.id}}">
+                                        <p ng-bind="item.name"></p>
+                                    </ion-item>
+                                </ion-list>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+                <!-- recieved item report end -->
+
+            </ion-list>
+            <div class="btnnext_main">
+                <button class="btn-next" ui-sref="root.good_receipt.step6">{{'NEXT' | translate}}</button>
             </div>
         </div>
     </ion-content>
-    <ion-footer-bar class="bar-light">
-        <button class="col col-20 col-offset-80 button button-right button-balanced" ui-sref="root.good_receipt.step4">{{'SKIP' | translate}}</button>
-    </ion-footer-bar>
 </ion-view>

@@ -110,44 +110,44 @@ angular.module('starter')
     .constant('gr_config', {
         filled: [
             {
-                img_url: 'img/fc19.jpg',
+                img_url: 'img/cyl1.png',
                 id: 'FC19',
                 name: 'FC19'
             },
             {
-                img_url: 'img/fc35.jpg',
+                img_url: 'img/cyl2.png',
                 id: 'FC35',
                 name: 'FC35'
             },
             {
-                img_url: 'img/fc475vot.jpg',
+                img_url: 'img/cyl3.png',
                 id: 'FC47.5',
                 name: 'FC47.5'
             },
             {
-                img_url: 'img/fc475lot.png',
+                img_url: 'img/cyl4.png',
                 id: 'FC47.5L',
                 name: 'FC47.5LOT'
             }
         ],
         empty: [
             {
-                img_url: 'img/ec19.jpg',
+                img_url: 'img/r_cyl1.png',
                 id: 'EC19',
                 name: 'EC19'
             },
             {
-                img_url: 'img/ec35.jpg',
+                img_url: 'img/r_cyl2.png',
                 id: 'EC35',
                 name: 'EC35'
             },
             {
-                img_url: 'img/ec475vot.jpg',
+                img_url: 'img/r_cyl3.png',
                 id: 'EC47.5',
                 name: 'EC47.5'
             },
             {
-                img_url: 'img/ec475lot.png',
+                img_url: 'img/r_cyl4.png',
                 id: 'EC47.5L',
                 name: 'EC47.5LOT'
             }

@@ -1,23 +1,233 @@
-/*
+    /*
 To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
 
-$light:                           #fff !default;
-$stable:                          #f8f8f8 !default;
-$positive:                        #387ef5 !default;
-$calm:                            #11c1f3 !default;
-$balanced:                        #33cd5f !default;
-$energized:                       #ffc900 !default;
-$assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
+$light:      #fff !default;
+$stable:     #f8f8f8 !default;
+$positive:   #387ef5 !default;
+$calm:       #11c1f3 !default;
+$balanced:   #33cd5f !default;
+$energized:  #ffc900 !default;
+$assertive:  #ef473a !default;
+$royal:       #886aea !default;
+$dark:       #444 !default
 */
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+/*============== step4 ==================*/
+
+html body .click-block-hide,
+.backdrop.visible.active {
+    display: none !important;
+}
+.form_moduals {
+    .row {
+        padding: 0;
+    }
+    .fc_dtl {
+        padding: 0px 0 10px 0;
+        background: rgba(255, 255, 255, 0.3);
+        margin-bottom: 30px;
+        &.fc_right {
+            padding-left: 2px;
+            ion-list {
+                ion-item {
+                    margin-left: 5px !important;
+                    margin-right: 15px!important;
+                }
+            }
+        }
+        &.fc_left {
+            padding-right: 2px;
+            ion-list {
+                ion-item {
+                    margin-right: 5px !important;
+                    margin-left: 15px!important;
+                }
+            }
+        }
+        .item {
+            padding: 0;
+            h4 {
+                background: #ff0000;
+                color: #fff;
+                padding: 10px 0;
+                font-size: 18px;
+                text-transform: uppercase;
+                font-family: 'Roboto', sans-serif !important;
+                letter-spacing: 1px;
+            }
+        }
+        ion-list {
+            .list {
+                padding: 0px;
+                ion-item {
+                    padding: 15px 0 0 0;
+                    margin: 0;
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.5)
+                    }
+                    &:hover h3 {
+                        background: #ff0000;
+                        color: #fff;
+                    }
+                    h3 {
+                        background: #424242;
+                        color: #fff;
+                        border-top: 1px solid #ccc;
+                        padding: 8px 10px;
+                        margin-top: 7px;
+                        font-family: 'Roboto', sans-serif !important;
+                        font-weight: 400;
+                        letter-spacing: 1px;
+                    }
+                }
+            }
+        }
+    }
+}
+.report_module {
+    .main {
+        padding: 0;
+        margin: 0;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        .report_table {
+            padding-bottom: 10px;
+            .item_ws {
+                background: red;
+                background: rgba(255, 255, 255, 0.5);
+                padding: 8px 0px;
+                h2 {
+                    color: #424242;
+                    text-align: center;
+                    font-size: 12px;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    margin: 0
+                }
+            }
+            ion-list {
+                ion-item {
+                    padding: 3px 10px!important;
+                    border: 0;
+                    .storage_dtl {
+                        border: 0;
+                        background: #fff;
+                    }
+                    table {
+                        width: 100%;
+                        background: #fff;
+                        padding: 3px 10px;
+                        tr {
+                            width: 100%;
+                            th {
+                                text-align: left;
+                                padding: 3px 5px;
+                                background: #ebebeb;
+                                font-weight: bold;
+                            }
+                            td {
+                                font-size: 12px;
+                                padding: 3px 5px;
+                            }
+                        }
+                    }
+                }
+            }
+            .btnnext_main {
+                padding: 0 10px;
+                margin-top: 10px;
+                margin-bottom: 0;
+                .btn-next {
+                    height: 35px;
+                    font-size: 16px;
+                    margin: 0 auto;
+                    width: 80%;
+                }
+            }
+        }
+    }
+    #review_template {
+        table {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            th {
+                padding: 5px 2%;
+                border: 1px solid #ccc;
+            }
+            td {
+                padding: 5px 2%;
+                border: 1px solid #ccc;
+            }
+        }
+    }
+}
+.sign_wrap {
+    margin-top: 10px;
+    .sign_canvas {
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        canvas {
+            border: 1px solid #ccc !important;
+        }
+    }
+    ion-item {
+        margin-top: 10px;
+        border: 0;
+        .btnnext_main {
+            margin: 10px 0;
+        }
+    }
+}
+
+/*================ payment reciept =============== */
+
+.main {
+    ion-item {
+        &.fc_left {
+            width: 100%;
+        }
+        .item-select {
+            padding: 10px;
+            background: none;
+        }
+        select {
+            padding: 10px;
+            background: none;
+            width: 100%;
+            border: 1px solid #7b6f70 !important;
+            border-radius: 5px;
+            display: block;
+        }
+    }
+}
+
+/*================ payment pop ================ */
+
+.popup-container {
+    $.popup {
+        border-radius: 5px !important;
+        padding: 10px;
+    }
+    .popup-body {
+        $input {
+            border: 1px solid #7b6f70 !important;
+            border-radius: 5px;
+            padding: 10px !imporatnt;
+            background: red;
+        }
+    }

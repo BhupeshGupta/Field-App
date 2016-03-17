@@ -43,29 +43,29 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
         };
 
         var myPopup = null;
-        var get_location = function () {
-            $cordovaGeolocation.getCurrentPosition(posOptions)
-                .then(function (position) {
-                    console.log(position);
-                    $scope.location_lock = 1;
-                    console.log("Location Locked");
-                    console.log(myPopup);
-                    if (myPopup)
-                        myPopup.close();
-                }, function (err) {
-                    $scope.location_lock = 2;
-                    get_location();
-                    if (!myPopup) {
-                        myPopup = $ionicPopup.show({
-                            template: '<p>Please enable GPS</p>',
-                            title: 'Wait',
-                            scope: $scope,
-                            buttons: []
-                        });
-                    }
-                });
-        };
-        get_location();
+        //var get_location = function () {
+//            $cordovaGeolocation.getCurrentPosition(posOptions)
+//                .then(function (position) {
+//                    console.log(position);
+//                    $scope.location_lock = 1;
+//                    console.log("Location Locked");
+//                    console.log(myPopup);
+//                    if (myPopup)
+//                        myPopup.close();
+//                }, function (err) {
+//                    $scope.location_lock = 2;
+//                    get_location();
+//                    if (!myPopup) {
+//                        myPopup = $ionicPopup.show({
+//                            template: '<p>Please enable GPS</p>',
+//                            title: 'Wait',
+//                            scope: $scope,
+//                            buttons: []
+//                        });
+//                    }
+//                });
+//        };
+//        get_location();
     });
 
 });

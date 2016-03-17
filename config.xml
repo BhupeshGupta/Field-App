@@ -46,6 +46,7 @@
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external"/>
     <access origin="cdvfile:*"/>
     <allow-navigation href="cdvfile:*"/>
+    <allow-navigation href="http://*/*"/>
     <allow-intent href="cdvfile:*"/>
   </platform>
 </widget>

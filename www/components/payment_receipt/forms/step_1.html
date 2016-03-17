@@ -1,86 +1,83 @@
-<ion-view>
-    <ion-header-bar class="bar bar-subheader bar-stable">
-        <h2 class="title">{{'PAYMENT_RECEIPT_INFORMATION' | translate}}</h2>
-    </ion-header-bar>
-    <ion-content ng-controller="ValController">
-        <form name="PR_Form" novalidate>
+<ion-view title="{{'PAYMENT_RECEIPT_INFORMATION' | translate}}">
+    <ion-content class="module_wrap form_wrap" ng-controller="ValController">
+        <div class="main">
+            <div class="main_form_wrap payment_rec">
+                <form name="PR_Form" novalidate>
+                    <ion-list>
+                        <div class="list">
+                            <!-- Stock Owner  -->
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'STOCK_OWNER' | translate}}</span></label>
+                                <input type="text" class="autocomplete" max-selected-items="1" ion-autocomplete ng-model="prc.user_input.stock_owner" item-view-value-key="value" items-method="prc.autoCompleteStockOwner(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" required/>
+                            </ion-item>
 
-            <div>
-                <br>
-                <div class="list">
-                    <!-- Stock Owner  -->
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">{{'STOCK_OWNER' | translate}}</span>
-                        <input type="text" class="autocomplete" max-selected-items="1" ion-autocomplete ng-model="prc.user_input.stock_owner" item-view-value-key="value" items-method="prc.autoCompleteStockOwner(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" required/>
-                    </label>
+                            <!-- Voucher ID  -->
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'VOUCHER_ID' | translate}}</span></label>
+                                <input type="number" min="1" ng-model="prc.user_input.id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" required>
+                            </ion-item>
 
-                    <!-- Voucher ID  -->
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">{{'VOUCHER_ID' | translate}}</span>
-                        <input type="number" min="1" ng-model="prc.user_input.id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" required>
-                    </label>
-                    <!-- Customer -->
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">Customer</span>
-                        <input type="text" placeholder="Customer Name" ng-model="prc.user_input.customer" required>
-                    </label>
+                            <!-- Customer -->
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'CUSTOMER_NAME' | translate}}</span></label>
+                                <input type="text" placeholder="{{'CUSTOMER_NAME' | translate}}" ng-model="prc.user_input.customer" required>
+                            </ion-item>
+
+                            <!--  Quantity  -->
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'QUANTITY' | translate}}</span></label>
+                                <input type="text" placeholder="{{'QUANTITY' | translate}}" ng-model="prc.user_input.customer" required>
+                            </ion-item>
+
+                            <!--  Amount Per Item  -->
+                            <ion-item class="item item-input item-stacked-label select_item">
+                                <div class="list">
+                                    <label><span class="input-label"> {{'ITEM' | translate}}</span></label>
+                                    <select ng-model="prc.user_input.item">
+                                        <option selected>{{'ITEM' | translate}}</option>
+                                        <option selected>FC19</option>
+                                    </select>
+
+                                </div>
+                            </ion-item>
+
+                            <!-- Item  -->
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span></label>
+                                <input type="text" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" ng-model="prc.user_input.customer" required>
+                            </ion-item>
 
 
-                    <!--  Quantity  -->
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">{{'QUANTITY' | translate}}</span>
-                        <input type="number" min="1" ng-model="prc.user_input.qty" placeholder="{{'QUANTITY' | translate}}" name="quantity" required>
-                    </label>
+                            <!-- Transaction Type  -->
+                            <ion-item class="item item-input item-stacked-label select_item">
+                                <div class="list">
+                                    <label><span class="input-label"> {{'TRANSACTION_TYPE' | translate}}</span></label>
+                                    <select ng-model="prc.user_input.transaction_type" placeholder="{{'TRANSACTION_TYPE' | translate}}">
+                                        <option>{{'REFILL' | translate}}</option>
+                                        <option>{{'TV_OUT' | translate}}</option>
+                                        <option>{{'NEW_CONNECTION' | translate}}</option>
+                                    </select>
+                                </div>
+                            </ion-item>
+                            <ion-item class="item item-input item-stacked-label">
+                                <label><span class="input-label">{{'Remarks' | translate}}</span></label>
+                                <input type="text" placeholder="Remakrs" ng-model="prc.user_input.remarks" required>
+                            </ion-item>
 
-                    <!--  Amount Per Item  -->
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">{{'AMOUNT_PER_ITEM' | translate}}</span>
-                        <input type="number" min="1" ng-model="prc.user_input.amount_per_item" placeholder="{{'AMOUNT_PER_ITEM' | translate}}" name="amount" required>
-                    </label>
-
-                    <!-- Item  -->
-                    <div class="list">
-                        <label class="item item-input item-select">
-                            <div class="input-label">
-                                {{'ITEM' | translate}}
-                            </div>
-                            <select ng-model="prc.user_input.item">
-                                <option selected>FC19</option>
-                            </select>
-                        </label>
+                            <!-- required fields -->
+                            <ion-item class="reqired_fields">
+                                <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
+                                <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
+                                <p ng-show="PR_Form.quantity.$error.required">* Please fill the Quantity</p>
+                                <p ng-show="PR_Form.amount.$error.required">* Amount is required</p>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                    <div class="btnnext_main">
+                        <button class="btn-next" ng-disabled="PR_Form.$invalid" ng-click="prc.acceptAndCreateVoucher()">{{'UPDATE' | translate}}</button>
                     </div>
-
-                    <!-- Transaction Type  -->
-                    <div class="list">
-                        <label class="item item-input item-select">
-                            <div class="input-label">
-                                {{'TRANSACTION_TYPE' | translate}}
-                            </div>
-                            <select ng-model="prc.user_input.transaction_type">
-                                <option selected>{{'REFILL' | translate}}</option>
-                                <option>{{'TV_OUT' | translate}}</option>
-                                <option>{{'NEW_CONNECTION' | translate}}</option>
-                            </select>
-                        </label>
-                        <label class="item item-input item-floating-label">
-                            <span class="input-label">Remarks</span>
-                            <input type="text" placeholder="Remakrs" ng-model="prc.user_input.remarks" required>
-                        </label>
-
-                    </div>
-
-                </div>
-
-                <div class="padding">
-                    <br>
-                    <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
-                    <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
-                    <p ng-show="PR_Form.quantity.$error.required">* Please fill the Quantity</p>
-                    <p ng-show="PR_Form.amount.$error.required">* Amount is required</p>
-                </div>
-
-                <button class="col col-20 col-offset-80 button button-right button-balanced" ng-disabled="PR_Form.$invalid" ng-click="prc.acceptAndCreateVoucher()">{{'UPDATE' | translate}}</button>
+                </form>
             </div>
-        </form>
+        </div>
     </ion-content>
 </ion-view>

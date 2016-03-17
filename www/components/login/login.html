@@ -1,32 +1,37 @@
-<ion-modal-view>
-    <ion-header-bar>
-        <h1 class="title">{{'LOGIN' | translate }}</h1>
-    </ion-header-bar>
-    <ion-content ng-controller="ValController">
-        <form name="logForm" novalidate ng-submit="doLogin()">
-            <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">{{'EMAIL_ID' | translate }}</span>
-                    <input name="username" type="text" ng-model="loginData.username" ng-required="true" required/>
-                </label>
-                <label class="item item-input">
-                    <span class="input-label" ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }}</span>
-
-                    <input name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
-                    <a class="button button-clear" style="padding-right: 15%" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
-                        <i class="icon ion-ios-eye"></i>
-                    </a>
-
-                </label>
-
-                <label class="item">
-                    <button class="button button-block button-positive" ng-disabled="logForm.$invalid" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
-                </label>
+<ion-view title="ARUN LOGISTICS FIELD APP">
+    <ion-content class="main">
+        <div class="main login_container" ng-controller="ValController">
+            <div class="logo">
+                <img src="img/logo.png" width="40%" alt="logo">
             </div>
-            <div class="padding">
-                <p ng-show="logForm.username.$error.required">* Username is required</p>
-                <p ng-show="logForm.password.$error.required">* Password is required</p>
-            </div>
-        </form>
+            <form class="login_form" name="logForm" novalidate ng-submit="doLogin()">
+                <!-- username block start here -->
+                <div class="input-group">
+                    <label>{{'EMAIL_ID' | translate }} :</label>
+                    <div class="input_outer">
+                        <span class="input_icon"><i class="ion-android-person"> </i></span>
+                        <input placeholder="Email Id" name="Username" type="text" ng-model="loginData.username" ng-required="true" required>
+                    </div>
+                </div>
+                <!-- username block end here -->
+                <!-- password block start here -->
+                <div class="input-group ">
+                    <label ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }} :</label>
+                    <div class="input_outer">
+                        <span class="input_icon"><i class="ion-android-lock"> </i></span>
+                        <input placeholder="Password" name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
+                        <span class="visibale_password" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
+                                <i class="ion-eye"> </i>
+                            </span>
+                    </div>
+                </div>
+                <!-- password block start here -->
+                <!-- button block start here -->
+                <div class="input-group btn">
+                    <button ng-disabled="logForm.$invalid" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
+                </div>
+                <!-- button block end here -->
+            </form>
+        </div>
     </ion-content>
-</ion-modal-view>
+</ion-view>

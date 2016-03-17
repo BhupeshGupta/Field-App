@@ -56,7 +56,7 @@ var receipt_module = angular.module('starter', [
 //})
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/home');
         $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
         $stateProvider.state('root', {

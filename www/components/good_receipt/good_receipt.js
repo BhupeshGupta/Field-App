@@ -17,6 +17,9 @@ function goodsReceiptController(
     vm.captureSignatureAndCaptureImage = captureSignatureAndCaptureImage;
     vm.acceptAndUpload = acceptAndUpload;
 
+    //UI Utils
+    vm.getItemDict = getItemDict;
+
     vm.signature = {
         bg: ''
     };
@@ -68,9 +71,8 @@ function goodsReceiptController(
         });
     }
 
-    function set_item(mode, item, nextState) {
+    function set_item(mode, item) {
         vm.user_input['item_' + mode] = item.id;
-        $state.go(nextState);
     }
 
     function moveToSignatureForm() {
@@ -83,7 +85,7 @@ function goodsReceiptController(
 
     }
 
-    function captureSignatureAndCaptureImage(nextState) {
+    function captureSignatureAndCaptureImage() {
         // Dump Signature To File
         var signature = vm.acceptSignaturePad();
         var file_name = Utils.guid();
@@ -190,5 +192,16 @@ function goodsReceiptController(
         transformed_data.transaction_date = moment(transformed_data.transaction_date).format("YYYY-MM-DD");
         transformed_data.remarks = transformed_data.delivered_remarks + '\n' + transformed_data.received_remarks;
         return transformed_data;
+    }
+
+    function getItemDict(itemId) {
+        var returnItem = {};
+        var itemList = vm.gr_config.empty.concat(vm.gr_config.filled);
+        angular.forEach(itemList, function (item, index) {
+            if (item.id == itemId) {
+                returnItem = item;
+            }
+        });
+        return returnItem;
     }
 }

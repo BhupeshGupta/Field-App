@@ -1,40 +1,39 @@
-<ion-view>
-    <ion-content>
-        <br>
-        <br>
-        <br>
-        <div class="bar bar-header bar-stable">
-            <h1 class="title">Additional Information</h1>
+<ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
+    <ion-content class="module_wrap form_wrap" ng-controller="ValController">
+        <div class="main">
+            <div class="main_form_wrap">
+                <form name="GR_Form" novalidate class="form_inner">
+                    <ion-list>
+                        <!--  Shortage  -->
+                        <ion-item class="item item-input item-stacked-label icon_field">
+                            <label class="item-stacked-label">{{'SHORTAGE' | translate}}</label>
+                            <input type="number" step="any" placeholder="{{'SHORTAGE' | translate}}" ng-model="grc.user_input.short">
+                        </ion-item>
+
+                        <!-- Excess -->
+                        <ion-item class="item item-input item-stacked-label icon_field">
+                            <label class="item-stacked-label">{{'EXCESS' | translate}}</label>
+                            <input type="number" step="any" placeholder="{{'EXCESS' | translate}}" ng-model="grc.user_input.excess">
+                        </ion-item>
+
+                        <!--  Residue  -->
+                        <ion-item class="item item-input item-stacked-label">
+                            <label class=" item-stacked-label">{{'RESIDUE' | translate}} </label>
+                            <input type="number" step="any" placeholder="{{'RESIDUE' | translate}}" ng-model="grc.user_input.residue">
+                        </ion-item>
+
+                        <!--  Vehicle Number  -->
+                        <ion-item class="item item-input item-stacked-label">
+                            <label class="item-stacked-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</label>
+                            <input name="customer_document" type="text" ng-model="grc.user_input.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
+                        </ion-item>
+
+                        <div class="btnnext_main">
+                            <button class="btn-next" ui-sref="root.good_receipt.step7">{{'NEXT' | translate}}</button>
+                        </div>
+                    </ion-list>
+                </form>
+            </div>
         </div>
-        <div class="list">
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Shortage</span>
-                <input type="number" step="any" placeholder="Shortage" ng-model="grc.user_input.short">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Excess</span>
-                <input type="number" step="any" placeholder="Excess" ng-model="grc.user_input.excess">
-            </label>
-
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Residue</span>
-                <input type="number" step="any" placeholder="Residue" ng-model="grc.user_input.residue">
-            </label>
-
-            <!-- Customer Document Id -->
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</span>
-                <input name="customer_document" type="text" ng-model="grc.user_input.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
-            </label>
-
-        </div>
-
-        <button class="button button-large button-balanced" ui-sref="root.good_receipt.step7">
-            Next
-        </button>
-
     </ion-content>
-
 </ion-view>

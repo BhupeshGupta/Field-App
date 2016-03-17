@@ -1,9 +1,20 @@
 'use strict';
 
-receipt_module.controller('MainController', function ($scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope, $cordovaGeolocation, $timeout) {
+receipt_module.controller('MainController', mainController);
+
+
+function mainController(
+    $scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope,
+    $cordovaGeolocation, $timeout, UploadService
+) {
 
     var vm = this;
     vm.selectedLangage = SettingsFactory.get().language;
+    vm.triggerUpload = triggerUpload;
+
+    function triggerUpload() {
+        UploadService.upload();
+    }
 
     $scope.logout = function () {
         $rootScope.$broadcast('user:logout');
@@ -72,7 +83,7 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
         get_location();
     });
 
-});
+}
 
 receipt_module.run(function ($rootScope, SettingsFactory, $state) {
     $rootScope.$on('user:logout', function () {

@@ -22,7 +22,8 @@ angular.module('starter')
         uploaded: 'INT',
         // File Directory & File Name
         fdir: 'TEXT',
-        fname: 'TEXT'
+        fname: 'TEXT',
+        opts: 'TEXT'
     });
 
     persistence.debug = true;

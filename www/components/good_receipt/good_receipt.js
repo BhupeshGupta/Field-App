@@ -5,7 +5,8 @@ angular.module('starter')
 
 function goodsReceiptController(
     $scope, $state, Persistence, DocumentService, $q, gr_config, Utils,
-    $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile
+    $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile,
+    UploadService
 ) {
 
     var vm = this;
@@ -16,6 +17,7 @@ function goodsReceiptController(
     vm.moveToSignatureForm = moveToSignatureForm;
     vm.captureSignatureAndCaptureImage = captureSignatureAndCaptureImage;
     vm.acceptAndUpload = acceptAndUpload;
+    vm.retakeImage = retakeImage;
 
     //UI Utils
     vm.getItemDict = getItemDict;
@@ -122,35 +124,53 @@ function goodsReceiptController(
 
     }
 
+    function retakeImage() {
+        captureImage();
+    }
+
     function acceptAndUpload() {
         var gr_response = null;
         return DocumentService.create('Goods Receipt', prepareForErp(vm.user_input), false)
             .then(function (success) {
                 gr_response = success.data;
-            })
-            .then(function () {
-                return FileDataService.uploadFileFromDisk(
-                    vm.signature.cameraFile,
-                    '', '',
-                    false, {
+                // Save file to database
+                var cameraFile = new Persistence.Entities.Files({
+                    fileName: success.data.requestId + '_camera',
+                    parentId: success.data.requestId,
+                    uploaded: 0,
+                    fdir: vm.signature.cameraFile.dir,
+                    fname: vm.signature.cameraFile.file,
+                    opts: JSON.stringify({
                         server: 'erp',
                         doctype: 'Goods Receipt',
                         docname: gr_response.data.name,
                         file_field: 'customer_image',
                         filename: gr_response.data.name + '_customer.jpg'
-                    }
-                );
-            }).then(function (success) {
-                return FileDataService.uploadFileFromDisk(
-                    vm.signature.signatureFile,
-                    '', '',
-                    false, {
+                    })
+                });
+                Persistence.add(cameraFile);
+
+                // Save file to database
+                var signatureFile = new Persistence.Entities.Files({
+                    fileName: success.data.requestId + '_signature',
+                    parentId: success.data.requestId,
+                    uploaded: 0,
+                    fdir: vm.signature.signatureFile.dir,
+                    fname: vm.signature.signatureFile.file,
+                    opts: JSON.stringify({
                         server: 'erp',
                         doctype: 'Goods Receipt',
                         docname: gr_response.data.name,
                         file_field: 'signature',
                         filename: gr_response.data.name + '_signature.jpg'
-                    });
+                    })
+                });
+                Persistence.add(signatureFile);
+
+                debugger;
+
+                UploadService.upload();
+
             })
             .catch(function (error) {
                 console.log(error);

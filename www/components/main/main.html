@@ -70,21 +70,21 @@
                     <i class="ion-code "></i>
                     <span class="list_dtl">{{'DEVELOPER_OPTIONS' | translate}}</span>
                 </ion-item>
+                <!--
                 <ion-item menu-close href="#/app/playlists">
                     <span class="list_dtl">{{'CHECK_FOR_UPDATE' | translate}}</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/playlists">
                     <span class="list_dtl">{{'UPDATE' | translate}}</span>
                 </ion-item>
+                -->
+
+                <ion-item>
+                    <span on-tap="mc.triggerUpload()" class="list_dtl">Upload (1)</span>
+                </ion-item>
 
                 <ion-item menu-close href="javascript:void(0)">
                     <span class="list_dtl">{{'VERSION' | translate}}: 1.1</span>
-                </ion-item>
-                <ion-item menu-close href="#/app/playlists">
-                    <span class="list_dtl"> {{'CHECK_FOR_UPDATE' | translate}}</span>
-                </ion-item>
-                <ion-item menu-close href="#/app/playlists">
-                    <span class="list_dtl">{{'UPDATE' | translate}}</span>
                 </ion-item>
             </ion-list>
         </ion-content>

@@ -15,10 +15,14 @@ function mainController(
     vm.pendingUploadCount = 'N/a';
     vm.appVersion = AppVersion;
 
-    if ($rootScope.startup.user.image.indexOf('http') == -1)
-        $rootScope.startup.user.image = SettingsFactory.getERPServerBaseUrl() + $rootScope.startup.user.image;
-    vm.user = $rootScope.startup.user;
+    function setUserImage() {
+        if ($rootScope.startup.user.image.indexOf('http') == -1)
+            $rootScope.startup.user.image = SettingsFactory.getERPServerBaseUrl() + $rootScope.startup.user.image;
+        vm.user = $rootScope.startup.user;
+    }
 
+    if ($rootScope.startup && $rootScope.startup.user)
+        setUserImage();
 
     getNumberOfPendingFilesCount();
 
@@ -39,8 +43,6 @@ function mainController(
     $rootScope.$on('uploadService:update', function () {
         getNumberOfPendingFilesCount();
     });
-
-
 
     $scope.logout = function () {
         $rootScope.$broadcast('user:logout');

@@ -133,8 +133,8 @@ function goodsReceiptController(
         return DocumentService.create('Goods Receipt', prepareForErp(vm.user_input), false)
             .then(function (success) {
                 gr_response = success.data;
-                // Save file to database
-                var cameraFile = new Persistence.Entities.Files({
+                // Submit file with upload service
+                UploadService.enqueue({
                     fileName: success.data.requestId + '_camera',
                     parentId: success.data.requestId,
                     uploaded: 0,
@@ -148,10 +148,9 @@ function goodsReceiptController(
                         filename: gr_response.data.name + '_customer.jpg'
                     })
                 });
-                Persistence.add(cameraFile);
 
-                // Save file to database
-                var signatureFile = new Persistence.Entities.Files({
+                // Submit file with upload service
+                UploadService.enqueue({
                     fileName: success.data.requestId + '_signature',
                     parentId: success.data.requestId,
                     uploaded: 0,
@@ -165,12 +164,9 @@ function goodsReceiptController(
                         filename: gr_response.data.name + '_signature.jpg'
                     })
                 });
-                Persistence.add(signatureFile);
-
-                debugger;
-
-                UploadService.upload();
-
+                $scope.grVocuherId = gr_response.data.name;
+                //                UploadService.upload();
+                $state.go('root.good_receipt.step10');
             })
             .catch(function (error) {
                 console.log(error);

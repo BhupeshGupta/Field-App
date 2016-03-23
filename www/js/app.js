@@ -1,3 +1,7 @@
+window.ionic.Platform.ready(function () {
+    angular.bootstrap(document, ['starter']);
+});
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -7,7 +11,8 @@ var receipt_module = angular.module('starter', [
     'ionic',
     'ngCordova',
     'ion-autocomplete',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ngStorage'
 ])
 
 .constant('ApiEndpoint', {
@@ -29,7 +34,6 @@ var receipt_module = angular.module('starter', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-
     });
 })
 
@@ -54,6 +58,7 @@ var receipt_module = angular.module('starter', [
 //
 //    });
 //})
+.constant('AppVersion', '1.1')
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
     $urlRouterProvider.otherwise('/home');
@@ -101,12 +106,8 @@ var receipt_module = angular.module('starter', [
         templateUrl: 'components/home/home.html',
         controller: 'HomeController',
         resolve: {
-            user: function (UserService, $q) {
-                var defer = $q.defer();
-                UserService.loadUser().then(function () {
-                    defer.resolve();
-                });
-                return defer.promise;
+            user: function (UserService) {
+                return UserService.loadUser();
             }
         }
     })

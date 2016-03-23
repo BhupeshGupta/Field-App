@@ -55,6 +55,7 @@ receipt_module.config(function ($httpProvider) {
             request: function (config) {
                 // Create and append user id
                 config.headers['User-Id'] = JSON.stringify(window.device);
+                config.headers['App-Version'] = $injector.get('AppVersion');
 
                 //                // Check for internet connectivity
                 //                if ($cordovaNetwork.isOffline() && !popUp) {
@@ -208,12 +209,15 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
                     defferd.reject();
                     $rootScope.$broadcast('user:logout');
                 });
-            } else
+            } else {
                 defferd.resolve();
-
+            }
             return defferd.promise;
-        }
+        },
 
+        getAppConfig: function () {
+            return $http.get("https://erp.arungas.com/app_conf.json");
+        }
     };
 
     return factory;

@@ -29,9 +29,8 @@
             <ion-list>
                 <ion-item menu-close>
                     <div class="item item-avatar admin_block">
-                        <img src="../../img/user.png" alt="" />
-                        <!--<img ng-src="{{ startup.user.image }}">-->
-                        <h2>Administrator</h2>
+                        <img ng-src="{{ mc.user.image }}" />
+                        <h2>{{ mc.user.fullname }}</h2>
                         <p ng-click="logout()">Logout</p>
                     </div>
                 </ion-item>
@@ -80,11 +79,12 @@
                 -->
 
                 <ion-item>
-                    <span on-tap="mc.triggerUpload()" class="list_dtl">Upload (1)</span>
+                    <i class="ion-ios-cloud-upload-outline"></i>
+                    <span ng-click="mc.triggerUpload()" class="list_dtl">Upload ({{ mc.pendingUploadCount }})</span>
                 </ion-item>
 
                 <ion-item menu-close href="javascript:void(0)">
-                    <span class="list_dtl">{{'VERSION' | translate}}: 1.1</span>
+                    <span class="list_dtl">{{'VERSION' | translate}}: {{ mc.AppVersion }}</span>
                 </ion-item>
             </ion-list>
         </ion-content>

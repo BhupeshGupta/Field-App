@@ -62,6 +62,14 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('root.good_receipt.step10', {
+            url: '/step10',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_10.html'
+                }
+            }
+        })
 
 
     .state('root.payment_receipt', {

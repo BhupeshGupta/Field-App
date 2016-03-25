@@ -1,5 +1,5 @@
 <ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
-    <ion-content scroll="false" class="module_wrap report_module">
+    <ion-content scroll="false" class="module_wrap report_module step10">
         <div class="main">
             <div class="report_table" id="review_template">
                 <div class="item_ws">
@@ -10,7 +10,7 @@
                     <ion-item class="item item-input item-stacked-label date_field">
                         <div class="row storage_dtl">
                             <div class="col col-50">
-                                <p>{{'VOUCHER_ID' | translate}} {{ grVocuherId }}</p>
+                                <p class="vocher_id">{{'VOUCHER_ID' | translate}} {{ grVocuherId }}</p>
                             </div>
                             <div class="col col-50">
                                 <p class="Text_R">{{'DATE' | translate}} : {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
@@ -21,7 +21,11 @@
                 <ion-list>
                     <!-- Excess -->
                     <ion-item class="item item-input item-stacked-label F_itemsfields">
+                        <div class="icon_img">
+                            <img src="img/success.png" alt="">
+                        </div>
                         <table>
+
                             <thead>
                                 <th> {{'ITEM' | translate}}</th>
                                 <th> {{'FILLED' | translate}}</th>
@@ -51,7 +55,7 @@
                             </span>
                                     </td>
                                     <td>
-                                        <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
+                                        <span ng-show="grc.user_input.item_received.indexOf('EC')  > -1">
                                 {{ grc.user_input.received_quantity }}
                             </span>
                                     </td>
@@ -85,13 +89,15 @@
                         </table>
                     </ion-item>
 
+                    <div class="btnnext_main ">
+                        <button class="button button-bar btn-next" ui-sref="root.home">{{'HOME' | translate}}</button>
+                    </div>
 
                 </ion-list>
             </div>
 
             <div>
 
-                <button class="button button-bar button-positive" ui-sref="root.home">{{'HOME' | translate}}</button>
             </div>
 
         </div>

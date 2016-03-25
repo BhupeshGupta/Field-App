@@ -83,8 +83,10 @@
                     <span ng-click="mc.triggerUpload()" class="list_dtl">Upload ({{ mc.pendingUploadCount }})</span>
                 </ion-item>
 
-                <ion-item menu-close href="javascript:void(0)">
-                    <span class="list_dtl">{{'VERSION' | translate}}: {{ mc.AppVersion }}</span>
+
+                <ion-item>
+                    <i class="ion-android-time "></i>
+                    <span class="list_dtl">{{'VERSION' | translate}} {{ mc.AppVersion }}</span>
                 </ion-item>
             </ion-list>
         </ion-content>

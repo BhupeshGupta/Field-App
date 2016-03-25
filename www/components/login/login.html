@@ -21,7 +21,7 @@
                         <span class="input_icon"><i class="ion-android-lock"> </i></span>
                         <input placeholder="Password" name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
                         <span class="visibale_password" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
-                                <i class="ion-eye"> </i>
+                                <i ng-class="passwordInputType=='password'?'ion-eye-disabled':'ion-eye'"> </i>
                             </span>
                     </div>
                 </div>

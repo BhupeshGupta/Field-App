@@ -35,6 +35,7 @@ function proofPad($window) {
 
                 $scope.clear = function () {
                     signaturePad.clear();
+                    $scope.drawBg($scope.dataurl);
                 };
 
                 $scope.$watch("dataurl", function (dataUrl) {

@@ -16,6 +16,9 @@
                                 <p class="Text_R">{{'DATE' | translate}} : {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
                             </div>
                         </div>
+                        <div class="row storage_dtl">
+                            <p>Customer Name : {{ grc.user_input.customer[0].value }}</p>
+                        </div>
                     </ion-item>
                 </ion-list>
                 <ion-list>

@@ -5,8 +5,8 @@ receipt_module.controller('MainController', mainController);
 
 function mainController(
     $scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope,
-    $cordovaGeolocation, $timeout, UploadService, AppVersion, UserService,
-    $localStorage
+    $cordovaGeolocation, $timeout, UploadService, AppVersion,
+    $localStorage, SessionService
 ) {
 
     var vm = this;
@@ -14,21 +14,14 @@ function mainController(
     vm.triggerUpload = triggerUpload;
     vm.pendingUploadCount = 'N/a';
     vm.appVersion = AppVersion;
-
-    function setUserImage() {
-        if ($rootScope.startup.user.image.indexOf('http') == -1)
-            $rootScope.startup.user.image = SettingsFactory.getERPServerBaseUrl() + $rootScope.startup.user.image;
-        vm.user = $rootScope.startup.user;
-    }
-
-    if ($rootScope.startup && $rootScope.startup.user)
-        setUserImage();
+    vm.SessionService = SessionService;
 
     getNumberOfPendingFilesCount();
 
-    UserService.getAppConfig().then(function (data) {
-        $localStorage.appConfig = data.data;
-    });
+    // TODO: config service
+    //    UserService.getAppConfig().then(function (data) {
+    //        $localStorage.appConfig = data.data;
+    //    });
 
     function triggerUpload() {
         UploadService.upload();
@@ -43,10 +36,6 @@ function mainController(
     $rootScope.$on('uploadService:update', function () {
         getNumberOfPendingFilesCount();
     });
-
-    $scope.logout = function () {
-        $rootScope.$broadcast('user:logout');
-    };
 
     $scope.open_developer_pane = function () {
         $ionicPopup.prompt({
@@ -123,14 +112,3 @@ function mainController(
     //    });
 
 }
-
-
-receipt_module.run(function ($rootScope, SettingsFactory, $state) {
-    $rootScope.$on('user:logout', function () {
-        var settings = SettingsFactory.get();
-        delete settings.sid;
-        SettingsFactory.set(settings);
-
-        $state.go('root.login');
-    });
-});

@@ -43,6 +43,7 @@
     <splash density="port-xxhdpi" src="resources/android/splash/splash.png" width="1024" height="768"/>
     <splash density="port-xxxhdpi" src="resources/android/splash/splash.png" width="1024" height="768"/>
     <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
+    <preference name="orientation" value="portrait"/>
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external"/>
     <access origin="cdvfile:*"/>
     <allow-navigation href="cdvfile:*"/>

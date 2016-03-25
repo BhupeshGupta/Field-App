@@ -27,13 +27,16 @@
         </ion-header-bar>
         <ion-content class="mainsidebar ion_outer">
             <ion-list>
-                <ion-item menu-close>
+                <ion-item menu-close ng-show="mc.SessionService.isLoggedIn()">
                     <div class="item item-avatar admin_block">
-                        <img ng-src="{{ mc.user.image }}" />
-                        <h2>{{ mc.user.fullname }}</h2>
-                        <p ng-click="logout()">Logout</p>
+
+                        <img ng-src="{{ mc.SessionService.state.user.image }}" />
+                        <h2>{{ mc.SessionService.state.user.fullname }}</h2>
+                        <p ng-click="mc.SessionService.logout()">Logout</p>
                     </div>
+
                 </ion-item>
+
                 <ion-item menu-close>
                     <div ng-show="location_lock == 0">
                         <i class="ion-ios-location-outline"></i>
@@ -83,10 +86,9 @@
                     <span ng-click="mc.triggerUpload()" class="list_dtl">Upload ({{ mc.pendingUploadCount }})</span>
                 </ion-item>
 
-
                 <ion-item>
-                    <i class="ion-android-time "></i>
-                    <span class="list_dtl">{{'VERSION' | translate}} {{ mc.AppVersion }}</span>
+                    <i class="ion-android-time"></i>
+                    <span class="list_dtl">{{'VERSION' | translate}} {{ mc.appVersion }}</span>
                 </ion-item>
             </ion-list>
         </ion-content>

@@ -87,9 +87,10 @@ receipt_module.config(function ($httpProvider) {
 
                 // Generic error extraction
                 else if (stat == 403) {
+                    var SessionService = $injector.get('SessionService');
                     msg = 'Login Required';
                     $timeout(function () {
-                        $rootScope.$broadcast('user:logout');
+                        SessionService.logout();
                     }, 0);
                 } else if (stat == 500)
                     msg = 'Internal Server Error';
@@ -164,7 +165,7 @@ receipt_module.factory('SettingsFactory', [function () {
 }]);
 
 
-receipt_module.factory('UserService', function ($http, SettingsFactory, $rootScope, $q) {
+receipt_module.factory('UserServiceKnockout', function ($http, SettingsFactory, $rootScope, $q) {
     $rootScope.userLoaded = false;
 
     var factory = {

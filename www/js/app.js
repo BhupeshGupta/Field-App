@@ -37,31 +37,16 @@ var receipt_module = angular.module('starter', [
     });
 })
 
-//.run(function ($ionicPlatform, UserService, SettingsFactory) {
-//    $ionicPlatform.ready(function () {
-//        UserService.get_startup_data().then(function (data) {
-//            if (data.data.server_date !== moment().format('YYYY-MM-DD'))
-//                $ionicPopup.alert({
-//                    template: '<p>There seems to be date issue. Please check device date.</p>',
-//                    title: 'Error'
-//                });
-//
-//            // Save to settings settings
-//            var settings = SettingsFactory.get();
-//            settings.startup = {
-//                user: data.data.user_info[data.data.user.name],
-//                can_write: data.data.user.can_write
-//            };
-//            SettingsFactory.set(settings);
-//            console.log(JSON.stringify(settings));
-//        });
-//
-//    });
-//})
+.run(function ($ionicPlatform, SessionService, SettingsFactory) {
+    $ionicPlatform.ready(function () {
+        SessionService.setupUser();
+    });
+})
+
 .constant('AppVersion', '1.1')
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/');
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
     $stateProvider.state('root', {
@@ -82,9 +67,8 @@ var receipt_module = angular.module('starter', [
         templateUrl: 'components/login/login.html',
         controller: 'LoginController',
         resolve: {
-            settings: function (SettingsFactory, $state, $timeout) {
-                var settings = SettingsFactory.get();
-                if (typeof settings.sid !== 'undefined') {
+            settings: function (SessionService, $state, $timeout) {
+                if (SessionService.isLoggedIn()) {
                     $timeout(function () {
                         $state.go('root.home');
                     }, 0);
@@ -106,8 +90,8 @@ var receipt_module = angular.module('starter', [
         templateUrl: 'components/home/home.html',
         controller: 'HomeController',
         resolve: {
-            user: function (UserService) {
-                return UserService.loadUser();
+            user: function (SessionService) {
+                return SessionService.setupUser();
             }
         }
     })

@@ -1,6 +1,7 @@
 angular.module('starter')
+    .factory('SessionService', sessionService);
 
-.factory('SessionService', function ($http, SettingsFactory, $rootScope, $q, $localStorage, $ionicPopup, $state) {
+function sessionService($http, SettingsFactory, $rootScope, $q, $localStorage, $ionicPopup, $state) {
 
     var DEFAULT_STATE = {
         userLoaded: false,
@@ -8,7 +9,7 @@ angular.module('starter')
         canWrite: []
     };
 
-    var state = DEFAULT_STATE;
+    var state = angular.copy(DEFAULT_STATE);
 
     // `session_` prefix
     $localStorage.$default({
@@ -30,6 +31,7 @@ angular.module('starter')
             loading: true
         }).then(function (data) {
             $localStorage.session_loggedIn = true;
+            $localStorage.session_sid = data.data.sid;
             return data;
         });
     }
@@ -87,41 +89,35 @@ angular.module('starter')
     }
 
     function logout() {
-        angular.extend(state, DEFAULT_STATE);
+        state = angular.copy(DEFAULT_STATE);
         $localStorage.session_loggedIn = false;
+        $localStorage.session_sid = null;
         $rootScope.$broadcast('user:logout');
 
         $state.go('root.login');
     }
 
     function isWriteAuth(doctype) {
-        return true;
-        //        $.inArray(doctype, state.canWirte) > -1;
+        return $.inArray(doctype, state.canWrite) > -1;
     }
 
     function isLoggedIn() {
         return $localStorage.session_loggedIn;
     }
 
-    function setupConfig() {
-
-    }
-
-    function getAppConfig() {
-        return $http.get("https://erp.arungas.com/app_conf.json");
+    function getToken() {
+        return $localStorage.session_sid;
     }
 
     return {
         login: login,
-        // function used by loadUser function
         setupUser: setupUser,
-        logout: logout,
-        isWriteAuth: isWriteAuth,
-        isLoggedIn: isLoggedIn,
         getUser: getUser,
-        // TODO: move to new service
-        setupConfig: setupConfig,
-        state: state
+        isLoggedIn: isLoggedIn,
+        isWriteAuth: isWriteAuth,
+        getToken: getToken,
+        state: state,
+        logout: logout
     };
 
-});
+}

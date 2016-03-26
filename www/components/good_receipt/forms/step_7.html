@@ -10,15 +10,14 @@
                     <ion-item class="item item-input item-stacked-label date_field">
                         <div class="row storage_dtl">
                             <div class="col col-50">
-                                <p>{{'VOUCHER_ID' | translate}} {{ grc.user_input.goods_receipt_number }}</p>
+                                <p>{{'VOUCHER' | translate}} {{ grc.user_input.goods_receipt_number }}</p>
                             </div>
                             <div class="col col-50">
                                 <p class="Text_R">{{'DATE' | translate}} : {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
                             </div>
-
                         </div>
                         <div class="row storage_dtl">
-                            <p>Customer Name : {{ grc.user_input.customer[0].value }}</p>
+                            <p>{{'CUSTOMER' | translate }} : {{ grc.user_input.customer[0].value }}</p>
                         </div>
                     </ion-item>
                 </ion-list>
@@ -68,14 +67,13 @@
                         <table>
                             <tbody>
                                 <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
-                                    <th>Short</th>
-                                    <th>Residue</th>
-                                    <th>Excess</th>
+                                    <th>{{'SHORTAGE' | translate}}</th>
+                                    <th>{{'RESIDUE'| translate}}</th>
+                                    <th>{{'EXCESS' | translate}}</th>
                                 </tr>
                                 <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
                                     <td>{{ grc.user_input.short }}</td>
                                     <td>{{ grc.user_input.residue }}</td>
-
                                     <td>{{ grc.user_input.excess }}</td>
                                 </tr>
                                 <tr ng-show="grc.user_input.customer_document_id">
@@ -88,12 +86,9 @@
                             </tbody>
                         </table>
                     </ion-item>
-
-
                 </ion-list>
             </div>
             <div class="btnnext_main">
-
                 <div class="col">
                     <button class="btn-next" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
                 </div>

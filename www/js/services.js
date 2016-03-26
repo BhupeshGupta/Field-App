@@ -255,8 +255,8 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 method: 'POST',
                 data: $.param({
                     data: JSON.stringify(document),
-                    sid: SettingsFactory.getSid(),
-                    "client": "app"
+                    sid: SessionService.getToken(),
+                    client: "app"
                 })
             });
 

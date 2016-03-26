@@ -13,8 +13,6 @@
                         <input placeholder="Email Id" name="Username" type="text" ng-model="loginData.username" ng-required="true" required>
                     </div>
                 </div>
-                <!-- username block end here -->
-                <!-- password block start here -->
                 <div class="input-group ">
                     <label ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }} :</label>
                     <div class="input_outer">
@@ -25,12 +23,9 @@
                             </span>
                     </div>
                 </div>
-                <!-- password block start here -->
-                <!-- button block start here -->
                 <div class="input-group btn">
                     <button ng-disabled="logForm.$invalid" ng-click="login_func()">{{'SIGN_IN' | translate }}</button>
                 </div>
-                <!-- button block end here -->
             </form>
         </div>
     </ion-content>

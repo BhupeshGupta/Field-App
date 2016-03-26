@@ -496,7 +496,7 @@ div[on-tap=""] {
     font-size: 15px;
     overflow: visible;
     color: #aba8a8;
-    padding-left: 15px;
+    padding: 10px 10px 10px 15px;
 }
 .menu.menu-right .ion_outer li ul a {
     padding: 5px 12px;
@@ -983,6 +983,13 @@ input[checked="checked"] {
 }
 .menu-right .ion_outer ion-item:focus {
     color: #666;
+}
+ion-footer-bar.bar.bar-footer {
+    bottom: 20px;
+    background: none;
+}
+ion-footer-bar .btnnext_main {
+    margin: 0;
 }
 
 /*============ media queries =========== */

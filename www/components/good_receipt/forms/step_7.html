@@ -33,30 +33,30 @@
                             </thead>
                             <tbody>
                                 <tr ng-show="grc.user_input.item_delivered">
-                                    <td>{{ grc.user_input.item_delivered }}</td>
+                                    <td>{{ grc.user_input.item_delivered | translate }}</td>
                                     <td>
                                         <span ng-show="grc.user_input.item_delivered.indexOf('FC') > -1">
-                                {{ grc.user_input.delivered_quantity }}
-                            </span>
+                                            {{ grc.user_input.delivered_quantity }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span ng-show="grc.user_input.item_delivered.indexOf('EC') > -1">
-                                {{ grc.user_input.delivered_quantity }}
-                            </span>
+                                            {{ grc.user_input.delivered_quantity }}
+                                        </span>
                                     </td>
                                     <td>Delivered</td>
                                 </tr>
                                 <tr ng-show="grc.user_input.item_received">
-                                    <td>{{ grc.user_input.item_received }}</td>
+                                    <td>{{ grc.user_input.item_received | translate }}</td>
                                     <td>
                                         <span ng-show="grc.user_input.item_received.indexOf('FC') > -1">
-                                {{ grc.user_input.received_quantity }}
-                            </span>
+                                            {{ grc.user_input.received_quantity }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
-                                {{ grc.user_input.received_quantity }}
-                            </span>
+                                            {{ grc.user_input.received_quantity }}
+                                        </span>
                                     </td>
                                     <td>Reveived</td>
                                 </tr>
@@ -88,11 +88,14 @@
                     </ion-item>
                 </ion-list>
             </div>
+
+        </div>
+        <ion-footer-bar>
             <div class="btnnext_main">
                 <div class="col">
                     <button class="btn-next" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
                 </div>
             </div>
-        </div>
+        </ion-footer-bar>
     </ion-content>
 </ion-view>

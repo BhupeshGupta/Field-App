@@ -79,13 +79,13 @@
                                 <ion-list>
                                     <ion-item ng-repeat="item in grc.gr_config.filled" on-tap="grc.set_item('received', grc.gr_config.filled[$index]);grc.repmodelshow=false" ng-class="{sel: grc.user_input.item_received == item.id}">
                                         <img ng-src="{{item.img_url}}" alt="{{item.id}}">
-                                        <p ng-bind="item.name"></p>
+                                        <p>{{ item.name | translate }}</p>
                                     </ion-item>
                                 </ion-list>
                                 <ion-list>
                                     <ion-item ng-repeat="item in grc.gr_config.empty" on-tap="grc.set_item('received', grc.gr_config.empty[$index]);grc.repmodelshow=false" ng-class="{sel: grc.user_input.item_received == item.id}">
                                         <img ng-src="{{item.img_url}}" alt="{{item.id}}">
-                                        <p ng-bind="item.name"></p>
+                                        <p>{{ item.name | translate }}</p>
                                     </ion-item>
                                 </ion-list>
                             </div>

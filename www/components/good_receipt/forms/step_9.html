@@ -14,20 +14,18 @@
         </script>
 
 
-
-        <div class="btnnext_main">
-            <div class="row">
-                <div class="col col-50">
-                    <button class="btn-next" ng-click="grc.retakeImage()">{{'TAKE_NEW_IMAGE' | translate}}</button>
-                </div>
-                <div class="col col-50">
-                    <button class="btn-next" on-tap="grc.acceptAndUpload()">{{'CONFIRM' | translate}}</button>
+        <ion-footer-bar>
+            <div class="btnnext_main">
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="btn-next" ng-click="grc.retakeImage()">{{'TAKE_NEW_IMAGE' | translate}}</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="btn-next" on-tap="grc.acceptAndUpload()">{{'CONFIRM' | translate}}</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-
+        </ion-footer-bar>
     </ion-content>
-
 
 </ion-view>

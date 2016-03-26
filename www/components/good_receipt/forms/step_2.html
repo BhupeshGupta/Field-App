@@ -20,7 +20,7 @@
                                 <div class="item_img" ng-class="{active: grc.devmodelshow}">
                                     <button ng-click="grc.devmodelshow = ! grc.devmodelshow" ng-class="{active: grc.user_input.item_delivered != ''}" ng-disabled="disabled" disabled>
                                         <img ng-src="{{ grc.getItemDict(grc.user_input.item_delivered).img_url || 'img/blank_img.png' }}" alt="img.id">
-                                        <p ng-class="{sel: grc.user_input.item_delivered != ''}">{{ grc.getItemDict(grc.user_input.item_delivered).id }}</p>
+                                        <p ng-class="{sel: grc.user_input.item_delivered != ''}">{{ grc.getItemDict(grc.user_input.item_delivered).id | translate }}</p>
                                     </button>
                                 </div>
                             </div>
@@ -33,13 +33,13 @@
                                 <ion-list>
                                     <ion-item ng-repeat="item in grc.gr_config.filled" on-tap="grc.set_item('delivered', grc.gr_config.filled[$index]);grc.devmodelshow=false" ng-class="{sel: grc.user_input.item_delivered == item.id}">
                                         <img ng-src="{{item.img_url}}" alt="{{item.id}}">
-                                        <p ng-bind="item.name"></p>
+                                        <p>{{ item.name | translate }}</p>
                                     </ion-item>
                                 </ion-list>
                                 <ion-list>
                                     <ion-item ng-repeat="item in grc.gr_config.empty" on-tap="grc.set_item('delivered', grc.gr_config.empty[$index]);grc.devmodelshow=false" ng-class="{sel: grc.user_input.item_delivered == item.id}">
                                         <img ng-src="{{item.img_url}}" alt="{{item.id}}">
-                                        <p ng-bind="item.name"></p>
+                                        <p>{{ item.name | translate }}</p>
                                     </ion-item>
                                 </ion-list>
                             </div>
@@ -65,7 +65,7 @@
                                 <div class="item_img" ng-class="{active: grc.repmodelshow}">
                                     <button ng-click="grc.repmodelshow = ! grc.repmodelshow" ng-class="{active: grc.user_input.item_delivered != ''}" ng-disabled="disabled" disabled>
                                         <img ng-src="{{ grc.getItemDict(grc.user_input.item_received).img_url || 'img/blank_img.png'}}" alt="img.id">
-                                        <p ng-class="{sel: grc.user_input.item_received != ''}">{{ grc.getItemDict(grc.user_input.item_received).id }}</p>
+                                        <p ng-class="{sel: grc.user_input.item_received != ''}">{{ grc.getItemDict(grc.user_input.item_received).id | translate }}</p>
                                     </button>
 
                                 </div>

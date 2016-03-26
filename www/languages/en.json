@@ -92,6 +92,15 @@
     "SHORTAGE": "Shortage",
     "EXCESS": " Excess ",
     "RESIDUE": "Residue",
-    "IS_REQUIRED": "is Requried"
+    "IS_REQUIRED": "is Requried",
+    "EC19": "Empty 19 ",
+    "EC35": "Empty 35 ",
+    "EC47.5": "Empty 47.5 ",
+    "EC47.5LOT": "Empty 47.5LOT ",
+
+    "FC19": "Filled 19 ",
+    "FC35": "Filled 35 ",
+    "FC47.5": "Filled 47.5 ",
+    "FC47.5LOT": "Filled 47.5LOT "
 
 }

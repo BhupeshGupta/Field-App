@@ -1,31 +1,31 @@
 <ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
-    <ion-content scroll="false" class="module_wrap report_module step10">
+    <ion-content scroll="false" class="module_wrap report_module">
         <div class="main">
             <div class="report_table" id="review_template">
+                <div class="item_ws">
+                    <h2 class="title">{{'REVIEW' | translate}}</h2>
+                </div>
                 <ion-list>
                     <!--  Shortage  -->
                     <ion-item class="item item-input item-stacked-label date_field">
                         <div class="row storage_dtl">
                             <div class="col col-50">
-                                <p class="vocher_id">{{'VOUCHER' | translate}}: {{ grVocuherId }}</p>
+                                <p>{{'VOUCHER' | translate}}: {{ grc.user_input.goods_receipt_number }}</p>
                             </div>
                             <div class="col col-50">
-                                <p class="Text_R">{{'DATE' | translate}} : {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
+                                <p class="Text_R">{{'DATE' | translate}}: {{ grc.user_input.transaction_date | date:"dd/MM/yyyy" }}</p>
                             </div>
                         </div>
                         <div class="row storage_dtl">
-                            <p>{{'CUSTOMER' | translate }} : {{ grc.user_input.customer[0].value }}</p>
+                            <p>{{'CUSTOMER' | translate }}: {{ grc.user_input.customer[0].value }}</p>
+                            <p>{{ grc.user_input.aditionalData.address | htmlToPlaintext }}</p>
                         </div>
                     </ion-item>
                 </ion-list>
                 <ion-list>
                     <!-- Excess -->
                     <ion-item class="item item-input item-stacked-label F_itemsfields">
-                        <div class="icon_img">
-                            <img src="img/success.png" alt="">
-                        </div>
                         <table>
-
                             <thead>
                                 <th> {{'ITEM' | translate}}</th>
                                 <th> {{'FILLED' | translate}}</th>
@@ -37,27 +37,27 @@
                                     <td>{{ grc.user_input.item_delivered | translate }}</td>
                                     <td>
                                         <span ng-show="grc.user_input.item_delivered.indexOf('FC') > -1">
-                                {{ grc.user_input.delivered_quantity | translate }}
-                            </span>
+                                            {{ grc.user_input.delivered_quantity }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span ng-show="grc.user_input.item_delivered.indexOf('EC') > -1">
-                                {{ grc.user_input.delivered_quantity  | translate }}
-                            </span>
+                                            {{ grc.user_input.delivered_quantity }}
+                                        </span>
                                     </td>
                                     <td>{{'DELIVERED' | translate}}</td>
                                 </tr>
                                 <tr ng-show="grc.user_input.item_received">
-                                    <td>{{ grc.user_input.item_received }}</td>
+                                    <td>{{ grc.user_input.item_received | translate }}</td>
                                     <td>
                                         <span ng-show="grc.user_input.item_received.indexOf('FC') > -1">
-                                {{ grc.user_input.received_quantity }}
-                            </span>
+                                            {{ grc.user_input.received_quantity }}
+                                        </span>
                                     </td>
                                     <td>
-                                        <span ng-show="grc.user_input.item_received.indexOf('EC')  > -1">
-                                {{ grc.user_input.received_quantity }}
-                            </span>
+                                        <span ng-show="grc.user_input.item_received.indexOf('EC') > -1">
+                                            {{ grc.user_input.received_quantity }}
+                                        </span>
                                     </td>
                                     <td>{{'RECIEVED' | translate }}</td>
                                 </tr>
@@ -75,7 +75,6 @@
                                 <tr ng-show="grc.user_input.short || grc.user_input.residue || grc.user_input.excess">
                                     <td>{{ grc.user_input.short }}</td>
                                     <td>{{ grc.user_input.residue }}</td>
-
                                     <td>{{ grc.user_input.excess }}</td>
                                 </tr>
                                 <tr ng-show="grc.user_input.customer_document_id">
@@ -93,8 +92,10 @@
 
         </div>
         <ion-footer-bar>
-            <div class="btnnext_main ">
-                <button class="button button-bar btn-next" ng-click="grc.cleardata()" ui-sref="root.home">{{'HOME' | translate}}</button>
+            <div class="btnnext_main">
+                <div class="col">
+                    <button class="btn-next" ng-disabled="new_good_receipt_search.take_signature_next_disable" on-tap="grc.moveToSignatureForm()">{{'NEXT' | translate}}</button>
+                </div>
             </div>
         </ion-footer-bar>
     </ion-content>

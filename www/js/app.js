@@ -187,4 +187,10 @@ var receipt_module = angular.module('starter', [
                 }
             }
         });
+})
+
+.filter('htmlToPlaintext', function () {
+    return function (text) {
+        return String(text).replace(/<[^>]+>/gm, '');
+    };
 });

@@ -6,7 +6,7 @@ angular.module('starter')
 function goodsReceiptController(
     $scope, $state, Persistence, DocumentService, $q, gr_config, Utils,
     $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile,
-    UploadService
+    UploadService, $http, SettingsFactory
 ) {
 
     var vm = this;
@@ -22,6 +22,7 @@ function goodsReceiptController(
     //UI Utils
     vm.getItemDict = getItemDict;
     vm.cleardata = cleardata;
+    vm.customerSelected = customerSelected;
 
     vm.signature = {
         bg: ''
@@ -82,7 +83,7 @@ function goodsReceiptController(
         html2canvas(document.getElementById('review_template'), {
             onrendered: function (canvas) {
                 vm.signature.bg = canvas.toDataURL();
-                $state.transitionTo('root.good_receipt.step8');
+                $state.transitionTo('root.good_receipt.step6');
             }
         });
 
@@ -119,7 +120,7 @@ function goodsReceiptController(
         captureImage()
             .then(function (cameraFile) {
                 vm.signature.cameraFile = cameraFile;
-                $state.transitionTo('root.good_receipt.step9');
+                $state.transitionTo('root.good_receipt.step7');
             });
 
     }
@@ -166,7 +167,7 @@ function goodsReceiptController(
                 });
                 $scope.grVocuherId = gr_response.data.name;
                 UploadService.upload();
-                $state.go('root.good_receipt.step10');
+                $state.go('root.good_receipt.step8');
 
             })
             .catch(function (error) {
@@ -224,5 +225,24 @@ function goodsReceiptController(
 
     function cleardata() {
         vm.user_input = {};
+    }
+
+    function customerSelected(callback) {
+        var url = SettingsFactory.getERPServerBaseUrl() + '/api/method/erpnext.accounts.party.get_party_details/';
+        vm.user_input.aditionalData = {};
+        $http
+            .get(url, {
+                params: {
+                    party: callback.item.value
+                }
+            })
+            .then(function (data) {
+                var content = data.data.message;
+                vm.user_input.aditionalData = {
+                    address: content.address_display || 'N/A',
+                    contact: content.contact_display || 'N/A',
+                    mobile: content.contact_mobile || 'Mobile Not Avaliable'
+                };
+            });
     }
 }

@@ -30,6 +30,30 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('root.good_receipt.step3', {
+            url: '/step3',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_3.html'
+                }
+            }
+        })
+        .state('root.good_receipt.step4', {
+            url: '/step4',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_4.html'
+                }
+            }
+        })
+        .state('root.good_receipt.step5', {
+            url: '/step5',
+            views: {
+                'good_receipt_content_view': {
+                    templateUrl: 'components/good_receipt/forms/step_5.html'
+                }
+            }
+        })
         .state('root.good_receipt.step6', {
             url: '/step6',
             views: {
@@ -51,22 +75,6 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'good_receipt_content_view': {
                     templateUrl: 'components/good_receipt/forms/step_8.html'
-                }
-            }
-        })
-        .state('root.good_receipt.step9', {
-            url: '/step9',
-            views: {
-                'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/step_9.html'
-                }
-            }
-        })
-        .state('root.good_receipt.step10', {
-            url: '/step10',
-            views: {
-                'good_receipt_content_view': {
-                    templateUrl: 'components/good_receipt/forms/step_10.html'
                 }
             }
         })

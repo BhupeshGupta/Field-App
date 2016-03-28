@@ -1,46 +1,38 @@
-<ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
+<ion-view title="Customer Details">
     <ion-content class="module_wrap form_wrap has-header">
         <div class="main">
             <div class="main_form_wrap">
                 <form name="GR_Form" novalidate class="form_inner">
                     <ion-list>
-
-                        <!--  Voucher ID  -->
-                        <ion-item class="item item-input item-stacked-label" ng-class="{Iact: grc.user_input.goods_receipt_number!=''}">
-                            <label><span class="input-label">{{'VOUCHER_ID' | translate}}</span> </label>
-                            <input name="voucher_id" type="text" ng-model="grc.user_input.goods_receipt_number" id="required" placeholder="{{'VOUCHER_ID' | translate}}" required>
-                        </ion-item>
-
-                        <!-- Transaction Date -->
-                        <ion-item class="item item-input item-stacked-label icon_field">
-                            <span class="input-label">{{'DATE' | translate }}</span>
-                            <input name="date" type="date" ng-model="grc.user_input.transaction_date" required>
-                            <span class="date_icon"> <i class="fa fa-calendar"></i></span>
-                        </ion-item>
-
-                        <!--  Customer Name  -->
                         <ion-item class="item item-input item-stacked-label">
                             <label><span class="input-label">{{'CUSTOMER_NAME' | translate}}</span></label>
-                            <input name="customer_name" ion-autocomplete type="text" class="ion-autocomplete" ng-model="grc.user_input.customer" item-view-value-key="value" max-selected-items="1" items-method="grc.autocomplete_customer(query)" placeholder="{{'CUSTOMER_NAME' | translate}}" required/>
+                            <input name="customer_name" ion-autocomplete type="text" class="ion-autocomplete" ng-model="grc.user_input.customer" item-view-value-key="value" max-selected-items="1" items-method="grc.autocomplete_customer(query)" items-clicked-method="grc.customerSelected(callback)" placeholder="{{'CUSTOMER_NAME' | translate}}" required/>
                         </ion-item>
-
-                        <!--  Vehicle Number  -->
                         <ion-item class="item item-input item-stacked-label">
-                            <label><span class="input-label">{{'VEHICLE_NUMBER' | translate}}</span></label>
-                            <input name="vehicle_number" ion-autocomplete type="text" class="ion-autocomplete" ng-model="grc.user_input.vehicle" item-view-value-key="value" max-selected-items="1" items-method="grc.autocomplete_vehicle(query)" placeholder="{{'VEHICLE_NUMBER' | translate}}" required />
+                            <label><span class="input-label">Address</span></label>
+                            <div class="card">
+                                <div class="item item-text-wrap" ng-bind-html="grc.user_input.aditionalData.address">
+
+                                </div>
+                            </div>
+                        </ion-item>
+                        <ion-item class="item item-input item-stacked-label">
+                            <label><span class="input-label">Contact</span></label>
+                            <div class="card">
+                                <div class="item item-text-wrap">
+                                    {{grc.user_input.aditionalData.contact}}, {{grc.user_input.aditionalData.mobile}}
+                                </div>
+                            </div>
                         </ion-item>
 
-                        <!-- required fields -->
                         <ion-item class="reqired_fields">
-                            <p ng-show="GR_Form.voucher_id.$error.required">*{{'VOUCHER_ID' | translate}} </p>
-                            <p ng-show="GR_Form.date.$error.required">*{{'DATE' | translate }}</p>
                             <p ng-show="GR_Form.customer_name.$error.required">* {{'CUSTOMER_NAME' | translate}}</p>
-                            <p ng-show="GR_Form.vehicle_number.$error.required">* {{'VEHICLE_NUMBER' | translate}}</p>
                         </ion-item>
 
                         <div class="btnnext_main">
                             <button class="btn-next" ng-disabled="GR_Form.$invalid" ui-sref="root.good_receipt.step2">{{'NEXT' | translate}}</button>
                         </div>
+
                     </ion-list>
                 </form>
             </div>

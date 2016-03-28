@@ -1,4 +1,4 @@
-<ion-view title="ARUN LOGISTICS FIELD APP">
+<ion-view title="Field Report">
     <ion-content class="main">
         <div class="main login_container">
             <div class="logo">
@@ -19,8 +19,8 @@
                         <span class="input_icon"><i class="ion-android-lock"> </i></span>
                         <input placeholder="{{'PASSWORD' | translate }}" name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
                         <span class="visibale_password" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
-                                <i ng-class="passwordInputType=='password'?'ion-eye-disabled':'ion-eye'"> </i>
-                            </span>
+                            <i ng-class="passwordInputType=='password'?'ion-eye-disabled':'ion-eye'"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="input-group btn">

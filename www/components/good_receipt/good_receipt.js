@@ -31,7 +31,7 @@ function goodsReceiptController(
 
     vm.user_input = {
         "goods_receipt_number": "",
-        "transaction_date": moment().format("YYYY-MM-DD"),
+        "transaction_date": new Date(moment().format("YYYY-MM-DD")),
         "customer": {},
         "vehicle": {},
 

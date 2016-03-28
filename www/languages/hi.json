@@ -91,9 +91,9 @@
     "CLICK_HERE_TO_DELIVERED_REPORT": "कस्टमर को दे दिया",
     "CLICK_HERE_TO_RECIEVED_REPORT": "कस्टमर से ले लीया",
     "QUANTITY": "संख्या",
-    "SHORTAGE": "गॅस शॉर्ट",
-    "EXCESS": "गॅस आधिक ",
-    "RESIDUE": "गॅस वापिसी",
+    "SHORTAGE": "गैस शॉर्ट",
+    "EXCESS": "गैस आधिक ",
+    "RESIDUE": "गैस वापिसी",
     "LOGOUT": "लोग आउट",
     "IS_REQUIRED": "आवश्यकता है",
     "EC19": "खाली 19",
@@ -103,5 +103,7 @@
     "FC19": "भरा 19",
     "FC35": "भरा 35",
     "FC47.5": "भरा 47.5",
-    "FC47.5LOT": "भरा 47.5 एल.ओ.टी"
+    "FC47.5LOT": "भरा 47.5 एल.ओ.टी",
+    "DELIVERED": "दे दिया",
+    "RECIEVED": "ले लीया"
 }

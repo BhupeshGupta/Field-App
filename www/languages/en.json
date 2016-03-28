@@ -104,5 +104,7 @@
     "FC19": "Filled 19",
     "FC35": "Filled 35",
     "FC47.5": "Filled 47.5",
-    "FC47.5LOT": "Filled 47.5LOT"
+    "FC47.5LOT": "Filled 47.5LOT",
+    "DELIVERED": "Delivered",
+    "RECIEVED": "Recieved"
 }

@@ -225,7 +225,7 @@ receipt_module.factory('UserServiceKnockout', function ($http, SettingsFactory, 
 });
 
 
-receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
+receipt_module.factory('DocumentService', function ($http, SettingsFactory, SessionService) {
     var factory = {
         search: function (documentType, query, filters) {
             var data = {

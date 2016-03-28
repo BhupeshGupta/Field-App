@@ -10,14 +10,14 @@
                     <label>{{'EMAIL_ID' | translate }} :</label>
                     <div class="input_outer">
                         <span class="input_icon"><i class="ion-android-person"> </i></span>
-                        <input placeholder="Email Id" name="Username" type="text" ng-model="loginData.username" ng-required="true" required>
+                        <input placeholder="{{'EMAIL_ID' | translate }}" name="Username" type="text" ng-model="loginData.username" ng-required="true" required>
                     </div>
                 </div>
                 <div class="input-group ">
                     <label ng-init="passwordInputType = 'password'">{{'PASSWORD' | translate }} :</label>
                     <div class="input_outer">
                         <span class="input_icon"><i class="ion-android-lock"> </i></span>
-                        <input placeholder="Password" name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
+                        <input placeholder="{{'PASSWORD' | translate }}" name="password" type="{{passwordInputType}}" ng-model="loginData.password" ng-required="true" required/>
                         <span class="visibale_password" on-tap="passwordInputType = { 'password': 'text', 'text': 'password'}[passwordInputType];">
                                 <i ng-class="passwordInputType=='password'?'ion-eye-disabled':'ion-eye'"> </i>
                             </span>

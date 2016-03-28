@@ -21,6 +21,7 @@ function goodsReceiptController(
 
     //UI Utils
     vm.getItemDict = getItemDict;
+    vm.cleardata = cleardata;
 
     vm.signature = {
         bg: ''
@@ -109,7 +110,6 @@ function goodsReceiptController(
             vm.user_input.location_longitude = location.coords.longitude;
             //location.coords.accuracy;
             console.log(location);
-            alert("Location Captured!");
         }).catch(function (error) {
             console.log(error);
             alert(error);
@@ -165,8 +165,9 @@ function goodsReceiptController(
                     })
                 });
                 $scope.grVocuherId = gr_response.data.name;
-                //                UploadService.upload();
+                UploadService.upload();
                 $state.go('root.good_receipt.step10');
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -219,5 +220,9 @@ function goodsReceiptController(
             }
         });
         return returnItem;
+    }
+
+    function cleardata() {
+        vm.user_input = {};
     }
 }

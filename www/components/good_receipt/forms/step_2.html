@@ -6,7 +6,7 @@
                     <ion-list>
 
                         <!--  Voucher ID  -->
-                        <ion-item class="item item-input item-stacked-label" ng-class="{Iact: grc.user_input.goods_receipt_number!=''}">
+                        <ion-item ng-if="!grc.settings.autoVoucherId" class="item item-input item-stacked-label" ng-class="{Iact: grc.user_input.goods_receipt_number!=''}">
                             <label><span class="input-label">{{'VOUCHER_ID' | translate}}</span> </label>
                             <input name="voucher_id" type="text" ng-model="grc.user_input.goods_receipt_number" id="required" placeholder="{{'VOUCHER_ID' | translate}}" required>
                         </ion-item>

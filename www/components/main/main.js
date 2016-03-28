@@ -67,48 +67,56 @@ function mainController(
     $scope.location_lock = 0;
 
     // Endless loop to get location
-    //    document.addEventListener('deviceready', function () {
-    //        var retryInterval = 5000;
-    //
-    //        var posOptions = {
-    //            timeout: retryInterval,
-    //            enableHighAccuracy: true
-    //        };
-    //
-    //        var myPopup = null;
-    //        var total_wait = 0;
-    //        var get_location = function () {
-    //            $cordovaGeolocation.getCurrentPosition(posOptions)
-    //                .then(function (position) {
-    //                    console.log(position);
-    //                    $scope.location_lock = 1;
-    //                    console.log("Location Locked");
-    //                    console.log(myPopup);
-    //                    if (myPopup)
-    //                        myPopup.close();
-    //                }, function (err) {
-    //                    var wait_limit = ($localStorage.appConfig && $localStorage.appConfig.gpsStartupDelay) || 2 * 60 * 1000;
-    //                    total_wait += retryInterval;
-    //                    var pending_time = wait_limit - total_wait;
-    //                    if (pending_time < 0 && myPopup) {
-    //                        myPopup.close();
-    //                    }
-    //
-    //                    $scope.gprTimer = (pending_time / 1000).toString() + ' Sec';
-    //
-    //                    $scope.location_lock = 2;
-    //                    get_location();
-    //                    if (!myPopup) {
-    //                        myPopup = $ionicPopup.show({
-    //                            template: '<p>Wating for location ({{gprTimer}})</p>',
-    //                            title: 'Wait',
-    //                            scope: $scope,
-    //                            buttons: []
-    //                        });
-    //                    }
-    //                });
-    //        };
-    //        get_location();
-    //    });
+    document.addEventListener('deviceready', function () {
+        function getDelay() {
+            return parseInt(SettingsFactory.get().gpsStartupDelay || 2 * 60 * 1000);
+        }
+
+        function getRetryInterval() {
+            return parseInt(SettingsFactory.get().gpsGoodsReceiptDelay || 2 * 60 * 1000);
+        }
+
+        var myPopup = null;
+        var total_wait = 0;
+
+        var get_location = function () {
+
+            var posOptions = {
+                timeout: getRetryInterval(),
+                enableHighAccuracy: true
+            };
+
+            $cordovaGeolocation.getCurrentPosition(posOptions)
+                .then(function (position) {
+                    console.log(position);
+                    $scope.location_lock = 1;
+                    console.log("Location Locked");
+                    console.log(myPopup);
+                    if (myPopup)
+                        myPopup.close();
+                }, function (err) {
+                    var wait_limit = getDelay();
+                    total_wait += posOptions.timeout;
+                    var pending_time = wait_limit - total_wait;
+                    if (pending_time < 0 && myPopup) {
+                        myPopup.close();
+                    }
+
+                    $scope.gprTimer = (pending_time / 1000).toString() + ' Sec';
+
+                    $scope.location_lock = 2;
+                    get_location();
+                    if (!myPopup) {
+                        myPopup = $ionicPopup.show({
+                            template: '<p>Wating for location ({{gprTimer}})</p>',
+                            title: 'Wait',
+                            scope: $scope,
+                            buttons: []
+                        });
+                    }
+                });
+        };
+        get_location();
+    });
 
 }

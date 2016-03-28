@@ -18,6 +18,7 @@ function goodsReceiptController(
     vm.captureSignatureAndCaptureImage = captureSignatureAndCaptureImage;
     vm.acceptAndUpload = acceptAndUpload;
     vm.retakeImage = retakeImage;
+    vm.settings = SettingsFactory.get();
 
     //UI Utils
     vm.getItemDict = getItemDict;

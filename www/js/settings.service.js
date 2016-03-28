@@ -1,35 +1,45 @@
 angular.module('starter')
     .factory('SettingsFactory', settingsFactory);
 
-function settingsFactory($localStorage) {
+function settingsFactory($localStorage, $http) {
     var SETTINGS_PREFIX = 'settings_';
+    var urlConfigCache = SETTINGS_PREFIX + 'urlConf';
 
     var defaultSettings = {
-        serverBaseUrl: 'api',
+        serverBaseUrl: '/api',
         reviewServerBaseUrl: '/review',
-        language: 'en'
+        language: 'hi'
     };
 
-    function setupConfig() {
-
+    if (!$localStorage.settings) {
+        $localStorage.settings = defaultSettings;
     }
 
+    function setupConfig() {
+        angular.extend($localStorage.settings, $localStorage[urlConfigCache]);
+    }
+
+    setupConfig();
+
     function loadAppConfig() {
-        return $http.get("https://erp.arungas.com/app_conf.json")
+        return $http.get($localStorage.settings.serverBaseUrl + "/app_conf.json")
             .then(function (data) {
-                $localStorage[SETTINGS_PREFIX + 'urlConf'] = data.data;
+                $localStorage[urlConfigCache] = data.data;
+                setupConfig();
             });
     }
 
     return {
-        get: _retrieveSettings,
-        set: _saveSettings,
+        get: () => {
+            return $localStorage.settings;
+        },
         getERPServerBaseUrl: function () {
-            return _retrieveSettings().serverBaseUrl;
+            return this.get().serverBaseUrl;
         },
         getReviewServerBaseUrl: function () {
             return 'http://192.168.31.124:1337';
-        }
+        },
+        loadAppConfig: loadAppConfig
     };
 
 }

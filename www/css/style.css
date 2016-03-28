@@ -991,6 +991,36 @@ ion-footer-bar.bar.bar-footer {
 ion-footer-bar .btnnext_main {
     margin: 0;
 }
+.contact_dtl .card {
+    padding: 0 10px;
+    background: #eee;
+    border: none;
+    border-radius: 0;
+    line-height: 25px !important;
+    margin: 0;
+    box-shadow: none;
+    min-height: 40px;
+}
+.contact_dtl .card .item {
+    background: none;
+    border: 0 !important;
+    margin: 0;
+    padding: 10px 5px;
+    font-size: 13px;
+    line-height: 20px;
+}
+.storage_address p {
+    overflow: visible;
+    white-space: normal;
+    padding: 0 5px;
+}
+.storage_address p span {
+    padding-left: 10px;
+    font-size: 13px;
+}
+.report_module .main {
+    padding-top: 10px;
+}
 
 /*============ media queries =========== */
 

@@ -105,5 +105,16 @@
     "FC47.5": "भरा 47.5",
     "FC47.5LOT": "भरा 47.5 एल.ओ.टी",
     "DELIVERED": "दे दिया",
-    "RECIEVED": "ले लीया"
+    "RECIEVED": "ले लीया",
+    "REVIEW": "रिव्यू",
+    "CUSTOMER_DETAILS": "कस्टमर डीटेल्स",
+    "DATE_AND_VEHICLE": "तारीख और गाड़ी",
+    "CYLINDER_AND_QUANTITY": "सिलेंडर और संख्या",
+    "INFORMATION": "अतिरिक्त जानकारी",
+    "SIGNATURE": "सिग्नेचर",
+    "LOG_BOOK_PICTURE": "लॉग बुक की फोटो",
+    "SUCCESS": "सफलता",
+    "ADDRESS": "पता",
+    "CONTACT": "संपर्क"
+
 }

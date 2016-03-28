@@ -1,4 +1,4 @@
-<ion-view title="Customer Details">
+<ion-view title="{{ 'CUSTOMER_DETAILS ' | translate }}">
     <ion-content class="module_wrap form_wrap has-header">
         <div class="main">
             <div class="main_form_wrap">
@@ -8,16 +8,16 @@
                             <label><span class="input-label">{{'CUSTOMER_NAME' | translate}}</span></label>
                             <input name="customer_name" ion-autocomplete type="text" class="ion-autocomplete" ng-model="grc.user_input.customer" item-view-value-key="value" max-selected-items="1" items-method="grc.autocomplete_customer(query)" items-clicked-method="grc.customerSelected(callback)" placeholder="{{'CUSTOMER_NAME' | translate}}" required/>
                         </ion-item>
-                        <ion-item class="item item-input item-stacked-label">
-                            <label><span class="input-label">Address</span></label>
-                            <div class="card">
+                        <ion-item class="item item-input item-stacked-label contact_dtl">
+                            <label><span class="input-label">{{ 'ADDRESS' | translate}}</span></label>
+                            <div class="card ">
                                 <div class="item item-text-wrap" ng-bind-html="grc.user_input.aditionalData.address">
 
                                 </div>
                             </div>
                         </ion-item>
-                        <ion-item class="item item-input item-stacked-label">
-                            <label><span class="input-label">Contact</span></label>
+                        <ion-item class="item item-input item-stacked-label contact_dtl">
+                            <label><span class="input-label">{{'CONTACT'| translate}}</span></label>
                             <div class="card">
                                 <div class="item item-text-wrap">
                                     {{grc.user_input.aditionalData.contact}}, {{grc.user_input.aditionalData.mobile}}

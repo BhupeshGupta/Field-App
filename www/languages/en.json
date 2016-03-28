@@ -106,5 +106,15 @@
     "FC47.5": "Filled 47.5",
     "FC47.5LOT": "Filled 47.5LOT",
     "DELIVERED": "Delivered",
-    "RECIEVED": "Recieved"
+    "RECIEVED": "Recieved",
+    "REVIEW": "Review",
+    "CUSTOMER_DETAILS": "Customer Details",
+    "DATE_AND_VEHICLE": "Date and Vehicle",
+    "CYLINDER_AND_QUANTITY": "Cylinder and Quantity",
+    "INFORMATION": "Additional Information",
+    "SIGNATURE": "Signature",
+    "LOG_BOOK_PICTURE": "Log Book Picture",
+    "SUCCESS": "Success",
+    "ADDRESS": "Address",
+    "CONTACT": "Contact"
 }

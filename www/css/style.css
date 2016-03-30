@@ -643,6 +643,9 @@ div[ng-show="languageGroupShown"] {
     background: #dcd6d6;
     margin-left: 10px;
     text-align: center;
+    max-width: 160px !important;
+    float: right;
+    width: 80% !important;
 }
 .item_img img {
     height: 60px;
@@ -727,7 +730,6 @@ button[disabled="disabled"] {
     white-space: normal;
     font-size: 12px !important;
     height: 35px !important;
-    word-spacing: 9px;
     text-align: center;
     line-height: 15px;
 }

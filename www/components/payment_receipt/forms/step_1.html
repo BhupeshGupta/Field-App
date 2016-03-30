@@ -60,16 +60,14 @@
                                 </div>
                             </ion-item>
                             <ion-item class="item item-input item-stacked-label">
-                                <label><span class="input-label">{{'Remarks' | translate}}</span></label>
+                                <label><span class="input-label">{{'REMARKS' | translate}}</span></label>
                                 <input type="text" placeholder="Remakrs" ng-model="prc.user_input.remarks" required>
                             </ion-item>
 
                             <!-- required fields -->
                             <ion-item class="reqired_fields">
-                                <p ng-show="PR_Form.stock_owner.$error.required">* Stock Owner Name is required</p>
-                                <p ng-show="PR_Form.voucher_id.$error.required">* Voucher ID is required</p>
-                                <p ng-show="PR_Form.quantity.$error.required">* Please fill the Quantity</p>
-                                <p ng-show="PR_Form.amount.$error.required">* Amount is required</p>
+                                <p ng-show="PR_Form.stock_owner.$error.required">*{{'STOCK_OWNER' | translate}} </p>
+                                <p ng-show="PR_Form.voucher_id.$error.required">* {{'VOUCHER_ID' | translate}}</p>
                             </ion-item>
                         </div>
                     </ion-list>

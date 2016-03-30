@@ -211,6 +211,7 @@ function goodsReceiptController(
     function prepareForErp(data) {
         // Create a deep copy
         var transformed_data = JSON.parse(JSON.stringify(data));
+        transformed_data.goods_receipt_number = transformed_data.goods_receipt_number.toString();
         transformed_data.customer = transformed_data.customer[0].value;
         transformed_data.vehicle = transformed_data.vehicle[0].value;
         transformed_data.transaction_date = moment(transformed_data.transaction_date).format("YYYY-MM-DD");

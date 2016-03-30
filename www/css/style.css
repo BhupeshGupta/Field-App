@@ -677,8 +677,6 @@ button[disabled="disabled"] {
 .rep_model {
     background: #fff;
     padding: 0px;
-    -webkit-transition: all linear 0.5s;
-    transition: all linear 0.5s;
 }
 .cyl_dtl {
     width: 100%;
@@ -761,14 +759,12 @@ ion-footer-bar {
     margin: 0 auto;
     bottom: 28px;
 }
-.rep_model .cyl_dtl ion-list {}
 .rep_model .cyl_dtl ion-list .list {
     width: 100%;
     overflow: hidden;
     padding: 0;
 }
 .rep_model {
-    display: block;
     position: relative;
 }
 .rec_active .rec_txt_detail {
@@ -1033,27 +1029,6 @@ ion-footer-bar .btnnext_main {
 }
 .report_module .main {
     padding-top: 10px;
-}
-.cmn-t-pulse {
-    padding: 20px 40px;
-    color: #fff;
-    background-color: #ff3296;
-    animation: pulse 1s ease infinite;
-    /* transition: transform 0.2s; */
-}
-.cmn-t-pulse:hover {
-    color: #fff;
-}
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 /*============ media queries =========== */

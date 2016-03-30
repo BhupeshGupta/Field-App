@@ -116,5 +116,6 @@
     "LOG_BOOK_PICTURE": "Log Book Picture",
     "SUCCESS": "Success",
     "ADDRESS": "Address",
-    "CONTACT": "Contact"
+    "CONTACT": "Contact",
+    "TXN_TYPE": "Txn Type"
 }

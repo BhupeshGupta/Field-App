@@ -115,6 +115,7 @@
     "LOG_BOOK_PICTURE": "लॉग बुक की फोटो",
     "SUCCESS": "सफलता",
     "ADDRESS": "पता",
-    "CONTACT": "संपर्क"
+    "CONTACT": "संपर्क",
+    "TXN_TYPE": "सौदा"
 
 }

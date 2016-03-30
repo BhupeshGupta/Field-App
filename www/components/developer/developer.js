@@ -7,8 +7,8 @@ receipt_module.controller('DeveloperController', function ($scope, $state, Setti
     $scope.input = settings;
 
     $scope.save = function () {
-        SettingsFactory.set($scope.input);
-//        $ionicHistory.goBack();
+        angular.extend(settings, $scope.input);
+        //        $ionicHistory.goBack();
         $state.go('root.login');
     };
 

@@ -22,7 +22,7 @@ function settingsFactory($localStorage, $http) {
     setupConfig();
 
     function loadAppConfig() {
-        return $http.get($localStorage.settings.serverBaseUrl + "/app_conf.json")
+        return $http.get($localStorage.settings.serverBaseUrl + "/app_conf.json?" + moment().valueOf())
             .then(function (data) {
                 $localStorage[urlConfigCache] = data.data;
                 setupConfig();

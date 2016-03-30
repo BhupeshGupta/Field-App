@@ -29,36 +29,41 @@ function goodsReceiptController(
         bg: ''
     };
 
-    vm.user_input = {
-        "goods_receipt_number": "",
-        "transaction_date": new Date(moment().format("YYYY-MM-DD")),
-        "customer": {},
-        "vehicle": {},
+    function resetUserInput() {
+        vm.user_input = angular.copy({
+            "goods_receipt_number": "",
+            "transaction_date": new Date(moment().format("YYYY-MM-DD")),
+            "customer": {},
+            "vehicle": {},
 
-        "item_delivered": "",
-        "delivered_quantity": "",
-        "delivered_remarks": "",
+            "item_delivered": "",
+            "delivered_quantity": "",
+            "delivered_remarks": "",
 
-        "item_received": "",
-        "received_quantity": "",
-        "received_remarks": "",
+            "item_received": "",
+            "received_quantity": "",
+            "received_remarks": "",
 
-        "customer_document_id": "",
-        "delivery_type": "Refill",
-        "excess": "",
-        "residue": "",
-        "short": "",
-        "remarks": "",
+            "customer_document_id": "",
+            "delivery_type": "Refill",
+            "excess": "",
+            "residue": "",
+            "short": "",
+            "remarks": "",
 
 
-        "doctype": "Goods Receipt",
-        "docstatus": 1,
-        "company": "Arun Logistics",
+            "doctype": "Goods Receipt",
+            "docstatus": 1,
+            "company": "Arun Logistics",
 
-        "posting_date": moment().format("YYYY-MM-DD"),
-        "location_latitude": "",
-        "location_longitude": ""
-    };
+            "posting_date": moment().format("YYYY-MM-DD"),
+            "location_latitude": "",
+            "location_longitude": "",
+            "warehouse": "Sherpur Godwon - AL"
+        });
+    }
+
+    resetUserInput();
 
     function autocomplete_vehicle(query) {
         return DocumentService.search('Transportation Vehicle', query, {})
@@ -225,7 +230,7 @@ function goodsReceiptController(
     }
 
     function cleardata() {
-        vm.user_input = {};
+        resetUserInput();
     }
 
     function customerSelected(callback) {
@@ -242,7 +247,7 @@ function goodsReceiptController(
                 vm.user_input.aditionalData = {
                     address: content.address_display || 'N/A',
                     contact: content.contact_display || 'N/A',
-                    mobile: content.contact_mobile || 'Mobile Not Avaliable'
+                    mobile: content.contact_phone || 'Mobile Not Avaliable'
                 };
             });
     }

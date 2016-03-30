@@ -1,14 +1,14 @@
-<ion-view title=" {{ 'SIGNATURE' | translate }}">
-    <ion-content scroll="false " class="module_wrap sign_wrap main">
+<ion-view cache-view="false" title="{{ 'SIGNATURE' | translate }}">
+    <ion-content scroll="false" class="module_wrap sign_wrap main">
         <div class="sign_canvas" proof-pad accept="grc.acceptSignaturePad" clear="clearSignaturePad" height="400" width="320" dataurl="grc.signature.bg"></div>
         <ion-footer-bar>
             <div class="btnnext_main">
                 <div class="row">
                     <div class="col col-50">
-                        <button class="btn-next" ng-click=" clearSignaturePad() ">{{'CLEAR' | translate}}</button>
+                        <button class="btn-next" ng-click=" clearSignaturePad()">{{'CLEAR' | translate}}</button>
                     </div>
-                    <div class="col col-50 ">
-                        <button class="btn-next " on-tap="grc.captureSignatureAndCaptureImage( '') ">{{'NEXT' | translate}}</button>
+                    <div class="col col-50">
+                        <button class="btn-next" on-tap="grc.captureSignatureAndCaptureImage( '')">{{'NEXT' | translate}}</button>
                     </div>
                 </div>
             </div>

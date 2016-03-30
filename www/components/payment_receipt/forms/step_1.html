@@ -7,19 +7,19 @@
                         <div class="list">
                             <!-- Stock Owner  -->
                             <ion-item class="item item-input item-stacked-label">
-                                <label><span class="input-label">{{'STOCK_OWNER' | translate}}</span></label>
+                                <label><span class="input-label">{{'STOCKOWNER' | translate}}</span></label>
                                 <input type="text" class="autocomplete" max-selected-items="1" ion-autocomplete ng-model="prc.user_input.stock_owner" item-view-value-key="value" items-method="prc.autoCompleteStockOwner(query)" placeholder="{{'STOCK_OWNER' | translate}}" name="stock_owner" required/>
                             </ion-item>
 
                             <!-- Voucher ID  -->
                             <ion-item class="item item-input item-stacked-label">
-                                <label><span class="input-label">{{'VOUCHER_ID' | translate}}</span></label>
+                                <label><span class="input-label">{{'VOUCHER' | translate}}</span></label>
                                 <input type="number" min="1" ng-model="prc.user_input.id" placeholder="{{'VOUCHER_ID' | translate}}" name="voucher_id" required>
                             </ion-item>
 
                             <!-- Customer -->
                             <ion-item class="item item-input item-stacked-label">
-                                <label><span class="input-label">{{'CUSTOMER_NAME' | translate}}</span></label>
+                                <label><span class="input-label">{{'CUSTOMER' | translate}}</span></label>
                                 <input type="text" placeholder="{{'CUSTOMER_NAME' | translate}}" ng-model="prc.user_input.customer" required>
                             </ion-item>
 
@@ -34,7 +34,6 @@
                                 <div class="list">
                                     <label><span class="input-label"> {{'ITEM' | translate}}</span></label>
                                     <select ng-model="prc.user_input.item">
-                                        <option selected>{{'ITEM' | translate}}</option>
                                         <option selected>FC19</option>
                                     </select>
 
@@ -53,15 +52,15 @@
                                 <div class="list">
                                     <label><span class="input-label"> {{'TRANSACTION_TYPE' | translate}}</span></label>
                                     <select ng-model="prc.user_input.transaction_type" placeholder="{{'TRANSACTION_TYPE' | translate}}">
-                                        <option>{{'REFILL' | translate}}</option>
-                                        <option>{{'TV_OUT' | translate}}</option>
-                                        <option>{{'NEW_CONNECTION' | translate}}</option>
+                                        <option value="Refill">{{'REFILL' | translate}}</option>
+                                        <option value="TV Out">{{'TV_OUT' | translate}}</option>
+                                        <option value="New Connection">{{'NEW_CONNECTION' | translate}}</option>
                                     </select>
                                 </div>
                             </ion-item>
                             <ion-item class="item item-input item-stacked-label">
                                 <label><span class="input-label">{{'REMARKS' | translate}}</span></label>
-                                <input type="text" placeholder="Remakrs" ng-model="prc.user_input.remarks" required>
+                                <input type="text" placeholder="{{'REMARKS' | translate}}" ng-model="prc.user_input.remarks" required>
                             </ion-item>
 
                             <!-- required fields -->

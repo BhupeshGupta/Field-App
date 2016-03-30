@@ -146,7 +146,7 @@ body {
     background-image: url("../img/bg.jpg");
     background-position: top center;
     background-repeat: repeat;
-    background-size: 100% 100%;
+    background-attachment: fixed;
     padding: 0px 15px 0 15px;
 }
 .view-container {
@@ -701,7 +701,7 @@ button[disabled="disabled"] {
     margin-bottom: 30px;
 }
 .cyl_dtl ion-item {
-    width: 70px;
+    width: 25%;
     display: inline-block;
     border-radius: 0;
     float: left;
@@ -761,7 +761,7 @@ ion-footer-bar {
 }
 .rep_model .cyl_dtl ion-list {}
 .rep_model .cyl_dtl ion-list .list {
-    width: 340px;
+    width: 100%;
     overflow: hidden;
     padding: 0;
 }

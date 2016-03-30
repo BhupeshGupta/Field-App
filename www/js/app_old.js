@@ -99,7 +99,7 @@ receipt_module.config(function ($stateProvider, $urlRouterProvider) {
 
 
 angular.module('starter')
-    .constant('gr_config', {
+    .value('gr_config', {
         filled: [
             {
                 img_url: 'img/cyl1.png',
@@ -144,6 +144,15 @@ angular.module('starter')
                 name: 'EC47.5LOT'
             }
         ]
+    })
+    .run(function (gr_config) {
+        gr_config.index = {};
+        angular.forEach(gr_config.filled, function (value, index) {
+            gr_config.index[value.id] = value;
+        });
+        angular.forEach(gr_config.empty, function (value, index) {
+            gr_config.index[value.id] = value;
+        });
     });
 
 

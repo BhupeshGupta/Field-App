@@ -30,7 +30,7 @@ function settingsFactory($localStorage, $http) {
     }
 
     return {
-        get: () => {
+        get: function () {
             return $localStorage.settings;
         },
         getERPServerBaseUrl: function () {

@@ -118,5 +118,10 @@
     "SUCCESS": "Success",
     "ADDRESS": "Address",
     "CONTACT": "Contact",
-    "TXN_TYPE": "Txn Type"
+    "TXN_TYPE": "Txn Type",
+    "QTY1": "Please Fill the Delivered Quanity",
+    "QTY2": "Please Fill the Received Quanity",
+    "item_required_delivered": "Item Delivered Is Required",
+    "item_required_received": "Item Received Is Required"
+
 }

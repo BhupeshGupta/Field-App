@@ -44,7 +44,7 @@ function mainController(
             inputType: 'password',
             inputPlaceholder: 'Password'
         }).then(function (res) {
-            if (res == 'youwontknow')
+            if (res == '123124')
                 $state.go('root.developer');
         });
     };

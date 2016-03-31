@@ -1030,6 +1030,9 @@ ion-footer-bar .btnnext_main {
 .report_module .main {
     padding-top: 10px;
 }
+.reqired_fields.item {
+    border: 0;
+}
 
 /*============ media queries =========== */
 

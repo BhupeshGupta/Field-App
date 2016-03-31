@@ -2,7 +2,15 @@
   PULSE
 ============================================================ */
 
-.item_img button {
+.rec_active.item {
+    border: 1px solid #ccc;
+    -webkit-animation: pulse 0s ease infinite;
+    -moz-animation: pulse 0s ease infinite;
+    -ms-animation: pulse 0s ease infinite;
+    -o-animation: pulse 0s ease infinite;
+    animation: pulse 0s ease infinite;
+}
+.rec_active.item .pulse {
     color: #fff;
     -webkit-animation: pulse 1s ease infinite;
     -moz-animation: pulse 1s ease infinite;
@@ -10,15 +18,6 @@
     -o-animation: pulse 1s ease infinite;
     animation: pulse 1s ease infinite;
     border: 1px solid #f00;
-}
-button[disabled="disabled"],
-.item_img button.active {
-    border: 1px solid #ccc;
-    -webkit-animation: pulse 0s ease infinite;
-    -moz-animation: pulse 0s ease infinite;
-    -ms-animation: pulse 0s ease infinite;
-    -o-animation: pulse 0s ease infinite;
-    animation: pulse 0s ease infinite;
 }
 @-webkit-keyframes pulse {
     0% {

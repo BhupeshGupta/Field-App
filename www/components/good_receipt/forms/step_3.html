@@ -4,7 +4,7 @@
             <form name="grc.forms.itemSelectionForm" novalidate>
                 <ion-list>
                     <!-- delivered item report start -->
-                    <ion-item class="rec_active" ng-init="disabled = true; grc.devmodelshow = false; " ng-class="{arrow: grc.devmodelshow} ">
+                    <ion-item class="rec_active" ng-init="disabled = true; grc.devmodelshow = grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!='';" ng-class="{arrow: grc.devmodelshow} ">
                         <div class="header-item">
                             <div class="rec_recipet button1">
                                 <h3 ng-class="{active: grc.user_input.delivered_quantity && grc.user_input.delivered_quantity != ''}">{{'CLICK_HERE_TO_DELIVERED_REPORT' | translate}}<span class="expand"><i class="ion-ios-upload-outline"></i></span></h3>
@@ -32,7 +32,7 @@
                     <!-- delivered item report end -->
 
                     <!-- recieved item report start -->
-                    <ion-item class="rec_active" ng-init="disabled = true; grc.repmodelshow = false; enabled = true;" ng-class="{arrow: grc.repmodelshow} ">
+                    <ion-item class="rec_active" ng-init="disabled = grc.user_input.received_quantity && grc.user_input.received_quantity!=''; grc.repmodelshow = false;" ng-class="{arrow: grc.repmodelshow} ">
                         <div class="header-item">
                             <div class="rec_recipet button1">
                                 <h3 ng-class="{active: grc.user_input.received_quantity && grc.user_input.received_quantity != ''}">{{'CLICK_HERE_TO_RECIEVED_REPORT' | translate}}<span class="expand"><i class="ion-ios-download-outline"></i></span></h3>

@@ -4,7 +4,7 @@
             <form name="grc.forms.itemSelectionForm" novalidate>
                 <ion-list>
                     <!-- delivered item report start -->
-                    <ion-item class="rec_active" ng-init="disabled = true; grc.devmodelshow = grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!='';" ng-class="{arrow: grc.devmodelshow} ">
+                    <ion-item class="rec_active" ng-init="disabled = !(grc.user_input.delivered_quantity && grc.user_input.delivered_quantity != ''); grc.devmodelshow = false;" ng-class="{arrow: grc.devmodelshow} ">
                         <div class="header-item">
                             <div class="rec_recipet button1">
                                 <h3 ng-class="{active: grc.user_input.delivered_quantity && grc.user_input.delivered_quantity != ''}">{{'CLICK_HERE_TO_DELIVERED_REPORT' | translate}}<span class="expand"><i class="ion-ios-upload-outline"></i></span></h3>
@@ -13,12 +13,12 @@
                                 <div class="col-60 h_contain">
                                     <div class="item_quant">
                                         <label>{{'QUANTITY' | translate}} </label>
-                                        <input name="Qty1" ng-change="grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!=''?disabled=false:disabled=true; grc.user_input.item_delivered = '' " ng-model="grc.user_input.delivered_quantity" type="number" placeholder="Enter the Quantity" required/>
+                                        <input name="Qty1" ng-change="grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!=''?disabled=false:disabled=true; grc.user_input.item_delivered = ''; grc.devmodelshow = false;" ng-model="grc.user_input.delivered_quantity" type="number" placeholder="Enter the Quantity" required/>
                                     </div>
                                 </div>
                                 <div class="col-40 h_contain">
                                     <div class="item_img" ng-class="{active: grc.devmodelshow}">
-                                        <button ng-click="grc.devmodelshow = ! grc.devmodelshow" ng-class="{active: grc.user_input.item_delivered != ''}" ng-disabled="disabled" disabled>
+                                        <button ng-click="grc.devmodelshow = ! grc.devmodelshow" ng-class="{active: grc.user_input.item_delivered != '',  pulse: grc.forms.itemSelectionForm.deliveredItem.$error.required }" ng-disabled="disabled">
                                             <img ng-src="{{ grc.gr_config.index[grc.user_input.item_delivered].img_url || 'img/blank_img.png' }}">
                                             <p ng-class="{sel: grc.user_input.item_delivered != ''}">{{ grc.gr_config.index[grc.user_input.item_delivered].name | translate }}</p>
                                         </button>
@@ -32,7 +32,7 @@
                     <!-- delivered item report end -->
 
                     <!-- recieved item report start -->
-                    <ion-item class="rec_active" ng-init="disabled = grc.user_input.received_quantity && grc.user_input.received_quantity!=''; grc.repmodelshow = false;" ng-class="{arrow: grc.repmodelshow} ">
+                    <ion-item class="rec_active" ng-init="disabled = !(grc.user_input.received_quantity && grc.user_input.received_quantity!=''); grc.repmodelshow = false;" ng-class="{arrow: grc.repmodelshow} ">
                         <div class="header-item">
                             <div class="rec_recipet button1">
                                 <h3 ng-class="{active: grc.user_input.received_quantity && grc.user_input.received_quantity != ''}">{{'CLICK_HERE_TO_RECIEVED_REPORT' | translate}}<span class="expand"><i class="ion-ios-download-outline"></i></span></h3>
@@ -41,12 +41,12 @@
                                 <div class="col-60 h_contain">
                                     <div class="item_quant">
                                         <label>{{'QUANTITY' | translate}} </label>
-                                        <input name="Qty2" ng-change="grc.user_input.received_quantity && grc.user_input.received_quantity!=''?disabled=false:disabled=true; grc.user_input.item_received = ''  " ng-model="grc.user_input.received_quantity" type="number" placeholder="Enter the Quantity" required/>
+                                        <input name="Qty2" ng-change="grc.user_input.received_quantity && grc.user_input.received_quantity!=''?disabled=false:disabled=true; grc.user_input.item_received = '';grc.repmodelshow = false;" ng-model="grc.user_input.received_quantity" type="number" placeholder="Enter the Quantity" required/>
                                     </div>
                                 </div>
                                 <div class="col-40 h_contain">
                                     <div class="item_img" ng-class="{active: grc.repmodelshow}">
-                                        <button ng-click="grc.repmodelshow = ! grc.repmodelshow" ng-class="{active: grc.user_input.item_received != ''}" ng-disabled="disabled" disabled>
+                                        <button ng-click="grc.repmodelshow = ! grc.repmodelshow" ng-class="{active: grc.user_input.item_received != '', pulse: grc.forms.itemSelectionForm.receiveItem.$error.required }" ng-disabled="disabled">
                                             <img ng-src="{{ grc.gr_config.index[grc.user_input.item_received].img_url || 'img/blank_img.png'}}" alt="img.id">
                                             <p ng-class="{sel: grc.user_input.item_received != ''}">{{ grc.gr_config.index[grc.user_input.item_received].name | translate }}</p>
                                         </button>

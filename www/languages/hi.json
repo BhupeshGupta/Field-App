@@ -125,6 +125,8 @@
     "QTY1": "कस्टमर को कितने सिलिंडर दिए",
     "QTY2": "कस्टमर से कितने सिलिंडर लिए",
     "item_required_delivered": "कस्टमर को किस प्रकार का सिलिंडर दिया ?",
-    "item_required_received": "कस्टमर से किस प्रकार का सिलिंडर लिया ?"
-
+    "item_required_received": "कस्टमर से किस प्रकार का सिलिंडर लिया ?",
+    "REMARKS_IS_REQUIRED": "रिमार्क्स",
+    "WHY_FIELD_IS_BEING_RECEIVED_FROM_CUSTOMER": " ग्राहक से भरा हुआ सिलिंडर क्यों ले रहे है?",
+    "WHY_EMPTY_IS_BEING_DELIVERED_TO_CUSTOMER": " ग्राहक को खाली सिलिंडर क्यों दे रहे है?"
 }

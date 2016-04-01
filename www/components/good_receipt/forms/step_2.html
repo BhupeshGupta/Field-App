@@ -31,12 +31,15 @@
                             <p ng-show="GR_Form.vehicle_number.$error.required">* {{'VEHICLE_NUMBER' | translate}}</p>
                         </ion-item>
 
-                        <div class="btnnext_main">
-                            <button class="btn-next" ng-disabled="GR_Form.$invalid" ui-sref="root.good_receipt.step3">{{'NEXT' | translate}}</button>
-                        </div>
+
                     </ion-list>
                 </form>
             </div>
         </div>
+        <ion-footer-bar>
+            <div class="btnnext_main">
+                <button class="btn-next" ng-disabled="GR_Form.$invalid" ui-sref="root.good_receipt.step3">{{'NEXT' | translate}}</button>
+            </div>
+        </ion-footer-bar>
     </ion-content>
 </ion-view>

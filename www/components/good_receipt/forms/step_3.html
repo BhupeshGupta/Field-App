@@ -58,23 +58,47 @@
                         <div ng-show="grc.repmodelshow" ng-include=" 'itemsReceivedSelection.html' "></div>
                     </ion-item>
 
-                    <span style="display: none">
-                        <input name="deliveredItem" ng-model="grc.user_input.item_delivered" type="text" ng-required="grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!=''" />
-                        <input name="receiveItem" ng-model="grc.user_input.item_received" type="text" ng-required="grc.user_input.received_quantity && grc.user_input.received_quantity!=''" />
-                    </span>
-                    <!-- recieved item report end -->
+
+                    <!-- question block start here -->
+                    <ion-item class="rec_active" ng-show="grc.user_input.item_received.indexOf('FC')>-1 || grc.user_input.item_delivered.indexOf('EC')>-1">
+                        <div class="header-item">
+                            <div class="rec_recipet button1">
+                                <h3>Questions <span class="expand"><i class="ion-ios-help"></i></span></h3>
+                            </div>
+                            <div class="row rec_txt_detail">
+                                <div class="col-100 h_contain question_block">
+                                    <div class="item_quant">
+                                        <p ng-show="grc.user_input.item_received.indexOf('FC')>-1;">{{'WHY_FIELD_IS_BEING_RECEIVED_FROM_CUSTOMER' | translate}} </p>
+                                        <p ng-show="grc.user_input.item_delivered.indexOf('EC')>-1;">{{'WHY_EMPTY_IS_BEING_DELIVERED_TO_CUSTOMER' | translate}}</p>
+                                        <textarea name="remarks" ng-model="grc.user_input.remarks" ng-required="grc.user_input.item_received.indexOf('FC')>-1 || grc.user_input.item_delivered.indexOf('EC')>-1"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div ng-show="grc.repmodelshow " ng-include=" 'itemsReceivedSelection.html' "></div>
+                    </ion-item>
+                    <!-- questions block end here -->
+
+                    <span style="display: none ">
+                        <input name="deliveredItem " ng-model="grc.user_input.item_delivered " type="text " ng-required="grc.user_input.delivered_quantity && grc.user_input.delivered_quantity!='' " />
+                        <input name="receiveItem " ng-model="grc.user_input.item_received " type="text " ng-required="grc.user_input.received_quantity && grc.user_input.received_quantity!='' " />
+                        </span>
+
                     <!-- Required -->
-                    <ion-item class="reqired_fields">
-                        <p ng-show="grc.forms.itemSelectionForm.deliveredItem.$error.required">* {{'item_required_delivered' | translate}}</p>
-                        <p ng-show="grc.forms.itemSelectionForm.Qty1.$error.required">* {{'QTY1' | translate}}</p>
-                        <p ng-show="grc.forms.itemSelectionForm.receiveItem.$error.required">*{{'item_required_received' | translate}}</p>
-                        <p ng-show="grc.forms.itemSelectionForm.Qty2.$error.required">* {{'QTY2' | translate}}</p>
+                    <ion-item class="reqired_fields ">
+                        <p ng-show="grc.forms.itemSelectionForm.remarks.$error.required ">* {{'REMARKS' | translate}}</p>
+                        <p ng-show="grc.forms.itemSelectionForm.deliveredItem.$error.required ">* {{'item_required_delivered' | translate}}</p>
+                        <p ng-show="grc.forms.itemSelectionForm.Qty1.$error.required ">* {{'QTY1' | translate}}</p>
+                        <p ng-show="grc.forms.itemSelectionForm.receiveItem.$error.required ">*{{'item_required_received' | translate}}</p>
+                        <p ng-show="grc.forms.itemSelectionForm.Qty2.$error.required ">* {{'QTY2' | translate}}</p>
                     </ion-item>
 
+                    <div class="btnnext_main ">
+                        <button class="btn-next " ng-disabled="grc.forms.itemSelectionForm.$invalid " ui-sref="root.good_receipt.step4 ">{{'NEXT' | translate}}</button>
+                    </div>
                 </ion-list>
-                <div class="btnnext_main">
-                    <button class="btn-next" ng-disabled="grc.forms.itemSelectionForm.$invalid" ui-sref="root.good_receipt.step4">{{'NEXT' | translate}}</button>
-                </div>
+
             </form>
 
         </div>

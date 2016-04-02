@@ -16,20 +16,22 @@ function mainController(
     vm.appVersion = AppVersion;
     vm.SessionService = SessionService;
 
+    // Mantain UI state
+    vm.uploading = false;
+
     getNumberOfPendingFilesCount();
 
-    // TODO: config service
-    //    UserService.getAppConfig().then(function (data) {
-    //        $localStorage.appConfig = data.data;
-    //    });
-
     function triggerUpload() {
+        vm.uploading = true;
         UploadService.upload();
     }
 
     function getNumberOfPendingFilesCount() {
         UploadService.count().then(function (count) {
             vm.pendingUploadCount = count;
+            if (count == 0) {
+                vm.uploading = false;
+            }
         });
     }
 

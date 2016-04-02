@@ -71,8 +71,8 @@
                 </ion-item>
                 -->
                 <ion-item>
-                    <i class="ion-ios-cloud-upload-outline"></i>
-                    <span ng-click="mc.triggerUpload()" class="list_dtl">{{'UPLOAD' | translate}} ({{ mc.pendingUploadCount }})</span>
+                    <i ng-class="mc.uploading?'fa fa-cog fa-spin': 'ion-ios-cloud-upload-outline'"></i>
+                    <span ng-click="mc.triggerUpload()" ng-disabled="mc.uploading" class="list_dtl">{{'UPLOAD' | translate}} ({{ mc.pendingUploadCount }})</span>
                 </ion-item>
                 <ion-item>
                     <i class="ion-ionic"></i>

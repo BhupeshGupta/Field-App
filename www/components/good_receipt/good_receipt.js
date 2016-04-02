@@ -127,6 +127,9 @@ function goodsReceiptController(
             .then(function (cameraFile) {
                 vm.signature.cameraFile = cameraFile;
                 $state.transitionTo('root.good_receipt.step7');
+            })
+            .catch(function (err) {
+                console.log(err);
             });
 
     }
@@ -212,8 +215,8 @@ function goodsReceiptController(
         // Create a deep copy
         var transformed_data = JSON.parse(JSON.stringify(data));
         transformed_data.goods_receipt_number = transformed_data.goods_receipt_number.toString();
-        transformed_data.customer = transformed_data.customer[0].value;
-        transformed_data.vehicle = transformed_data.vehicle[0].value;
+        transformed_data.customer = transformed_data.customer.value;
+        transformed_data.vehicle = transformed_data.vehicle.value;
         transformed_data.transaction_date = moment(transformed_data.transaction_date).format("YYYY-MM-DD");
         transformed_data.remarks = transformed_data.delivered_remarks + '\n' + transformed_data.received_remarks;
         return transformed_data;

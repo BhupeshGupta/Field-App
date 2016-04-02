@@ -6,9 +6,10 @@ function settingsFactory($localStorage, $http) {
     var urlConfigCache = SETTINGS_PREFIX + 'urlConf';
 
     var defaultSettings = {
-        serverBaseUrl: '/api',
+        serverBaseUrl: 'https://erp.arungas.com',
         reviewServerBaseUrl: '/review',
-        language: 'hi'
+        language: 'hi',
+        autoVoucherId: true
     };
 
     if (!$localStorage.settings) {

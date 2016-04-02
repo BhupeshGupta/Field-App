@@ -95,25 +95,33 @@ function mainController(
                     if (myPopup)
                         myPopup.close();
                 }, function (err) {
-                    var wait_limit = getDelay();
-                    total_wait += posOptions.timeout;
-                    var pending_time = wait_limit - total_wait;
-                    if (pending_time < 0 && myPopup) {
-                        myPopup.close();
-                    }
+                    CheckGPS.check(function win() {
+                            var wait_limit = getDelay();
+                            total_wait += posOptions.timeout;
+                            var pending_time = wait_limit - total_wait;
+                            if (pending_time < 0 && myPopup) {
+                                myPopup.close();
+                            }
 
-                    $scope.gprTimer = (pending_time / 1000).toString() + ' Sec';
+                            $scope.gprTimer = (pending_time / 1000).toString() + ' Sec';
 
-                    $scope.location_lock = 2;
-                    get_location();
-                    if (!myPopup) {
-                        myPopup = $ionicPopup.show({
-                            template: '<p>Wating for location ({{gprTimer}})</p>',
-                            title: 'Wait',
-                            scope: $scope,
-                            buttons: []
+                            $scope.location_lock = 2;
+                            get_location();
+                            if (!myPopup) {
+                                myPopup = $ionicPopup.show({
+                                    template: '<p>Wating for location ({{gprTimer}})</p>',
+                                    title: 'Wait',
+                                    scope: $scope,
+                                    buttons: []
+                                });
+                            }
+                        },
+                        function fail() {
+                            $ionicPopup.show({
+                                template: '<p>Enable GPS and restart app to continue.</p>',
+                                title: 'Error',
+                            });
                         });
-                    }
                 });
         };
         get_location();

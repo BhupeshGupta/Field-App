@@ -50,4 +50,5 @@
     <allow-navigation href="http://*/*"/>
     <allow-intent href="cdvfile:*"/>
   </platform>
+  <plugin name="cordova-plugin-fastrde-checkgps" spec="https://github.com/fastrde/cordova-plugin-fastrde-checkgps.git"/>
 </widget>

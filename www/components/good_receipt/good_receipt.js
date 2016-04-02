@@ -6,7 +6,7 @@ angular.module('starter')
 function goodsReceiptController(
     $scope, $state, Persistence, DocumentService, $q, gr_config, Utils,
     $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile,
-    UploadService, $http, SettingsFactory
+    UploadService, $http, SettingsFactory, $ionicHistory
 ) {
 
     var vm = this;
@@ -180,7 +180,13 @@ function goodsReceiptController(
                 });
                 $scope.grVocuherId = gr_response.data.name;
                 UploadService.upload();
+
+                // Clear history stack
+                $ionicHistory.nextViewOptions({
+                    historyRoot: true
+                });
                 $state.go('root.good_receipt.step8');
+
                 vm.user_input.$processing = false;
 
             })

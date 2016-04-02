@@ -39,7 +39,8 @@ function sessionService($http, SettingsFactory, $rootScope, $q, $localStorage, $
     function _getStartupData() {
         var data = {
             cmd: 'startup',
-            _type: 'POST'
+            _type: 'POST',
+            sid: $localStorage.session_sid
         };
         return $http({
             url: SettingsFactory.getERPServerBaseUrl(),
@@ -98,6 +99,9 @@ function sessionService($http, SettingsFactory, $rootScope, $q, $localStorage, $
     }
 
     function isWriteAuth(doctype) {
+        if (!state.userLoaded) {
+            return true;
+        }
         return $.inArray(doctype, state.canWrite) > -1;
     }
 

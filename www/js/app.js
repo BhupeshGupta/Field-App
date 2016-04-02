@@ -39,7 +39,6 @@ var receipt_module = angular.module('starter', [
 
 .run(function ($ionicPlatform, SessionService, SettingsFactory) {
     $ionicPlatform.ready(function () {
-        SessionService.setupUser();
         SettingsFactory.loadAppConfig();
     });
 })
@@ -92,7 +91,7 @@ var receipt_module = angular.module('starter', [
         controller: 'HomeController',
         resolve: {
             user: function (SessionService) {
-                return SessionService.setupUser();
+                SessionService.setupUser();
             }
         }
     })

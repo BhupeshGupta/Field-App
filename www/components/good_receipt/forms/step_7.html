@@ -21,7 +21,7 @@
                         <button class="btn-next" ng-click="grc.retakeImage()">{{'TAKE_NEW_IMAGE' | translate}}</button>
                     </div>
                     <div class="col col-50">
-                        <button class="btn-next" on-tap="grc.acceptAndUpload()">{{'CONFIRM' | translate}}</button>
+                        <button class="btn-next" ng-disabled="grc.user_input.$processing" ng-click="grc.acceptAndUpload()">{{'CONFIRM' | translate}}</button>
                     </div>
                 </div>
             </div>

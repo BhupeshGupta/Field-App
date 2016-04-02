@@ -59,7 +59,8 @@ function goodsReceiptController(
             "posting_date": moment().format("YYYY-MM-DD"),
             "location_latitude": "",
             "location_longitude": "",
-            "warehouse": "Sherpur Godwon - AL"
+            "warehouse": "Sherpur Godwon - AL",
+            "$processing": false
         });
     }
 
@@ -139,6 +140,9 @@ function goodsReceiptController(
     }
 
     function acceptAndUpload() {
+        // Disable confirm button in UI
+        vm.user_input.$processing = true;
+
         var gr_response = null;
         return DocumentService.create('Goods Receipt', prepareForErp(vm.user_input), false)
             .then(function (success) {
@@ -177,11 +181,13 @@ function goodsReceiptController(
                 $scope.grVocuherId = gr_response.data.name;
                 UploadService.upload();
                 $state.go('root.good_receipt.step8');
+                vm.user_input.$processing = false;
 
             })
             .catch(function (error) {
                 console.log(error);
                 alert('GR: Upload of images failed.');
+                vm.user_input.$processing = false;
             });
     }
 

@@ -5,7 +5,7 @@
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "ion-autocomplete": "~0.3.1",
+    "ion-autocomplete": "^0.3.2",
     "signature_pad": "~1.5.2",
     "moment": "~2.11.1",
     "persistence": "~0.3.0",

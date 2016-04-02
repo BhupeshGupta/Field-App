@@ -28,7 +28,7 @@
     "cordova-plugin-geolocation",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "cordova-plugin-network-information"
+    "cordova-plugin-network-information",
     "org.apache.cordova.file"
   ],
     "cordovaPlatforms": [

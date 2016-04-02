@@ -234,7 +234,7 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory, Sess
                 cmd: 'frappe.widgets.search.search_link',
                 _type: 'GET',
                 filters: JSON.stringify(filters)
-            }
+            };
             var url = SettingsFactory.getERPServerBaseUrl() + '?' + $.param(data);
             return $http({
                 url: url,

@@ -129,5 +129,6 @@
     "item_required_received": "Item Received Is Required",
     "REMARKS_IS_REQUIRED": "Remarks is Required",
     "WHY_FIELD_IS_BEING_RECEIVED_FROM_CUSTOMER": "Why Filled is being received from Customer ?",
-    "WHY_DELIVERED_IS_BEING_RECEIVED_FROM_CUSTOMER": "Why Empty is being delivered to Customer?"
+    "WHY_DELIVERED_IS_BEING_RECEIVED_FROM_CUSTOMER": "Why Empty is being delivered to Customer?",
+    "HISTORY": "History"
 }

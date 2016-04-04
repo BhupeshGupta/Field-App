@@ -26,6 +26,10 @@ function homeController($scope, $state, $rootScope, SessionService) {
         $state.go('root.cheque.details');
     };
 
+    $scope.historyView = function () {
+        $state.go('root.history');
+    };
+
     console.log("Hi from Home Controller");
 
     $scope.isAuthorized = SessionService.isWriteAuth;

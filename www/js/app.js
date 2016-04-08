@@ -37,7 +37,7 @@ var receipt_module = angular.module('starter', [
     });
 })
 
-.constant('AppVersion', '1.0.4')
+.constant('AppVersion', '1.0.5')
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
     $urlRouterProvider.otherwise('/');

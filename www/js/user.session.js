@@ -76,6 +76,8 @@ function sessionService($http, SettingsFactory, $rootScope, $q, $localStorage, $
                     state.userLoaded = true;
                     $localStorage.session_loggedIn = true;
 
+                    SettingsFactory.setupConfig(data.data.field_app.config);
+
                     return resolve();
                 })
                 .catch(function () {

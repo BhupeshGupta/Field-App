@@ -37,12 +37,6 @@ var receipt_module = angular.module('starter', [
     });
 })
 
-.run(function ($ionicPlatform, SessionService, SettingsFactory) {
-    $ionicPlatform.ready(function () {
-        SettingsFactory.loadAppConfig();
-    });
-})
-
 .constant('AppVersion', '1.0.4')
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {

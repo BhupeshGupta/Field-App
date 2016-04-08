@@ -50,23 +50,12 @@ receipt_module.run(function ($rootScope, $ionicLoading) {
 // UA & Error Interceptor
 receipt_module.config(function ($httpProvider) {
     var popUp = null;
-    $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout, $cordovaNetwork) {
+    $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout) {
         return {
             request: function (config) {
                 // Create and append user id
                 config.headers['User-Id'] = JSON.stringify(window.device);
                 config.headers['App-Version'] = $injector.get('AppVersion');
-
-                //                // Check for internet connectivity
-                //                if ($cordovaNetwork.isOffline() && !popUp) {
-                //                    // Solve circular dependency
-                //                    var $ionicPopup = $injector.get('$ionicPopup');
-                //                    $ionicPopup.alert({
-                //                        title: 'Error',
-                //                        template: '<p>Please connect to internet!</p>'
-                //                    });
-                //                    config.timeout = 0;
-                //                }
 
                 return config;
             },

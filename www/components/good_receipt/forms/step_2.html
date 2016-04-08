@@ -8,7 +8,7 @@
                         <!--  Voucher ID  -->
                         <ion-item ng-if="!grc.settings.autoVoucherId" class="item item-input item-stacked-label" ng-class="{Iact: grc.user_input.goods_receipt_number!=''}">
                             <label><span class="input-label">{{'VOUCHER_ID' | translate}}</span> </label>
-                            <input name="voucher_id" type="number" ng-model="grc.user_input.goods_receipt_number" id="required" placeholder="{{'VOUCHER_ID' | translate}}" required>
+                            <input name="voucher_id" type="number" ng-model="grc.user_input.goods_receipt_number" id="required" placeholder="{{'VOUCHER_ID' | translate}}" ng-required="grc.settings.reqVoucherId">
                         </ion-item>
 
                         <!-- Transaction Date -->
@@ -30,7 +30,6 @@
                             <p ng-show="GR_Form.date.$error.required">*{{'DATE' | translate }}</p>
                             <p ng-show="GR_Form.vehicle_number.$error.required">* {{'VEHICLE_NUMBER' | translate}}</p>
                         </ion-item>
-
 
                     </ion-list>
                 </form>

@@ -126,7 +126,7 @@ function mainController(
                         });
                 });
         };
-//        get_location();
+        get_location();
     });
 
 }

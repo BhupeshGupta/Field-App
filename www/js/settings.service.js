@@ -1,7 +1,7 @@
 angular.module('starter')
     .factory('SettingsFactory', settingsFactory);
 
-function settingsFactory($localStorage, $http) {
+function settingsFactory($localStorage) {
     var SETTINGS_PREFIX = 'settings_';
     var urlConfigCache = SETTINGS_PREFIX + 'urlConf';
 
@@ -16,19 +16,14 @@ function settingsFactory($localStorage, $http) {
         $localStorage.settings = defaultSettings;
     }
 
-    function setupConfig() {
-        angular.extend($localStorage.settings, $localStorage[urlConfigCache]);
+    function setupConfig(config) {
+        if ($localStorage[urlConfigCache]) {
+            $localStorage[urlConfigCache] = config;
+        }
+        angular.extend($localStorage.settings, config || $localStorage[urlConfigCache]);
     }
 
     setupConfig();
-
-    function loadAppConfig() {
-        return $http.get($localStorage.settings.serverBaseUrl + "/app_conf.json?" + moment().valueOf())
-            .then(function (data) {
-                $localStorage[urlConfigCache] = data.data;
-                setupConfig();
-            });
-    }
 
     return {
         get: function () {
@@ -40,7 +35,7 @@ function settingsFactory($localStorage, $http) {
         getReviewServerBaseUrl: function () {
             return 'http://192.168.31.124:1337';
         },
-        loadAppConfig: loadAppConfig
+        setupConfig: setupConfig
     };
 
 }

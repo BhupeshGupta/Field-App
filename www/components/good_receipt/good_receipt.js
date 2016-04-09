@@ -54,12 +54,12 @@ function goodsReceiptController(
 
             "doctype": "Goods Receipt",
             "docstatus": 1,
-            "company": "Arun Logistics",
+            "company": vm.settings.company || "Arun Logistics",
 
             "posting_date": moment().format("YYYY-MM-DD"),
             "location_latitude": "",
             "location_longitude": "",
-            "warehouse": "Sherpur Godwon - AL",
+            "warehouse": vm.settings.warehouse || "Sherpur Godwon - AL",
             "$processing": false
         });
     }

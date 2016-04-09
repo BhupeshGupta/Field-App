@@ -91,7 +91,8 @@ function goodsReceiptController(
             onrendered: function (canvas) {
                 vm.signature.bg = canvas.toDataURL();
                 $state.transitionTo('root.good_receipt.step6');
-            }
+            },
+            logging: true
         });
 
     }

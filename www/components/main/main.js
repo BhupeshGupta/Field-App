@@ -6,7 +6,7 @@ receipt_module.controller('MainController', mainController);
 function mainController(
     $scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope,
     $cordovaGeolocation, $timeout, UploadService, AppVersion,
-    $localStorage, SessionService
+    $localStorage, SessionService, Sync
 ) {
 
     var vm = this;
@@ -15,6 +15,7 @@ function mainController(
     vm.pendingUploadCount = 'N/a';
     vm.appVersion = AppVersion;
     vm.SessionService = SessionService;
+    vm.sync = sync;
 
     // Mantain UI state
     vm.uploading = false;
@@ -67,6 +68,10 @@ function mainController(
     $translate.use(SettingsFactory.get().language);
 
     $scope.location_lock = 0;
+
+    function sync() {
+        Sync.cloneCollection('Customer', true);
+    }
 
     // Endless loop to get location
     document.addEventListener('deviceready', function () {

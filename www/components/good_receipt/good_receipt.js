@@ -74,12 +74,18 @@ function goodsReceiptController(
     }
 
     function autocomplete_customer(query) {
-        return DocumentService.search('Customer', query, {
-            enabled: 1,
-            sale_enabled: 1
-        }).then(function (success) {
-            return success.data.results;
+
+        return Persistence.search(query, 'Customer', 'name').then(function (customers) {
+            return customers.map(function (customer) {
+                return customer.name;
+            });
         });
+        //        return DocumentService.search('Customer', query, {
+        //            enabled: 1,
+        //            sale_enabled: 1
+        //        }).then(function (success) {
+        //            return success.data.results;
+        //        });
     }
 
     function set_item(mode, item) {
@@ -253,21 +259,41 @@ function goodsReceiptController(
     }
 
     function customerSelected(callback) {
-        var url = SettingsFactory.getERPServerBaseUrl() + '/api/method/erpnext.accounts.party.get_party_details/';
-        vm.user_input.aditionalData = {};
-        $http
-            .get(url, {
-                params: {
-                    party: callback.item.value
+        //var url = SettingsFactory.getERPServerBaseUrl() + '/api/method/erpnext.accounts.party.get_party_details/';
+        //vm.user_input.aditionalData = {};
+        //$http
+        //    .get(url, {
+        //        params: {
+        //            party: callback.item.value
+        //        }
+        //    })
+        //    .then(function (data) {
+        //        var content = data.data.message;
+        //        vm.user_input.aditionalData = {
+        //            address: content.address_display || 'N/A',
+        //            contact: content.contact_display || 'N/A',
+        //            mobile: content.contact_phone || 'Mobile Not Avaliable'
+        //        };
+        //    });
+
+        return Persistence.search(callback.item.value, 'Address', 'customer', 1).then(function (address) {
+            return address.map(function (addresses) {
+                if (addresses) {
+                    var address = addresses[0];
+                    var addr_template = ['address_line_1', 'address_line_2', 'city', 'state', 'pincode', 'country']
+                        .map(
+                            function (key) {
+                                return address[key];
+                            }
+                        ).reduce(
+                            function (str, elem, index) {
+                                if (index === 0) return elem;
+                                return elem.trim() ? (str + ', ' + elem) : str;
+                            }, ''
+                        );
+                    return addr_template;
                 }
-            })
-            .then(function (data) {
-                var content = data.data.message;
-                vm.user_input.aditionalData = {
-                    address: content.address_display || 'N/A',
-                    contact: content.contact_display || 'N/A',
-                    mobile: content.contact_phone || 'Mobile Not Avaliable'
-                };
             });
+        });
     }
 }

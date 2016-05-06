@@ -54,7 +54,13 @@ receipt_module.config(function ($httpProvider) {
         return {
             request: function (config) {
                 // Create and append user id
-                config.headers['User-Id'] = JSON.stringify(window.device);
+                config.headers['User-Id'] = JSON.stringify(window.device || {
+                    serial: 'Yo-Browser',
+                    platform: 'Non Mobile',
+                    platform_version: 'NA',
+                    uuid: 'UUID',
+                    version: 'NA'
+                });
                 config.headers['App-Version'] = $injector.get('AppVersion');
 
                 return config;

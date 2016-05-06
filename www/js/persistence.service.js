@@ -16,14 +16,29 @@ angular.module('starter')
 
     entities.Files = persistence.define('Files', {
         fileName: 'TEXT',
-        // Request Id
-        parentId: 'TEXT',
-        // File uploaded Flag
+        enabled: 'TEXT',
         uploaded: 'INT',
         // File Directory & File Name
         fdir: 'TEXT',
         fname: 'TEXT',
         opts: 'TEXT'
+    });
+
+    entities.Customer = persistence.define('Customer', {
+        name: 'STRING',
+        enabled: 'INT',
+        sale_enabled: 'INT',
+        object: 'JSON'
+    });
+
+    entities.Address = persistence.define('Address', {
+        customer: 'STRING',
+        object: 'JSON'
+    });
+
+    entities.Contact = persistence.define('Contact', {
+        customer: 'STRING',
+        object: 'JSON'
     });
 
     persistence.debug = true;
@@ -45,6 +60,44 @@ angular.module('starter')
             });
 
             return defer.promise;
+        },
+
+        search: function (query, collection, searchOn, limit) {
+            //            limit = limit || 10;
+            //            var queryLike = query.split(' ').join('%') + '%';
+            //
+            //            var sqlQuery = [
+            //                'select * from ' + collection,
+            //                'where name like "' + queryLike + '"',
+            //                'order by case WHEN name like "' + query + '%" THEN 0 else 1 end',
+            //                'limit ' + limit
+            //            ].join('\n');
+            //
+            //            return $q(function (resolve, reject) {
+            //                persistence.transaction(
+            //                    function (txn) {
+            //                        txn.executeSql(
+            //                            sqlQuery, [],
+            //                            function (x) {
+            //                                console.log(x);
+            //                                return resolve(x);
+            //                            }
+            //                        );
+            //                    });
+            //            });
+
+            limit = limit || 10;
+            return $q(function (resolve, reject) {
+                var queryLike = query.split(' ').join('%') + '%';
+                entities[collection].all().filter(searchOn, 'like', queryLike).limit(limit).list(function (rs) {
+                    return resolve(rs);
+                });
+            });
+
         }
     };
+
+
+
+
 });

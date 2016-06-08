@@ -30,7 +30,10 @@ function settingsFactory($localStorage) {
             return $localStorage.settings;
         },
         getERPServerBaseUrl: function () {
-            return this.get().serverBaseUrl;
+            if (window.location.protocol != 'http:')
+                return this.get().serverBaseUrl;
+            else
+                return '/api';
         },
         getReviewServerBaseUrl: function () {
             return 'http://192.168.31.124:1337';

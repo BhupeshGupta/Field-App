@@ -6,7 +6,12 @@ angular.module('starter')
     };
 
     function cloneAll(coll, deep) {
-        ['Customer', 'Address', 'Contact'].map(function (collection) {
+        [
+            'Customer',
+            'Address',
+            'Contact',
+            'Transportation Vehicle'
+        ].map(function (collection) {
             cloneCollection(collection, deep);
         });
 
@@ -47,7 +52,12 @@ angular.module('starter')
                     var contact = record;
                     contact.id = contact.name;
                     contact.object = JSON.stringify(contact);
-                    recordDbObject = new Persistence.Entities.Address(contact);
+                    recordDbObject = new Persistence.Entities.Contact(contact);
+                } else if (collection === 'Transportation Vehicle') {
+                    var vehicle = record;
+                    vehicle.id = vehicle.name;
+                    vehicle.object = JSON.stringify(vehicle);
+                    recordDbObject = new Persistence.Entities.Vehicle(vehicle);
                 }
 
                 Persistence.add(recordDbObject);

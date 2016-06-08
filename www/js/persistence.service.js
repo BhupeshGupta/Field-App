@@ -41,6 +41,17 @@ angular.module('starter')
         object: 'JSON'
     });
 
+    entities.Vehicle = persistence.define('Vehicle', {
+        object: 'JSON'
+    });
+
+    entities.NamingSeries = persistence.define('NamingSeries', {
+        series: 'TEXT',
+        start_serial: 'INT',
+        end_serial: 'INT',
+        current_serial: 'INT'
+    });
+
     persistence.debug = true;
     persistence.schemaSync();
 
@@ -48,16 +59,23 @@ angular.module('starter')
         Entities: entities,
 
         add: function (entity) {
+
             persistence.add(entity);
-            persistence.flush();
+            return $q(function (resolve, reject) {
+                persistence.flush(function () {
+                    return resolve();
+                });
+            });
+
         },
 
         getAllFiles: function () {
             var defer = $q.defer();
 
-            entities.Files.all().list(null, function (files) {
-                defer.resolve(files);
-            });
+            entities.Files.all()
+                .list(null, function (files) {
+                    defer.resolve(files);
+                });
 
             return defer.promise;
         },
@@ -67,11 +85,11 @@ angular.module('starter')
             //            var queryLike = query.split(' ').join('%') + '%';
             //
             //            var sqlQuery = [
-            //                'select * from ' + collection,
-            //                'where name like "' + queryLike + '"',
-            //                'order by case WHEN name like "' + query + '%" THEN 0 else 1 end',
-            //                'limit ' + limit
-            //            ].join('\n');
+            //                            'select * from ' + collection,
+            //                            'where name like "' + queryLike + '"',
+            //                            'order by case WHEN name like "' + query + '%" THEN 0 else 1 end',
+            //                            'limit ' + limit
+            //                        ].join('\n');
             //
             //            return $q(function (resolve, reject) {
             //                persistence.transaction(
@@ -89,9 +107,12 @@ angular.module('starter')
             limit = limit || 10;
             return $q(function (resolve, reject) {
                 var queryLike = query.split(' ').join('%') + '%';
-                entities[collection].all().filter(searchOn, 'like', queryLike).limit(limit).list(function (rs) {
-                    return resolve(rs);
-                });
+                entities[collection].all()
+                    .filter(searchOn, 'like', queryLike)
+                    .limit(limit)
+                    .list(function (rs) {
+                        return resolve(rs);
+                    });
             });
 
         }

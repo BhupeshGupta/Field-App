@@ -67,19 +67,28 @@ function goodsReceiptController(
     resetUserInput();
 
     function autocomplete_vehicle(query) {
-        return DocumentService.search('Transportation Vehicle', query, {})
-            .then(function (success) {
-                return success.data.results;
+
+        return Persistence.search('%' + query, 'Vehicle', 'id')
+            .then(function (vehicles) {
+                return vehicles.map(function (vehicle) {
+                    return vehicle.id;
+                });
             });
+
+        //        return DocumentService.search('Transportation Vehicle', query, {})
+        //            .then(function (success) {
+        //                return success.data.results;
+        //            });
     }
 
     function autocomplete_customer(query) {
 
-        return Persistence.search(query, 'Customer', 'name').then(function (customers) {
-            return customers.map(function (customer) {
-                return customer.name;
+        return Persistence.search(query, 'Customer', 'name')
+            .then(function (customers) {
+                return customers.map(function (customer) {
+                    return customer.name;
+                });
             });
-        });
         //        return DocumentService.search('Customer', query, {
         //            enabled: 1,
         //            sale_enabled: 1
@@ -276,24 +285,50 @@ function goodsReceiptController(
         //        };
         //    });
 
-        return Persistence.search(callback.item.value, 'Address', 'customer', 1).then(function (address) {
-            return address.map(function (addresses) {
-                if (addresses) {
-                    var address = addresses[0];
-                    var addr_template = ['address_line_1', 'address_line_2', 'city', 'state', 'pincode', 'country']
-                        .map(
-                            function (key) {
-                                return address[key];
-                            }
-                        ).reduce(
-                            function (str, elem, index) {
-                                if (index === 0) return elem;
-                                return elem.trim() ? (str + ', ' + elem) : str;
-                            }, ''
-                        );
-                    return addr_template;
-                }
+        vm.user_input.aditionalData = {};
+
+        Persistence.search(callback.item, 'Address', 'customer', 1)
+            .then(function (addresses) {
+
+                var address = {};
+                if (addresses)
+                    address = JSON.parse(addresses[0].object);
+
+                var addr_template = ['address_line1', 'address_line2', 'city', 'state', 'pincode', 'country']
+                    .map(
+                        function (key) {
+                            return address[key];
+                        }
+                    );
+
+                addr_template = addr_template.reduce(
+                    function (str, elem, index) {
+                        if (index === 0) {
+                            return elem;
+                        }
+                        return elem && elem.trim() ? (str + ', ' + elem) : str;
+                    }, ''
+                );
+
+                addr_template = addr_template || 'Address Not Found!';
+
+                vm.user_input.aditionalData.address = addr_template.trim();
+
             });
-        });
+
+
+        Persistence.search(callback.item, 'Contact', 'customer', 5)
+            .then(function (contacts) {
+
+                var contact_string = contacts.map(function (contact) {
+                    contact = JSON.parse(contact.object);
+                    return [contact.first_name, contact.last_name, '-', contact.phone].join(' ');
+                }).join(', ');
+
+                vm.user_input.aditionalData.contact = contact_string || 'Not Avaliable';
+
+            });
+
+
     }
 }

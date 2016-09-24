@@ -592,7 +592,7 @@ div[ng-show="languageGroupShown"] {
     padding: 0;
     background: none;
     border-radius: 0;
-    border: 1px solid #ccc;
+    border-left: 1px solid #ccc !important;
 }
 .main .button1 h3 {
     background: #424242;
@@ -662,10 +662,16 @@ div[ng-show="languageGroupShown"] {
     display: inline-block;
 }
 .cyl_items {
-    padding: 20px;
+    padding: 10px 10px;
     width: 100%;
     overflow-x: scroll;
+   -webkit-overflow-scrolling: touch;
+
 }
+.cyl_items ::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
 .cyl_dtl h4 {
     background: #424242;
     padding: 15px;
@@ -677,10 +683,9 @@ div[ng-show="languageGroupShown"] {
 .cyl_dtl ion-list {
     width: 100%;
     display: block;
-    margin-bottom: 30px;
 }
 .cyl_dtl ion-item {
-    width: 70px;
+    width: 18%;
     display: inline-block;
     border-radius: 0;
     float: left;
@@ -695,12 +700,15 @@ div[ng-show="languageGroupShown"] {
     vertical-align: bottom;
 }
 .cyl_dtl ion-item p {
-    padding: 4px 10px;
+    padding: 4px 2px;
     background: #424242;
     color: #fff;
     position: absolute;
     bottom: 0;
     width: 100%;
+  font-size: 9px;
+  white-space:pre-wrap;
+
 }
 .item_img p {
     display: none;

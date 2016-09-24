@@ -104,6 +104,11 @@ angular.module('starter')
                 img_url: 'img/cyl4.png',
                 id: 'FC47.5L',
                 name: 'FC47.5LOT'
+            },
+            {
+                img_url: 'img/cyl5.png',
+                id: 'FC450',
+                name: 'FC450'
             }
         ],
         empty: [
@@ -126,6 +131,11 @@ angular.module('starter')
                 img_url: 'img/r_cyl4.png',
                 id: 'EC47.5L',
                 name: 'EC47.5LOT'
+            },
+            {
+                img_url: 'img/r_cyl5.png',
+                id: 'EC450',
+                name: 'EC450'
             }
         ]
     });

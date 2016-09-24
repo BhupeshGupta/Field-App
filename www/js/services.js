@@ -151,7 +151,10 @@ receipt_module.factory('SettingsFactory', [function () {
         get: _retrieveSettings,
         set: _saveSettings,
         getERPServerBaseUrl: function () {
-            return _retrieveSettings().serverBaseUrl;
+            if (window.location.protocol != 'http:')
+              return _retrieveSettings().serverBaseUrl;
+            else
+              return '/api'
         },
         getSid: function () {
             return _retrieveSettings().sid;

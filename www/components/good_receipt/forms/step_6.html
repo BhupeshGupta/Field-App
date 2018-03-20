@@ -1,39 +1,18 @@
-<ion-view title="{{'ARUN_LOGISTICS_FIELD_APP' | translate }}">
-    <ion-content class="module_wrap form_wrap">
-        <div class="main">
-            <div class="main_form_wrap">
-                <form name="GR_Form" novalidate class="form_inner">
-                    <ion-list>
-                        <!--  Shortage  -->
-                        <ion-item class="item item-input item-stacked-label icon_field">
-                            <label class="item-stacked-label">{{'SHORTAGE' | translate}}</label>
-                            <input type="number" step="any" placeholder="{{'SHORTAGE' | translate}}" ng-model="grc.user_input.short">
-                        </ion-item>
-
-                        <!-- Excess -->
-                        <ion-item class="item item-input item-stacked-label icon_field">
-                            <label class="item-stacked-label">{{'EXCESS' | translate}}</label>
-                            <input type="number" step="any" placeholder="{{'EXCESS' | translate}}" ng-model="grc.user_input.excess">
-                        </ion-item>
-
-                        <!--  Residue  -->
-                        <ion-item class="item item-input item-stacked-label">
-                            <label class=" item-stacked-label">{{'RESIDUE' | translate}} </label>
-                            <input type="number" step="any" placeholder="{{'RESIDUE' | translate}}" ng-model="grc.user_input.residue">
-                        </ion-item>
-
-                        <!--  Vehicle Number  -->
-                        <ion-item class="item item-input item-stacked-label">
-                            <label class="item-stacked-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</label>
-                            <input name="customer_document" type="text" ng-model="grc.user_input.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
-                        </ion-item>
-
-                        <div class="btnnext_main">
-                            <button class="btn-next" ui-sref="root.good_receipt.step7">{{'NEXT' | translate}}</button>
-                        </div>
-                    </ion-list>
-                </form>
+<ion-view cache-view="false" title="{{ 'SIGNATURE' | translate }}">
+    <ion-content scroll="false" class="module_wrap sign_wrap main">
+        <div class="sign_canvas" proof-pad accept="grc.acceptSignaturePad" clear="clearSignaturePad" height="400" width="320" dataurl="grc.signature.bg"></div>
+        <ion-footer-bar>
+            <div class="btnnext_main">
+                <div class="row">
+                    <div class="col col-50">
+                        <button class="btn-next" ng-click=" clearSignaturePad()">{{'CLEAR' | translate}}</button>
+                    </div>
+                    <div class="col col-50">
+                        <button class="btn-next" on-tap="grc.captureSignatureAndCaptureImage( '')">{{'NEXT' | translate}}</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </ion-footer-bar>
+
     </ion-content>
 </ion-view>

@@ -1,19 +1,22 @@
 'use strict';
 
-receipt_module.controller('LoginController', ['$scope', '$state', 'UserService', 'SettingsFactory', function ($scope, $state, UserService, SettingsFactory) {
+receipt_module.controller('LoginController', loginController);
+
+function loginController($scope, $state, SessionService, SettingsFactory, $localStorage, $ionicHistory) {
     console.log("Hi from Login Controller");
 
     $scope.login_func = function () {
-        UserService.login($scope.loginData.username, $scope.loginData.password).then(
+        SessionService.login($scope.loginData.username, $scope.loginData.password).then(
             function (response) {
-                var settings = SettingsFactory.get();
-                settings.full_name = response.data.full_name;
-                settings.sid = response.data.sid
-                SettingsFactory.set(settings);
-                
-                console.log(JSON.stringify(SettingsFactory.get()));
-                
+                $ionicHistory.nextViewOptions({
+                    historyRoot: true
+                });
                 $state.go('root.home');
+
+                $localStorage.login = {
+                    username: $scope.loginData.username
+                };
+                $scope.loginData.password = '';
             },
             function (error) {
                 console.log("Invalid Login!");
@@ -22,9 +25,8 @@ receipt_module.controller('LoginController', ['$scope', '$state', 'UserService',
         console.log("Hi from Login Function");
     };
 
-    $scope.loginData = {
-        username: 'Administrator',
-        password: 'admin'
+    $scope.loginData = $localStorage.login || {
+        username: '',
+        password: ''
     };
-
-}]);
+}

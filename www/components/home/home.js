@@ -1,6 +1,9 @@
 'use strict';
 
-receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', 'UserService', '$q', function ($scope, $state, $rootScope, UserService, $q) {
+receipt_module.controller('HomeController', homeController);
+
+
+function homeController($scope, $state, $rootScope, SessionService) {
 
     $scope.goodsReceiptFlow = function () {
         console.log("gr flow init");
@@ -23,10 +26,12 @@ receipt_module.controller('HomeController', ['$scope', '$state', '$rootScope', '
         $state.go('root.cheque.details');
     };
 
-    console.log("Hi from Home Controller");
-
-    $scope.isAuthorized = function (doctype) {
-        return $.inArray(doctype, $rootScope.startup.can_write) > -1;
+    $scope.historyView = function () {
+        $state.go('root.history');
     };
 
-}]);
+    console.log("Hi from Home Controller");
+
+    $scope.isAuthorized = SessionService.isWriteAuth;
+
+}

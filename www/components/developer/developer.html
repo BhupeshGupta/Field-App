@@ -14,11 +14,13 @@
                 <input type="text" placeholder="Link" ng-model="input.serverBaseUrl">
             </label>
         </div>
-        <a class="button icon-right ion-chevron-right button-stable" ng-click="input.serverBaseUrl = 'https://erp.arungas.com/'">erp.arungas.com</a>
-
+        <a class="button icon-right ion-chevron-right button-stable" ng-click="input.serverBaseUrl = 'https://erp.arungas.com'">erp.arungas.com</a>
+        <br/>
+        <br/>
+        <a class="button icon-right ion-chevron-right button-stable" ng-click="input.serverBaseUrl = 'http://192.168.31.157:8080'">Local Host</a>
 
         <div class="bar bar-footer">
-            <button class="col col-100 button button-block  button-balanced" ng-click="save()"><strong>Save</strong></button>
+            <button class="col col-100 button button-block  button-balanced" ng-click="save(); mc.SessionService.logout()"><strong>Save</strong></button>
         </div>
 
     </ion-content>

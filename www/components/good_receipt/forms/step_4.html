@@ -1,0 +1,45 @@
+<ion-view title="{{ 'INFORMATION ' | translate }}">
+    <ion-content class="module_wrap form_wrap">
+        <div>
+            <div class="main_form_wrap">
+                <form name="GR_Form" novalidate class="form_inner">
+                    <ion-list>
+                        <!--  Shortage  -->
+                        <ion-item class="item item-input item-stacked-label icon_field">
+                            <label class="item-stacked-label">{{'SHORTAGE' | translate}}</label>
+                            <input type="number" name="SHORTAGE" step="any" placeholder="{{'SHORTAGE' | translate}}" ng-model="grc.user_input.short" required>
+                        </ion-item>
+
+                        <!-- Excess -->
+                        <ion-item class="item item-input item-stacked-label icon_field">
+                            <label class="item-stacked-label">{{'EXCESS' | translate}}</label>
+                            <input type="number" name="EXCESS" step="any" placeholder="{{'EXCESS' | translate}}" ng-model="grc.user_input.excess" required>
+                        </ion-item>
+
+                        <!--  Residue  -->
+                        <ion-item class="item item-input item-stacked-label">
+                            <label class=" item-stacked-label">{{'RESIDUE' | translate}} </label>
+                            <input type="number" name="RESIDUE" step="any" placeholder="{{'RESIDUE' | translate}}" ng-model="grc.user_input.residue" required>
+                        </ion-item>
+
+                        <!--  Vehicle Number  -->
+                        <ion-item class="item item-input item-stacked-label">
+                            <label class="item-stacked-label">{{'CUSTOMER_DOCUMENT_ID' | translate}}</label>
+                            <input name="customer_document" type="text" ng-model="grc.user_input.customer_document_id" placeholder="{{'CUSTOMER_DOCUMENT_ID' | translate}}" required/>
+                        </ion-item>
+                        <ion-item class="reqired_fields">
+                            <p ng-show="GR_Form.SHORTAGE.$error.required">*{{'SHORTAGE_IS_REQUIRED' | translate}} </p>
+                            <p ng-show="GR_Form.EXCESS.$error.required">*{{'EXCESS_IS_REQUIRED' | translate }}</p>
+                            <p ng-show="GR_Form.RESIDUE.$error.required">* {{'RESIDUE_IS_REQUIRED' | translate}}</p>
+                            <p ng-show="GR_Form.customer_document.$error.required">* {{'CUSTOMER_DOCUMENT_ID_IS_REQUIRED' | translate}}</p>
+                        </ion-item>
+                        <div class="btnnext_main">
+                            <button class="btn-next" ng-disabled="GR_Form.$invalid" ui-sref="root.good_receipt.step5">{{'NEXT' | translate}}</button>
+                        </div>
+
+                    </ion-list>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

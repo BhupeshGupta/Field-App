@@ -50,22 +50,12 @@ receipt_module.run(function ($rootScope, $ionicLoading) {
 // UA & Error Interceptor
 receipt_module.config(function ($httpProvider) {
     var popUp = null;
-    $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout, $cordovaNetwork) {
+    $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout) {
         return {
             request: function (config) {
                 // Create and append user id
                 config.headers['User-Id'] = JSON.stringify(window.device);
-
-                //                // Check for internet connectivity
-                //                if ($cordovaNetwork.isOffline() && !popUp) {
-                //                    // Solve circular dependency
-                //                    var $ionicPopup = $injector.get('$ionicPopup');
-                //                    $ionicPopup.alert({
-                //                        title: 'Error',
-                //                        template: '<p>Please connect to internet!</p>'
-                //                    });
-                //                    config.timeout = 0;
-                //                }
+                config.headers['App-Version'] = $injector.get('AppVersion');
 
                 return config;
             },
@@ -86,9 +76,10 @@ receipt_module.config(function ($httpProvider) {
 
                 // Generic error extraction
                 else if (stat == 403) {
+                    var SessionService = $injector.get('SessionService');
                     msg = 'Login Required';
                     $timeout(function () {
-                        $rootScope.$broadcast('user:logout');
+                        SessionService.logout();
                     }, 0);
                 } else if (stat == 500)
                     msg = 'Internal Server Error';
@@ -166,7 +157,7 @@ receipt_module.factory('SettingsFactory', [function () {
 }]);
 
 
-receipt_module.factory('UserService', function ($http, SettingsFactory, $rootScope, $q) {
+receipt_module.factory('UserServiceKnockout', function ($http, SettingsFactory, $rootScope, $q) {
     $rootScope.userLoaded = false;
 
     var factory = {
@@ -211,19 +202,22 @@ receipt_module.factory('UserService', function ($http, SettingsFactory, $rootSco
                     defferd.reject();
                     $rootScope.$broadcast('user:logout');
                 });
-            } else
+            } else {
                 defferd.resolve();
-
+            }
             return defferd.promise;
-        }
+        },
 
+        getAppConfig: function () {
+            return $http.get("https://erp.arungas.com/app_conf.json");
+        }
     };
 
     return factory;
 });
 
 
-receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
+receipt_module.factory('DocumentService', function ($http, SettingsFactory, SessionService) {
     var factory = {
         search: function (documentType, query, filters) {
             var data = {
@@ -232,7 +226,7 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 cmd: 'frappe.widgets.search.search_link',
                 _type: 'GET',
                 filters: JSON.stringify(filters)
-            }
+            };
             var url = SettingsFactory.getERPServerBaseUrl() + '?' + $.param(data);
             return $http({
                 url: url,
@@ -253,8 +247,8 @@ receipt_module.factory('DocumentService', function ($http, SettingsFactory) {
                 method: 'POST',
                 data: $.param({
                     data: JSON.stringify(document),
-                    sid: SettingsFactory.getSid(),
-                    "client": "app"
+                    sid: SessionService.getToken(),
+                    client: "app"
                 })
             });
 

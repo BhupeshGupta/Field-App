@@ -1,13 +1,43 @@
 'use strict';
 
-receipt_module.controller('MainController', function ($scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope, $cordovaGeolocation, $timeout) {
+receipt_module.controller('MainController', mainController);
+
+
+function mainController(
+    $scope, $state, SettingsFactory, $ionicPopup, $translate, $rootScope,
+    $cordovaGeolocation, $timeout, UploadService, AppVersion,
+    $localStorage, SessionService
+) {
 
     var vm = this;
     vm.selectedLangage = SettingsFactory.get().language;
+    vm.triggerUpload = triggerUpload;
+    vm.pendingUploadCount = 'N/a';
+    vm.appVersion = AppVersion;
+    vm.SessionService = SessionService;
 
-    $scope.logout = function () {
-        $rootScope.$broadcast('user:logout');
-    };
+    // Mantain UI state
+    vm.uploading = false;
+
+    getNumberOfPendingFilesCount();
+
+    function triggerUpload() {
+        vm.uploading = true;
+        UploadService.upload();
+    }
+
+    function getNumberOfPendingFilesCount() {
+        UploadService.count().then(function (count) {
+            vm.pendingUploadCount = count;
+            if (count == 0) {
+                vm.uploading = false;
+            }
+        });
+    }
+
+    $rootScope.$on('uploadService:update', function () {
+        getNumberOfPendingFilesCount();
+    });
 
     $scope.open_developer_pane = function () {
         $ionicPopup.prompt({
@@ -16,7 +46,7 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
             inputType: 'password',
             inputPlaceholder: 'Password'
         }).then(function (res) {
-            if (res == 'youwontknow')
+            if (res == '123124')
                 $state.go('root.developer');
         });
     };
@@ -36,18 +66,28 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
     // Set language pref while loading
     $translate.use(SettingsFactory.get().language);
 
-
     $scope.location_lock = 0;
 
     // Endless loop to get location
     document.addEventListener('deviceready', function () {
-        var posOptions = {
-            timeout: 5000,
-            enableHighAccuracy: true
-        };
+        function getDelay() {
+            return parseInt(SettingsFactory.get().gpsStartupDelay || 2 * 60 * 1000);
+        }
+
+        function getRetryInterval() {
+            return parseInt(SettingsFactory.get().gpsGoodsReceiptDelay || 2 * 60 * 1000);
+        }
 
         var myPopup = null;
+        var total_wait = 0;
+
         var get_location = function () {
+
+            var posOptions = {
+                timeout: getRetryInterval(),
+                enableHighAccuracy: true
+            };
+
             $cordovaGeolocation.getCurrentPosition(posOptions)
                 .then(function (position) {
                     console.log(position);
@@ -57,29 +97,36 @@ receipt_module.controller('MainController', function ($scope, $state, SettingsFa
                     if (myPopup)
                         myPopup.close();
                 }, function (err) {
-                    $scope.location_lock = 2;
-                    get_location();
-                    if (!myPopup) {
-                        myPopup = $ionicPopup.show({
-                            template: '<p>Please enable GPS</p>',
-                            title: 'Wait',
-                            scope: $scope,
-                            buttons: []
+                    CheckGPS.check(function win() {
+                            var wait_limit = getDelay();
+                            total_wait += posOptions.timeout;
+                            var pending_time = wait_limit - total_wait;
+                            if (pending_time < 0 && myPopup) {
+                                myPopup.close();
+                            }
+
+                            $scope.gprTimer = (pending_time / 1000).toString() + ' Sec';
+
+                            $scope.location_lock = 2;
+                            get_location();
+                            if (!myPopup) {
+                                myPopup = $ionicPopup.show({
+                                    template: '<p>Wating for location ({{gprTimer}})</p>',
+                                    title: 'Wait',
+                                    scope: $scope,
+                                    buttons: []
+                                });
+                            }
+                        },
+                        function fail() {
+                            $ionicPopup.show({
+                                template: '<p>Enable GPS and restart app to continue.</p>',
+                                title: 'Error',
+                            });
                         });
-                    }
                 });
         };
         get_location();
     });
 
-});
-
-receipt_module.run(function ($rootScope, SettingsFactory, $state) {
-    $rootScope.$on('user:logout', function () {
-        var settings = SettingsFactory.get();
-        delete settings.sid;
-        SettingsFactory.set(settings);
-
-        $state.go('root.login');
-    });
-});
+}

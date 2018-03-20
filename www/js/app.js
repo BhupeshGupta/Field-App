@@ -1,3 +1,7 @@
+window.ionic.Platform.ready(function () {
+    angular.bootstrap(document, ['starter']);
+});
+
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -7,7 +11,8 @@ var receipt_module = angular.module('starter', [
     'ionic',
     'ngCordova',
     'ion-autocomplete',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ngStorage'
 ])
 
 .constant('ApiEndpoint', {
@@ -29,34 +34,13 @@ var receipt_module = angular.module('starter', [
         if (window.StatusBar) {
             StatusBar.styleDefault();
         }
-
     });
 })
 
-//.run(function ($ionicPlatform, UserService, SettingsFactory) {
-//    $ionicPlatform.ready(function () {
-//        UserService.get_startup_data().then(function (data) {
-//            if (data.data.server_date !== moment().format('YYYY-MM-DD'))
-//                $ionicPopup.alert({
-//                    template: '<p>There seems to be date issue. Please check device date.</p>',
-//                    title: 'Error'
-//                });
-//
-//            // Save to settings settings
-//            var settings = SettingsFactory.get();
-//            settings.startup = {
-//                user: data.data.user_info[data.data.user.name],
-//                can_write: data.data.user.can_write
-//            };
-//            SettingsFactory.set(settings);
-//            console.log(JSON.stringify(settings));
-//        });
-//
-//    });
-//})
+.constant('AppVersion', '1.0.5')
 
 .config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/');
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|file|blob|cdvfile):|data:image\//);
 
     $stateProvider.state('root', {
@@ -77,9 +61,8 @@ var receipt_module = angular.module('starter', [
         templateUrl: 'components/login/login.html',
         controller: 'LoginController',
         resolve: {
-            settings: function (SettingsFactory, $state, $timeout) {
-                var settings = SettingsFactory.get();
-                if (typeof settings.sid !== 'undefined') {
+            settings: function (SessionService, $state, $timeout) {
+                if (SessionService.isLoggedIn()) {
                     $timeout(function () {
                         $state.go('root.home');
                     }, 0);
@@ -101,12 +84,8 @@ var receipt_module = angular.module('starter', [
         templateUrl: 'components/home/home.html',
         controller: 'HomeController',
         resolve: {
-            user: function (UserService, $q) {
-                var defer = $q.defer();
-                UserService.loadUser().then(function () {
-                    defer.resolve();
-                });
-                return defer.promise;
+            user: function (SessionService) {
+                SessionService.setupUser();
             }
         }
     })
@@ -201,5 +180,18 @@ var receipt_module = angular.module('starter', [
                     templateUrl: 'components/cash/forms/cash_signature.html'
                 }
             }
-        });
+        })
+
+    .state('root.history', {
+        url: '/history',
+        templateUrl: 'components/good_receipt/forms/step_8.html',
+        controller: 'HistoryController',
+        controllerAs: 'grc'
+    });
+})
+
+.filter('htmlToPlaintext', function () {
+    return function (text) {
+        return String(text).replace(/<[^>]+>/gm, '');
+    };
 });

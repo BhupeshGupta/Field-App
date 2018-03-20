@@ -5,7 +5,8 @@
                 <form name="GR_Form" novalidate class="form_inner">
                     <ion-list>
                         <ion-item class="item item-input item-stacked-label">
-                            <label><span class="input-label">{{'CUSTOMER_NAME' | translate}}</span></label>
+                            <label><span class="input-label">{{grc.user_input.goods_receipt_number}}{{'CUSTOMER_NAME' | translate}}</span></label>
+                            <br/>
                             <input name="customer_name" ion-autocomplete type="text" class="ion-autocomplete" ng-model="grc.user_input.customer" item-view-value-key="value" max-selected-items="1" items-method="grc.autocomplete_customer(query)" items-clicked-method="grc.customerSelected(callback)" placeholder="{{'CUSTOMER_NAME' | translate}}" required/>
                         </ion-item>
                         <ion-item class="item item-input item-stacked-label contact_dtl">

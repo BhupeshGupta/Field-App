@@ -52,6 +52,12 @@ angular.module('starter')
         current_serial: 'INT'
     });
 
+    entities.GoodsReceiptQueue = persistence.define('GoodsReceiptQueue', {
+        serial: 'TEXT',
+        object: 'JSON',
+        uploaded: 'INT'
+    });
+
     persistence.debug = true;
     persistence.schemaSync();
 
@@ -60,8 +66,8 @@ angular.module('starter')
 
         add: function (entity) {
 
-            persistence.add(entity);
             return $q(function (resolve, reject) {
+                persistence.add(entity);
                 persistence.flush(function () {
                     return resolve();
                 });
@@ -70,14 +76,14 @@ angular.module('starter')
         },
 
         getAllFiles: function () {
-            var defer = $q.defer();
 
-            entities.Files.all()
-                .list(null, function (files) {
-                    defer.resolve(files);
-                });
+            return $q(function (resolve, reject) {
+                entities.Files.all()
+                    .list(null, function (files) {
+                        resolve(files);
+                    });
+            });
 
-            return defer.promise;
         },
 
         search: function (query, collection, searchOn, limit) {

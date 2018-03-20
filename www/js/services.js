@@ -2,14 +2,16 @@ console.log("Services.js ran");
 
 
 // Default Http Header Change
-receipt_module.config(function ($httpProvider) {
+angular.module('starter')
+
+.config(function ($httpProvider) {
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
 });
 
 
 // Global Loading
-receipt_module.config(function ($httpProvider) {
+angular.module('starter').config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($rootScope, $q) {
         return {
             request: function (config) {
@@ -32,7 +34,9 @@ receipt_module.config(function ($httpProvider) {
         };
     });
 });
-receipt_module.run(function ($rootScope, $ionicLoading) {
+
+
+angular.module('starter').run(function ($rootScope, $ionicLoading) {
     $rootScope.$on('loading:show', function () {
         $ionicLoading.show({
             template: '<i class="icon ion-loading-c"></i><br/>Loading...',
@@ -48,7 +52,7 @@ receipt_module.run(function ($rootScope, $ionicLoading) {
 });
 
 // UA & Error Interceptor
-receipt_module.config(function ($httpProvider) {
+angular.module('starter').config(function ($httpProvider) {
     var popUp = null;
     $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout) {
         return {
@@ -111,7 +115,7 @@ receipt_module.config(function ($httpProvider) {
 });
 
 
-receipt_module.service('getInvoiceMetaData', function ($http, SettingsFactory) {
+angular.module('starter').service('getInvoiceMetaData', function ($http, SettingsFactory) {
     this.get_meta = function (meta) {
         return $http({
             url: SettingsFactory.getERPServerBaseUrl() + '/?' + $.param({
@@ -126,7 +130,7 @@ receipt_module.service('getInvoiceMetaData', function ($http, SettingsFactory) {
 });
 
 
-receipt_module.factory('SettingsFactory', [function () {
+angular.module('starter').factory('SettingsFactory', [function () {
     var _settingsKey = "appSettings",
         defaultSettings = {
             serverBaseUrl: 'api',
@@ -160,7 +164,7 @@ receipt_module.factory('SettingsFactory', [function () {
 }]);
 
 
-receipt_module.factory('UserServiceKnockout', function ($http, SettingsFactory, $rootScope, $q) {
+angular.module('starter').factory('UserServiceKnockout', function ($http, SettingsFactory, $rootScope, $q) {
     $rootScope.userLoaded = false;
 
     var factory = {
@@ -220,7 +224,7 @@ receipt_module.factory('UserServiceKnockout', function ($http, SettingsFactory, 
 });
 
 
-receipt_module.factory('DocumentService', function ($http, SettingsFactory, SessionService) {
+angular.module('starter').factory('DocumentService', function ($http, SettingsFactory, SessionService) {
     var factory = {
         search: function (documentType, query, filters) {
             var data = {

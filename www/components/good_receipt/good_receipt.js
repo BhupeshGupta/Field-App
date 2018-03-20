@@ -6,7 +6,8 @@ angular.module('starter')
 function goodsReceiptController(
     $scope, $state, Persistence, DocumentService, $q, gr_config, Utils,
     $cordovaCamera, FileFactory, $cordovaGeolocation, FileDataService, $cordovaFile,
-    UploadService, $http, SettingsFactory, $ionicHistory, $localStorage
+    UploadService, $http, SettingsFactory, $ionicHistory, $localStorage, NamingService,
+    GrQueueService
 ) {
 
     var vm = this;
@@ -28,6 +29,8 @@ function goodsReceiptController(
     vm.signature = {
         bg: ''
     };
+
+    vm.serial = '';
 
     function resetUserInput() {
         vm.user_input = angular.copy({
@@ -62,6 +65,30 @@ function goodsReceiptController(
             "warehouse": vm.settings.warehouse || "Sherpur Godwon - AL",
             "$processing": false
         });
+
+        //NamingService.registerSeries('GR', 1, 100)
+        //    .then(function () {
+        //        generateSeries();
+        //    })
+        //    .catch(function () {
+        //        generateSeries();
+        //    });
+
+        //        generateSeries();
+
+        function generateSeries() {
+
+            NamingService.getNext()
+                .then(function (serial) {
+                    vm.user_input.goods_receipt_number = serial.getSerial();
+                    serial.commitSerial();
+                    console.log('Serial aquired ' + serial);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
     }
 
     resetUserInput();
@@ -159,43 +186,44 @@ function goodsReceiptController(
         // Disable confirm button in UI
         vm.user_input.$processing = true;
 
-        var gr_response = null;
-        return DocumentService.create('Goods Receipt', prepareForErp(vm.user_input), false)
+        var gr_response = prepareForErp(vm.user_input);
+
+        return GrQueueService.enqueue(gr_response)
             .then(function (success) {
-                gr_response = success.data;
+                // gr_response = success.data;
                 // Submit file with upload service
                 UploadService.enqueue({
-                    fileName: success.data.requestId + '_camera',
-                    parentId: success.data.requestId,
+                    fileName: gr_response.requestId + '_camera',
+                    parentId: gr_response.requestId,
                     uploaded: 0,
                     fdir: vm.signature.cameraFile.dir,
                     fname: vm.signature.cameraFile.file,
                     opts: JSON.stringify({
                         server: 'erp',
                         doctype: 'Goods Receipt',
-                        docname: gr_response.data.name,
+                        docname: gr_response.name,
                         file_field: 'customer_image',
-                        filename: gr_response.data.name + '_customer.jpg'
+                        filename: gr_response.name + '_customer.jpg'
                     })
                 });
 
                 // Submit file with upload service
                 UploadService.enqueue({
-                    fileName: success.data.requestId + '_signature',
-                    parentId: success.data.requestId,
+                    fileName: gr_response.requestId + '_signature',
+                    parentId: gr_response.requestId,
                     uploaded: 0,
                     fdir: vm.signature.signatureFile.dir,
                     fname: vm.signature.signatureFile.file,
                     opts: JSON.stringify({
                         server: 'erp',
                         doctype: 'Goods Receipt',
-                        docname: gr_response.data.name,
+                        docname: gr_response.name,
                         file_field: 'signature',
-                        filename: gr_response.data.name + '_signature.jpg'
+                        filename: gr_response.name + '_signature.jpg'
                     })
                 });
-                vm.user_input.goods_receipt_number = gr_response.data.name;
-                UploadService.upload();
+                vm.user_input.goods_receipt_number = gr_response.name;
+                //UploadService.upload();
 
                 // Clear history stack
                 $ionicHistory.nextViewOptions({

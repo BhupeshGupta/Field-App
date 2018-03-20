@@ -19,7 +19,7 @@ function mainController(
     // Mantain UI state
     vm.uploading = false;
 
-    vm.serial = window.device.serial;
+    vm.serial = window.device.uuid;
 
     getNumberOfPendingFilesCount();
 

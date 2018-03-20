@@ -70,7 +70,7 @@ receipt_module.config(function ($httpProvider) {
             },
             responseError: function (rejection) {
                 var stat = rejection.status;
-                var msg = '';
+                var msg = [];
 
                 // Solve circular dependency
                 var $ionicPopup = $injector.get('$ionicPopup');
@@ -79,32 +79,32 @@ receipt_module.config(function ($httpProvider) {
 
                 // ERP specific error extraction
                 if (rejection.data && rejection.data.message)
-                    msg = rejection.data.message;
-                else if (rejection.data && rejection.data._server_messages)
-                    msg = JSON.parse(rejection.data._server_messages).join('\n');
+                    msg.push(rejection.data.message);
+                if (rejection.data && rejection.data._server_messages)
+                    msg.push(JSON.parse(rejection.data._server_messages).join('\n'));
 
                 // Generic error extraction
                 else if (stat == 403) {
                     var SessionService = $injector.get('SessionService');
-                    msg = 'Login Required';
+                    msg.push('Login Required');
                     $timeout(function () {
                         SessionService.logout();
                     }, 0);
                 } else if (stat == 500)
-                    msg = 'Internal Server Error';
+                    msg.push('Internal Server Error');
                 else if (stat == 501)
-                    msg = 'Server Error';
+                    msg.push('Server Error');
                 else if (stat == 502)
-                    msg = 'Server is Offline';
+                    msg.push('Server is Offline');
                 else if (stat == 503)
-                    msg = 'Server is Overload or down';
+                    msg.push('Server is Overload or down');
                 else if (stat == 504)
-                    msg = 'Server is Offline';
+                    msg.push('Server is Offline');
 
-                if (msg !== '')
+                if (msg && msg.length > 0)
                     $ionicPopup.alert({
                         title: 'Error',
-                        template: msg
+                        template: msg.join('. \n')
                     });
 
                 return $q.reject(rejection);

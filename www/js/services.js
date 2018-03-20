@@ -53,6 +53,15 @@ receipt_module.config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($q, $injector, $rootScope, $timeout) {
         return {
             request: function (config) {
+                if (!window.device && window.location.href.startsWith('http')) {
+                    window.device = {
+                        serial: 'Yo-Browser',
+                        platform: 'Non Mobile',
+                        platform_version: 'NA',
+                        uuid: 'UUID',
+                        version: 'NA'
+                    };
+                }
                 // Create and append user id
                 config.headers['User-Id'] = JSON.stringify(window.device);
                 config.headers['App-Version'] = $injector.get('AppVersion');
@@ -143,9 +152,9 @@ receipt_module.factory('SettingsFactory', [function () {
         set: _saveSettings,
         getERPServerBaseUrl: function () {
             if (window.location.protocol != 'http:')
-              return _retrieveSettings().serverBaseUrl;
+                return _retrieveSettings().serverBaseUrl;
             else
-              return '/api'
+                return '/api'
         },
         getSid: function () {
             return _retrieveSettings().sid;

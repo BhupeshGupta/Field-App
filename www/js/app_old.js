@@ -123,8 +123,8 @@ angular.module('starter')
             },
             {
                 img_url: 'img/cyl5.png',
-                id: 'FC450',
-                name: 'FC450'
+                id: 'FC425',
+                name: 'FC425'
             }
         ],
         empty: [
@@ -150,8 +150,8 @@ angular.module('starter')
             },
             {
                 img_url: 'img/r_cyl5.png',
-                id: 'EC450',
-                name: 'EC450'
+                id: 'EC425',
+                name: 'EC425'
             }
         ]
     })

@@ -19,6 +19,8 @@ function mainController(
     // Mantain UI state
     vm.uploading = false;
 
+    vm.serial = window.device.serial;
+
     getNumberOfPendingFilesCount();
 
     function triggerUpload() {
